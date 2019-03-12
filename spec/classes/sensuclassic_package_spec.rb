@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sensu' do
+describe 'sensuclassic' do
   let(:facts) do
     {
       :fqdn                      => 'testhost.domain.com',
@@ -16,7 +16,7 @@ describe 'sensu' do
 
   context 'package' do
     context 'defaults' do
-      it { should create_class('sensu::package') }
+      it { should create_class('sensuclassic::package') }
       it { should contain_package('sensu').with_ensure('installed') }
       it { should contain_file('/etc/default/sensu') }
       it { should contain_file('/etc/default/sensu').with_content(%r{^EMBEDDED_RUBY=true$}) }
@@ -487,7 +487,7 @@ describe 'sensu' do
         end
       end
 
-      context 'with sensu::windows_package_provider: chocolatey' do
+      context 'with sensuclassic::windows_package_provider: chocolatey' do
         let(:params) do
           { windows_package_provider: 'chocolatey' }
         end

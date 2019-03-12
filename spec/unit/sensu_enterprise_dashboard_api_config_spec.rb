@@ -62,7 +62,7 @@ describe Puppet::Type.type(:sensu_enterprise_dashboard_api_config) do
       expect(described_class.new(resource_hash)[:ssl]).to be(:false)
     end
 
-    it 'is translated to a symbol (as per PuppetX::Sensu::BooleanProperty)' do
+    it 'is translated to a symbol (as per PuppetX::Sensuclassic::BooleanProperty)' do
       expect(
         described_class.new(resource_hash.merge(:ssl => 'true'))[:ssl]
       ).to be(:true)
@@ -74,7 +74,7 @@ describe Puppet::Type.type(:sensu_enterprise_dashboard_api_config) do
       expect(described_class.new(resource_hash)[:insecure]).to be(:false)
     end
 
-    it 'is translated to a symbol (as per PuppetX::Sensu::BooleanProperty)' do
+    it 'is translated to a symbol (as per PuppetX::Sensuclassic::BooleanProperty)' do
       expect(
         described_class.new(resource_hash.merge(:insecure => 'true'))[:insecure]
       ).to be(:true)

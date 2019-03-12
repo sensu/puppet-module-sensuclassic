@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sensu' do
+describe 'sensuclassic' do
   let(:facts) do
     {
       :osfamily        => 'RedHat',
@@ -13,7 +13,7 @@ describe 'sensu' do
   end
 
   context 'on RedHat derivatives' do
-    it { should create_class('sensu::repo::yum') }
+    it { should create_class('sensuclassic::repo::yum') }
     it { should contain_yumrepo('sensu').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/',
@@ -35,7 +35,7 @@ describe 'sensu' do
       }
     end
 
-    it { should create_class('sensu::repo::yum') }
+    it { should create_class('sensuclassic::repo::yum') }
     it { should contain_yumrepo('sensu').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/6/$basearch/',
@@ -57,7 +57,7 @@ describe 'sensu' do
       }
     end
 
-    it { should create_class('sensu::repo::yum') }
+    it { should create_class('sensuclassic::repo::yum') }
     it { should contain_yumrepo('sensu').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/7/$basearch/',

@@ -34,7 +34,7 @@ node 'sensu-server' {
   # NOTE: When testing sensu enterprise, provide the SE_USER and SE_PASS to use
   # with the online repository using the FACTER_SE_USER and FACTER_SE_PASS
   # environment variables.  An effective way to manage this is with `direnv`
-  class { '::sensu':
+  class { 'sensuclassic':
     install_repo              => true,
     enterprise                => true,
     enterprise_dashboard      => true,
@@ -55,11 +55,11 @@ node 'sensu-server' {
     max_open_files            => '20000',
   }
 
-  sensu::handler { 'default':
+  sensuclassic::handler { 'default':
     command => 'mail -s \'sensu alert\' ops@example.com',
   }
 
-  sensu::check { 'check_ntp':
+  sensuclassic::check { 'check_ntp':
     command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'default',
     subscribers => 'sensu-test',
@@ -67,7 +67,7 @@ node 'sensu-server' {
 
   # Exercise [Contact Routing](https://github.com/sensu/sensu-puppet/issues/597)
   # This overrides the built-in email and slack handlers.
-  sensu::contact { 'support':
+  sensuclassic::contact { 'support':
     ensure => 'present',
     config => {
       'email' => {
@@ -79,15 +79,15 @@ node 'sensu-server' {
       },
     },
   }
-  sensu::contact { 'ops':
+  sensuclassic::contact { 'ops':
     ensure => 'present',
     config => { 'email'  => { 'to' => 'ops@example.com' } },
   }
-  sensu::contact { 'departed':
+  sensuclassic::contact { 'departed':
     ensure => 'absent',
   }
   # A second check to use the built-in email handler and contact.
-  sensu::check { 'check_ntp_with_routing':
+  sensuclassic::check { 'check_ntp_with_routing':
     command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'email',
     contacts    => ['ops', 'support'],

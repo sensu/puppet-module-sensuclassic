@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sensu', :type => :class do
+describe 'sensuclassic', :type => :class do
   let(:facts) do
     {
       :fqdn     => 'testhost.domain.com',

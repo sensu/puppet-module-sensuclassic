@@ -4,15 +4,15 @@
 #
 # @param hasrestart Value of hasrestart attribute for this service.
 #
-class sensu::server::service (
-  Boolean $hasrestart    = $::sensu::hasrestart,
-  $server_service_enable = $::sensu::server_service_enable,
-  $server_service_ensure = $::sensu::server_service_ensure,
+class sensuclassic::server::service (
+  Boolean $hasrestart = $sensuclassic::hasrestart,
+  $server_service_enable = $sensuclassic::server_service_enable,
+  $server_service_ensure = $sensuclassic::server_service_ensure,
 ) {
 
-  if $::sensu::manage_services {
+  if $sensuclassic::manage_services {
 
-    case $::sensu::server {
+    case $sensuclassic::server {
       true: {
         $ensure = $server_service_ensure
         $enable = $server_service_enable
@@ -30,10 +30,10 @@ class sensu::server::service (
         enable     => $enable,
         hasrestart => $hasrestart,
         subscribe  => [
-          Class['sensu::package'],
+          Class['sensuclassic::package'],
           Sensu_api_config[$::fqdn],
-          Class['sensu::redis::config'],
-          Class['sensu::rabbitmq::config'],
+          Class['sensuclassic::redis::config'],
+          Class['sensuclassic::rabbitmq::config'],
         ],
       }
     }

@@ -47,7 +47,7 @@ BpIpKUvLh4TsmgcezGV5512sm+K/TNNDynKY8vhVA8v9PNGiq6UJJkVRow5Ptes0
 Pj3BM+E9hNMOQ6N7H87G4rbDz4T/kswNSiyF3v5Vlm0U5nGWWbk7
 -----END RSA PRIVATE KEY-----"
 
-describe 'sensu', :type => :class do
+describe 'sensuclassic', :type => :class do
   let(:facts) do
     {
       :fqdn            => 'hostname.domain.com',
@@ -226,37 +226,37 @@ describe 'sensu', :type => :class do
       it { should contain_sensu_rabbitmq_config('hostname.domain.com').with_cluster(cluster_config) }
 
       context 'with rabbitmq_* class parameters also specified (#598)' do
-        describe 'sensu::rabbitmq_port' do
+        describe 'sensuclassic::rabbitmq_port' do
           let(:params_override) { { rabbitmq_port: 6379 } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_port }
         end
 
-        describe 'sensu::rabbitmq_host' do
+        describe 'sensuclassic::rabbitmq_host' do
           let(:params_override) { { rabbitmq_host: 'rabbitmq.example.com' } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_host }
         end
 
-        describe 'sensu::rabbitmq_user' do
+        describe 'sensuclassic::rabbitmq_user' do
           let(:params_override) { { rabbitmq_user: 'sensu-ignored' } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_user }
         end
 
-        describe 'sensu::rabbitmq_password' do
+        describe 'sensuclassic::rabbitmq_password' do
           let(:params_override) { { rabbitmq_password: 'ignored-secret' } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_password }
         end
 
-        describe 'sensu::rabbitmq_vhost' do
+        describe 'sensuclassic::rabbitmq_vhost' do
           let(:params_override) { { rabbitmq_vhost: '/sensu-ignored' } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_vhost }
         end
 
-        describe 'sensu::rabbitmq_heartbeat' do
+        describe 'sensuclassic::rabbitmq_heartbeat' do
           let(:params_override) { { rabbitmq_heartbeat: 30 } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_heartbeat }
         end
 
-        describe 'sensu::rabbitmq_prefetch' do
+        describe 'sensuclassic::rabbitmq_prefetch' do
           let(:params_override) { { rabbitmq_prefetch: 1 } }
           it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_prefetch }
         end

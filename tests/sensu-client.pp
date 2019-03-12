@@ -57,7 +57,7 @@ node default {
       'os_version' => '16.04',
     },
   }
-  class { '::sensu':
+  class { 'sensuclassic':
     rabbitmq_password => 'correct-horse-battery-staple',
     rabbitmq_host     => '192.168.56.10',
     rabbitmq_vhost    => '/sensu',
@@ -72,7 +72,7 @@ node default {
     version           => 'latest',
   }
 }
-sensu::check { 'check_cpu':
+sensuclassic::check { 'check_cpu':
   ensure       => present,
   command      => '/opt/sensu/embedded/bin/check-cpu.rb',
   auto_resolve => true,

@@ -1,5 +1,5 @@
 module PuppetX
-  module Sensu
+  module Sensuclassic
     class BooleanProperty < Puppet::Property
       @values_for_true = [true, :true, 'true', :yes, 'yes']
       @values_for_false = [false, :false, 'false', :no, 'no']

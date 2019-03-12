@@ -18,7 +18,8 @@
 #
 # @param insecure Whether or not to accept an insecure SSL certificate.
 #
-# @param path The path of the Sensu API. Leave empty unless your Sensu API is not mounted to /.
+# @param path The path of the Sensu API. Leave empty unless your Sensu API is
+# not mounted to /.
 #
 # @param timeout The timeout for the Sensu API, in seconds.
 #
@@ -26,20 +27,20 @@
 #
 # @param pass The password of the Sensu API. Leave empty for no authentication.
 #
-define sensu::enterprise::dashboard::api (
+define sensuclassic::enterprise::dashboard::api (
   Enum['present','absent'] $ensure = present,
-  Optional[String]  $base_path     = undef,
-  Optional[String]  $datacenter    = undef,
-  Optional[Integer] $port          = undef,
-  Optional[Boolean] $ssl           = undef,
-  Optional[Boolean] $insecure      = undef,
-  Optional[String]  $path          = undef,
-  Optional[Integer] $timeout       = undef,
-  Optional[String]  $user          = undef,
-  Optional[String]  $pass          = undef,
+  Optional[String] $base_path = undef,
+  Optional[String] $datacenter = undef,
+  Optional[Integer] $port = undef,
+  Optional[Boolean] $ssl = undef,
+  Optional[Boolean] $insecure = undef,
+  Optional[String] $path = undef,
+  Optional[Integer] $timeout = undef,
+  Optional[String] $user = undef,
+  Optional[String] $pass = undef,
 ) {
 
-  include ::sensu::enterprise::dashboard
+  include sensuclassic::enterprise::dashboard
 
   sensu_enterprise_dashboard_api_config { $title:
     ensure     => $ensure,
@@ -53,5 +54,4 @@ define sensu::enterprise::dashboard::api (
     user       => $user,
     pass       => $pass,
   }
-
 }

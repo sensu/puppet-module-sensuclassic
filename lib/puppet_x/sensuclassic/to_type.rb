@@ -1,5 +1,5 @@
 module PuppetX
-  module Sensu
+  module Sensuclassic
     module ToType
       def to_type(value)
         if value.is_a?(Hash)

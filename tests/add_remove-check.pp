@@ -1,6 +1,6 @@
 node 'sensu-server' {
 
-  class { '::sensu':
+  class { 'sensuclassic':
     install_repo          => true,
     server                => true,
     manage_services       => true,
@@ -18,7 +18,7 @@ node 'sensu-server' {
   }
 
   if $::test == 'add' {
-    sensu::check { 'check_to_remove':
+    sensuclassic::check { 'check_to_remove':
       command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H :::address::: -w 30 -c 60',
       standalone  => false,
       handlers    => 'default',
@@ -26,7 +26,7 @@ node 'sensu-server' {
       cron        => '*/5 * * * *',
     }
   } else {
-    sensu::check { 'check_to_remove':
+    sensuclassic::check { 'check_to_remove':
       ensure => 'absent',
     }
   }

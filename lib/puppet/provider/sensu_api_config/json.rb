@@ -1,10 +1,10 @@
 require 'json' if Puppet.features.json?
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..',
-                                   'puppet_x', 'sensu', 'provider_create.rb'))
+                                   'puppet_x', 'sensuclassic', 'provider_create.rb'))
 
 Puppet::Type.type(:sensu_api_config).provide(:json) do
   confine :feature => :json
-  include PuppetX::Sensu::ProviderCreate
+  include PuppetX::Sensuclassic::ProviderCreate
 
   # Internal: Retrieve the current contents of /etc/sensu/config.json.
   #

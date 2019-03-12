@@ -24,7 +24,7 @@ node 'sensu-server' {
     before => Class['sensu'],
   }
 
-  class { '::sensu':
+  class { 'sensuclassic':
     install_repo         => true,
     server               => true,
     manage_services      => true,
@@ -44,11 +44,11 @@ node 'sensu-server' {
     purge => true,
   }
 
-  sensu::enterprise::dashboard::api { 'sensu.example.net':
+  sensuclassic::enterprise::dashboard::api { 'sensu.example.net':
     datacenter => 'example-dc',
   }
 
-  sensu::enterprise::dashboard::api { 'sensu.example.io':
+  sensuclassic::enterprise::dashboard::api { 'sensu.example.io':
     datacenter => 'example-dc',
   }
 }

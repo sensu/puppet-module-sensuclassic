@@ -1,17 +1,16 @@
-
 # @summary Configures Sensu transport
 #
 # Configure Sensu Transport
 #
-class sensu::transport {
+class sensuclassic::transport {
 
   case $::osfamily {
     'Darwin': {
       $ensure = present
     }
     default: {
-      if $::sensu::transport_type == 'redis'
-      or $::sensu::transport_type == 'rabbitmq' {
+      if $sensuclassic::transport_type == 'redis'
+      or $sensuclassic::transport_type == 'rabbitmq' {
         $ensure = 'present'
       } else {
         $ensure = 'absent'
@@ -21,8 +20,8 @@ class sensu::transport {
 
   $transport_type_hash = {
     'transport' => {
-      'name'               => $::sensu::transport_type,
-      'reconnect_on_error' => $::sensu::transport_reconnect_on_error,
+      'name'               => $sensuclassic::transport_type,
+      'reconnect_on_error' => $sensuclassic::transport_reconnect_on_error,
     },
   }
 
@@ -31,12 +30,12 @@ class sensu::transport {
     default   => '0440',
   }
 
-  file { "${sensu::conf_dir}/transport.json":
+  file { "${sensuclassic::conf_dir}/transport.json":
     ensure  => $ensure,
-    owner   => $::sensu::user,
-    group   => $::sensu::group,
+    owner   => $sensuclassic::user,
+    group   => $sensuclassic::group,
     mode    => $file_mode,
     content => inline_template('<%= JSON.pretty_generate(@transport_type_hash) %>'),
-    notify  => $::sensu::check_notify,
+    notify  => $sensuclassic::check_notify,
   }
 }

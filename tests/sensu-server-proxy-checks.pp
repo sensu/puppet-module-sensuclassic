@@ -25,7 +25,7 @@ node 'sensu-server' {
     require      => [Package['gcc-c++']],
   }
 
-  class { '::sensu':
+  class { 'sensuclassiclassicc':
     install_repo      => true,
     server            => true,
     manage_services   => true,
@@ -39,11 +39,11 @@ node 'sensu-server' {
     subscriptions     => ['all', 'poller', 'proxytarget', 'roundrobin:poller'],
   }
 
-  sensu::handler { 'default':
+  sensuclassic::handler { 'default':
     command => 'mail -s \'sensu alert\' ops@example.com',
   }
 
-  sensu::check { 'check_ntp':
+  sensuclassic::check { 'check_ntp':
     command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'default',
     subscribers => 'sensu-test',
@@ -56,11 +56,11 @@ node 'sensu-server' {
   # Check](https://sensuapp.org/docs/latest/reference/checks.html#proxy-requests-attributes)
   # This needs to have a corresponding sensu-client matching the client
   # attributes.
-  sensu::plugin { 'sensu-plugins-http': }
+  sensuclassic::plugin { 'sensu-plugins-http': }
 
   # A client defined in the Dashboard with a subscription of "http" will
   # automatically have this check associated with it.
-  sensu::check { 'remote_http':
+  sensuclassic::check { 'remote_http':
     command             => '/opt/sensu/embedded/bin/check-http.rb -u http://:::address:::',
     occurrences         => 2,
     interval            => 300,
@@ -76,7 +76,7 @@ node 'sensu-server' {
     },
   }
   # Similar to above, but not using round robin checks.
-  sensu::check { 'remote_http-dashboard':
+  sensuclassic::check { 'remote_http-dashboard':
     command             => '/opt/sensu/embedded/bin/check-http.rb -u http://:::address::::3000',
     occurrences         => 2,
     interval            => 300,

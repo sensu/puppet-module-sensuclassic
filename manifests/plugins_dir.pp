@@ -4,13 +4,17 @@
 #
 # @param force Value of the parameter force of file resource for the
 #   managed directory.
+#
 # @param purge Value of the parameter purge of file resource for the
 #   managed directory.
+#
 # @param recurse Value of the parameter recurse of file resource for the
 #   managed directory.
-# @param path Path of the directory to create. If not defined the $title is used
 #
-define sensu::plugins_dir (
+# @param path Path of the directory to create. If not defined the $title is
+#   used.
+#
+define sensuclassic::plugins_dir (
   Boolean $force,
   Boolean $purge,
   Boolean $recurse,
@@ -25,7 +29,7 @@ define sensu::plugins_dir (
       recurse => $recurse,
       purge   => $purge,
       force   => $force,
-      require => Package[$sensu::package::pkg_title],
+      require => Package[$sensuclassic::package::pkg_title],
     }
   }
 }

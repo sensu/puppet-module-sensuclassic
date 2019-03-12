@@ -29,20 +29,20 @@
 #   See: https://docs.puppetlabs.com/references/latest/type.html#package-attribute-install_options
 #   Example value: [{ '-p' => 'http://user:pass@myproxy.company.org:8080' }]
 #
-define sensu::plugin (
-  Enum['file','url','package','directory'] $type                = 'file',
+define sensuclassic::plugin (
+  Enum['file','url','package','directory'] $type = 'file',
   Stdlib::Absolutepath $install_path = $::osfamily ? {
     'windows' => 'C:/opt/sensu/plugins',
     default   => '/etc/sensu/plugins',
   },
-  Boolean $purge               = true,
-  Boolean $recurse             = true,
-  Boolean $force               = true,
-  Pattern[/^absent$/,/^installed$/,/^latest$/,/^present$/,/^[\d\.\-]+$/] $pkg_version         = 'latest',
-  Optional[String] $pkg_provider        = $::sensu::sensu_plugin_provider,
-  Optional[String] $pkg_checksum        = undef,
+  Boolean $purge = true,
+  Boolean $recurse = true,
+  Boolean $force = true,
+  Pattern[/^absent$/,/^installed$/,/^latest$/,/^present$/,/^[\d\.\-]+$/] $pkg_version = 'latest',
+  Optional[String] $pkg_provider = $sensuclassic_plugin_provider,
+  Optional[String] $pkg_checksum = undef,
   Boolean $nocheckcertificate  = false,
-  Any $gem_install_options = $::sensu::gem_install_options,
+  Any $gem_install_options = $sensuclassic::gem_install_options,
 ) {
 
   File {
@@ -50,19 +50,19 @@ define sensu::plugin (
     group => 'sensu',
   }
 
-  Sensu::Plugin[$name]
+  Sensuclassic::Plugin[$name]
   ~> Service['sensu-client']
 
-  # (#463) All plugins must come before all checks.  Collections are not used to
+  # (#463) All plugins must come before all checks. Collections are not used to
   # avoid realizing any resources.
-  Sensu::Plugin[$name]
+  Sensuclassic::Plugin[$name]
   -> Anchor['plugins_before_checks']
 
   case $type {
     'file': {
       $filename = basename($name)
 
-      sensu::plugins_dir { "${name}-${install_path}":
+      sensuclassic::plugins_dir { "${name}-${install_path}":
         path    => $install_path,
         purge   => $purge,
         recurse => $recurse,
@@ -79,7 +79,7 @@ define sensu::plugin (
     'url': {
       $filename = basename($name)
 
-      sensu::plugins_dir { "${name}-${install_path}":
+      sensuclassic::plugins_dir { "${name}-${install_path}":
         path    => $install_path,
         purge   => $purge,
         recurse => $recurse,
@@ -112,7 +112,7 @@ define sensu::plugin (
         recurse => $recurse,
         purge   => $purge,
         force   => $force,
-        require => Package[$sensu::package::pkg_title],
+        require => Package[$sensuclassic::package::pkg_title],
       }
     }
     'package': {
@@ -129,7 +129,7 @@ define sensu::plugin (
       }
     }
     default:      {
-      fail('Unsupported sensu::plugin install type')
+      fail('Unsupported sensuclassic::plugin install type')
     }
   }
 }

@@ -1,4 +1,4 @@
-Facter.add(:sensu_version) do
+Facter.add(:sensuclassic_version) do
   case Facter.value(:kernel)
   when "windows" || "Windows"
     setcode do

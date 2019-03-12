@@ -6,7 +6,7 @@
 #
 # NOTE: rabbitmq_password should be ignored with rabbitmq_cluster specified.
 node 'sensu-server' {
-  class { '::sensu':
+  class { 'sensuclassic':
     install_repo      => true,
     server            => true,
     manage_services   => true,
@@ -47,11 +47,11 @@ node 'sensu-server' {
     ],
   }
 
-  sensu::handler { 'default':
+  sensuclassic::handler { 'default':
     command => 'mail -s \'sensu alert\' ops@example.com',
   }
 
-  sensu::check { 'check_ntp':
+  sensuclassic::check { 'check_ntp':
     command     => 'PATH=$PATH:/usr/lib/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'default',
     subscribers => 'sensu-test',

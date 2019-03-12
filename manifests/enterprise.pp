@@ -21,9 +21,9 @@
 # @param rubyopt Ruby opts to be passed to the sensu services
 #
 # @param use_embedded_ruby If the embedded ruby should be used, e.g. to install the
-#   sensu-plugin gem.  This value is overridden by a defined
-#   sensu_plugin_provider.  Note, the embedded ruby should always be used to
-#   provide full compatibility.  Using other ruby runtimes, e.g. the system
+#   sensu-plugin gem. This value is overridden by a defined
+#   sensu_plugin_provider. Note, the embedded ruby should always be used to
+#   provide full compatibility. Using other ruby runtimes, e.g. the system
 #   ruby, is not recommended.
 #
 # @param heap_size Value of the HEAP_SIZE environment variable.
@@ -34,28 +34,28 @@
 #
 # @param java_opts Value of the JAVA_OPTS environment variable.
 #
-class sensu::enterprise (
-  Optional[String]  $deregister_handler = $::sensu::deregister_handler,
-  Optional[Boolean] $deregister_on_stop = $::sensu::deregister_on_stop,
-  Optional[String]  $gem_path           = $::sensu::gem_path,
-  Variant[Undef,Integer,Pattern[/^(\d+)$/]] $init_stop_max_wait = $::sensu::init_stop_max_wait,
-  Optional[String]  $log_dir            = $::sensu::log_dir,
-  Optional[String]  $log_level          = $::sensu::log_level,
-  Optional[String]  $path               = $::sensu::path,
-  Optional[String]  $rubyopt            = $::sensu::rubyopt,
-  Optional[Boolean] $use_embedded_ruby  = $::sensu::use_embedded_ruby,
-  Variant[Undef,Integer,Pattern[/^(\d+)/]] $heap_size = $::sensu::heap_size,
-  Variant[Undef,Integer,Pattern[/^(\d+)$/]] $max_open_files = $::sensu::max_open_files,
-  Variant[Undef,String] $heap_dump_path = $::sensu::heap_dump_path,
-  Variant[Undef,String] $java_opts      = $::sensu::java_opts,
-  Boolean $hasrestart                   = $::sensu::hasrestart,
+class sensuclassic::enterprise (
+  Optional[String] $deregister_handler = $sensuclassic::deregister_handler,
+  Optional[Boolean] $deregister_on_stop = $sensuclassic::deregister_on_stop,
+  Optional[String] $gem_path = $sensuclassic::gem_path,
+  Variant[Undef,Integer,Pattern[/^(\d+)$/]] $init_stop_max_wait = $sensuclassic::init_stop_max_wait,
+  Optional[String] $log_dir = $sensuclassic::log_dir,
+  Optional[String] $log_level = $sensuclassic::log_level,
+  Optional[String] $path = $sensuclassic::path,
+  Optional[String] $rubyopt = $sensuclassic::rubyopt,
+  Optional[Boolean] $use_embedded_ruby = $sensuclassic::use_embedded_ruby,
+  Variant[Undef,Integer,Pattern[/^(\d+)/]] $heap_size = $sensuclassic::heap_size,
+  Variant[Undef,Integer,Pattern[/^(\d+)$/]] $max_open_files = $sensuclassic::max_open_files,
+  Variant[Undef,String] $heap_dump_path = $sensuclassic::heap_dump_path,
+  Variant[Undef,String] $java_opts = $sensuclassic::java_opts,
+  Boolean $hasrestart = $sensuclassic::hasrestart,
 ) {
 
   # Package
-  if $::sensu::enterprise {
+  if $sensuclassic::enterprise {
 
     package { 'sensu-enterprise':
-      ensure  => $::sensu::enterprise_version,
+      ensure  => $sensuclassic::enterprise_version,
     }
 
     file { '/etc/default/sensu-enterprise':
@@ -69,9 +69,9 @@ class sensu::enterprise (
   }
 
   # Service
-  if $::sensu::manage_services and $::sensu::enterprise {
+  if $sensuclassic::manage_services and $sensuclassic::enterprise {
 
-    case $::sensu::enterprise {
+    case $sensuclassic::enterprise {
       true: {
         $ensure = 'running'
         $enable = true
@@ -90,9 +90,9 @@ class sensu::enterprise (
         subscribe  => [
           File['/etc/default/sensu-enterprise'],
           Sensu_api_config[$::fqdn],
-          Class['sensu::redis::config'],
-          Class['sensu::rabbitmq::config'],
-          Class['sensu::package'],
+          Class['sensuclassic::redis::config'],
+          Class['sensuclassic::rabbitmq::config'],
+          Class['sensuclassic::package'],
         ],
       }
     }

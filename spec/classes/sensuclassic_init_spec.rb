@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sensu', :type => :class do
+describe 'sensuclassic', :type => :class do
   describe 'on an unsupported kernel' do
     let(:facts) { { :kernel => 'invalid' } }
     it { expect { should create_class('sensu') }.to raise_error(Puppet::Error, /Detected kernel is <invalid> and must be Darwin, Linux or windows/) }
@@ -30,7 +30,7 @@ describe 'sensu', :type => :class do
     it { should_not contain_file('C:/opt/sensu/bin/sensu-client.xml') }
 
     # FIXME: The following resource checks are only testing $sensu_etc_dir specific values
-    # resources from sensu::package
+    # resources from sensuclassic::package
     it { should contain_file('/etc/sensu/conf.d') }
     it { should contain_file('/etc/sensu/conf.d/handlers') }
     it { should contain_file('/etc/sensu/conf.d/checks') }
@@ -44,26 +44,26 @@ describe 'sensu', :type => :class do
     it { should contain_file('/etc/sensu/mutators') }
     it { should contain_file('/etc/sensu/plugins') }
     it { should contain_file('/etc/sensu/config.json') }
-    # resources from sensu::rabbitmq::config
+    # resources from sensuclassic::rabbitmq::config
     it { should_not contain_file('/etc/sensu/ssl') }
     it { should_not contain_file('/etc/sensu/ssl/cert.pem').with_require('File[/etc/sensu/ssl]') }
     it { should_not contain_file('/etc/sensu/ssl/key.pem').with_require('File[/etc/sensu/ssl]') }
     it { should contain_file('/etc/sensu/conf.d/rabbitmq.json') }
     it { should contain_sensu_rabbitmq_config('testfqdn.example.com').with_base_path('/etc/sensu/conf.d') }
-    # resources from sensu::redis::config
+    # resources from sensuclassic::redis::config
     it { should contain_file('/etc/sensu/conf.d/redis.json') }
     it { should contain_sensu_redis_config('testfqdn.example.com').with_base_path('/etc/sensu/conf.d') }
-    # resources from sensu::api
+    # resources from sensuclassic::api
     it { should contain_file('/etc/sensu/conf.d/api.json') }
     it { should contain_sensu_api_config('testfqdn.example.com').with_base_path('/etc/sensu/conf.d') }
-    # resources from sensu::enterprise::dashboard
+    # resources from sensuclassic::enterprise::dashboard
     it { should_not contain_file('/etc/sensu/dashboard.json') }
-    # resources from sensu::subscription (positive tests are included in test for sensu::subscription itself)
+    # resources from sensuclassic::subscription (positive tests are included in test for sensuclassic::subscription itself)
     it { should_not contain_file('/etc/sensu/conf.d/subscriptiond.json') }
     it { should_not contain_sensu_client_subscription('mysubscription').with_base_path('/etc/sensu/conf.d') }
-    # resources from sensu::transport
+    # resources from sensuclassic::transport
     it { should contain_file('/etc/sensu/conf.d/transport.json') }
-    # resources from sensu::client
+    # resources from sensuclassic::client
     it { should contain_file('/etc/sensu/conf.d/client.json') }
     it { should contain_sensu_client_config('testfqdn.example.com').with_base_path('/etc/sensu/conf.d') }
   end
@@ -71,7 +71,7 @@ describe 'sensu', :type => :class do
   context 'with sensu_etc_dir => /opt/etc/sensu' do
     let(:params) { {:sensu_etc_dir => '/opt/etc/sensu' } }
 
-    # resources from sensu::package
+    # resources from sensuclassic::package
     it { should contain_file('/opt/etc/sensu/conf.d') }
     it { should contain_file('/opt/etc/sensu/conf.d/handlers') }
     it { should contain_file('/opt/etc/sensu/conf.d/checks') }
@@ -85,26 +85,26 @@ describe 'sensu', :type => :class do
     it { should contain_file('/opt/etc/sensu/mutators') }
     it { should contain_file('/opt/etc/sensu/plugins') }
     it { should contain_file('/opt/etc/sensu/config.json') }
-    # resources from sensu::rabbitmq::config
+    # resources from sensuclassic::rabbitmq::config
     it { should_not contain_file('/opt/etc/sensu/ssl') }
     it { should_not contain_file('/opt/etc/sensu/ssl/cert.pem').with_require('File[/opt/etc/sensu/ssl]') }
     it { should_not contain_file('/opt/etc/sensu/ssl/key.pem').with_require('File[/opt/etc/sensu/ssl]') }
     it { should contain_file('/opt/etc/sensu/conf.d/rabbitmq.json') }
     it { should contain_sensu_rabbitmq_config('testfqdn.example.com').with_base_path('/opt/etc/sensu/conf.d') }
-    # resources from sensu::redis::config
+    # resources from sensuclassic::redis::config
     it { should contain_file('/opt/etc/sensu/conf.d/redis.json') }
     it { should contain_sensu_redis_config('testfqdn.example.com').with_base_path('/opt/etc/sensu/conf.d') }
-    # resources from sensu::api
+    # resources from sensuclassic::api
     it { should contain_file('/opt/etc/sensu/conf.d/api.json') }
     it { should contain_sensu_api_config('testfqdn.example.com').with_base_path('/opt/etc/sensu/conf.d') }
-    # resources from sensu::enterprise::dashboard
+    # resources from sensuclassic::enterprise::dashboard
     it { should_not contain_file('/opt/etc/sensu/dashboard.json') }
-    # resources from sensu::subscription (positive tests are included in test for sensu::subscription itself)
+    # resources from sensuclassic::subscription (positive tests are included in test for sensuclassic::subscription itself)
     it { should_not contain_file('/opt/etc/sensu/conf.d/subscriptiond.json') }
     it { should_not contain_sensu_client_subscription('mysubscription').with_base_path('/opt/etc/sensu/conf.d') }
-    # resources from sensu::transport
+    # resources from sensuclassic::transport
     it { should contain_file('/opt/etc/sensu/conf.d/transport.json') }
-    # resources from sensu::client
+    # resources from sensuclassic::client
     it { should contain_file('/opt/etc/sensu/conf.d/client.json') }
     it { should contain_sensu_client_config('testfqdn.example.com').with_base_path('/opt/etc/sensu/conf.d') }
 
@@ -164,7 +164,7 @@ describe 'sensu', :type => :class do
     end
 
     # FIXME: The following resource checks are only testing $sensu_etc_dir specific values
-    # resources from sensu::package
+    # resources from sensuclassic::package
     it { should contain_file('C:/opt/sensu/conf.d') }
     it { should contain_file('C:/opt/sensu/conf.d/handlers') }
     it { should contain_file('C:/opt/sensu/conf.d/checks') }
@@ -178,23 +178,23 @@ describe 'sensu', :type => :class do
     it { should contain_file('C:/opt/sensu/mutators') }
     it { should contain_file('C:/opt/sensu/plugins') }
     it { should contain_file('C:/opt/sensu/config.json') }
-    # resources from sensu::rabbitmq::config
+    # resources from sensuclassic::rabbitmq::config
     it { should_not contain_file('C:/opt/sensu/ssl') }
     it { should_not contain_file('C:/opt/sensu/ssl/cert.pem').with_require('File[C:/opt/sensu/ssl]') }
     it { should_not contain_file('C:/opt/sensu/ssl/key.pem').with_require('File[C:/opt/sensu/ssl]') }
     it { should contain_file('C:/opt/sensu/conf.d/rabbitmq.json') }
     it { should contain_sensu_rabbitmq_config('testfqdn.example.com').with_base_path('C:/opt/sensu/conf.d') }
-    # resources from sensu::redis::config
+    # resources from sensuclassic::redis::config
     it { should contain_file('C:/opt/sensu/conf.d/redis.json') }
     it { should contain_sensu_redis_config('testfqdn.example.com').with_base_path('C:/opt/sensu/conf.d') }
-    # resources from sensu::api
+    # resources from sensuclassic::api
     it { should contain_file('C:/opt/sensu/conf.d/api.json') }
     it { should contain_sensu_api_config('testfqdn.example.com').with_base_path('C:/opt/sensu/conf.d') }
-    # resources from sensu::enterprise::dashboard
+    # resources from sensuclassic::enterprise::dashboard
     it { should_not contain_file('C:/opt/sensu/dashboard.json') }
-    # resources from sensu::transport
+    # resources from sensuclassic::transport
     it { should contain_file('C:/opt/sensu/conf.d/transport.json') }
-    # resources from sensu::client
+    # resources from sensuclassic::client
     it { should contain_file('C:/opt/sensu/conf.d/client.json') }
     it { should contain_sensu_client_config('testfqdn.example.com').with_base_path('C:/opt/sensu/conf.d') }
 
@@ -217,7 +217,7 @@ describe 'sensu', :type => :class do
 
     context 'with sensu_etc_dir => C:/etc/sensu' do
       let(:params) { {:sensu_etc_dir => 'C:/etc/sensu' } }
-      # resources from sensu::package
+      # resources from sensuclassic::package
       it { should contain_file('C:/etc/sensu/conf.d') }
       it { should contain_file('C:/etc/sensu/conf.d/handlers') }
       it { should contain_file('C:/etc/sensu/conf.d/checks') }
@@ -231,23 +231,23 @@ describe 'sensu', :type => :class do
       it { should contain_file('C:/etc/sensu/mutators') }
       it { should contain_file('C:/etc/sensu/plugins') }
       it { should contain_file('C:/etc/sensu/config.json') }
-      # resources from sensu::rabbitmq::config
+      # resources from sensuclassic::rabbitmq::config
       it { should_not contain_file('C:/etc/sensu/ssl') }
       it { should_not contain_file('C:/etc/sensu/ssl/cert.pem').with_require('File[C:/etc/sensu/ssl]') }
       it { should_not contain_file('C:/etc/sensu/ssl/key.pem').with_require('File[C:/etc/sensu/ssl]') }
       it { should contain_file('C:/etc/sensu/conf.d/rabbitmq.json') }
       it { should contain_sensu_rabbitmq_config('testfqdn.example.com').with_base_path('C:/etc/sensu/conf.d') }
-      # resources from sensu::redis::config
+      # resources from sensuclassic::redis::config
       it { should contain_file('C:/etc/sensu/conf.d/redis.json') }
       it { should contain_sensu_redis_config('testfqdn.example.com').with_base_path('C:/etc/sensu/conf.d') }
-      # resources from sensu::api
+      # resources from sensuclassic::api
       it { should contain_file('C:/etc/sensu/conf.d/api.json') }
       it { should contain_sensu_api_config('testfqdn.example.com').with_base_path('C:/etc/sensu/conf.d') }
-      # resources from sensu::enterprise::dashboard
+      # resources from sensuclassic::enterprise::dashboard
       it { should_not contain_file('C:/etc/sensu/dashboard.json') }
-      # resources from sensu::transport
+      # resources from sensuclassic::transport
       it { should contain_file('C:/etc/sensu/conf.d/transport.json') }
-      # resources from sensu::client
+      # resources from sensuclassic::client
       it { should contain_file('C:/etc/sensu/conf.d/client.json') }
       it { should contain_sensu_client_config('testfqdn.example.com').with_base_path('C:/etc/sensu/conf.d') }
 

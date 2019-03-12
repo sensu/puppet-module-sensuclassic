@@ -12,20 +12,20 @@
 #
 # @param install_path Path to install the mutator
 #
-define sensu::mutator(
+define sensuclassic::mutator (
   String $command,
-  Enum['present','absent'] $ensure   = 'present',
-  Optional[Numeric] $timeout         = undef,
+  Enum['present','absent'] $ensure = 'present',
+  Optional[Numeric] $timeout = undef,
   # Used to install the mutator
-  Optional[String] $source           = undef,
+  Optional[String] $source = undef,
   Stdlib::Absolutepath $install_path = '/etc/sensu/mutators',
 ) {
 
   assert_type(Pattern[/^[\w\.-]+$/], $name)
 
-  include ::sensu
+  include sensuclassic
 
-  if $::sensu::server {
+  if $sensuclassic::server {
     $notify_services = Class['sensu::server::service']
   } else {
     $notify_services = []
@@ -50,7 +50,7 @@ define sensu::mutator(
     $file_ensure = undef
   }
 
-  file { "${::sensu::conf_dir}/mutators/${name}.json":
+  file { "${sensuclassic::conf_dir}/mutators/${name}.json":
     ensure => $file_ensure,
     owner  => 'sensu',
     group  => 'sensu',
@@ -62,6 +62,6 @@ define sensu::mutator(
     ensure  => $ensure,
     command => $command,
     timeout => $timeout,
-    require => File["${::sensu::conf_dir}/mutators"],
+    require => File["${sensuclassic::conf_dir}/mutators"],
   }
 }

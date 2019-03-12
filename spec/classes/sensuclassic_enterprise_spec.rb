@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sensu', :type => :class do
+describe 'sensuclassic', :type => :class do
   let(:params_base) { {
     :enterprise      => true,
     :enterprise_user => 'sensu',
@@ -27,9 +27,9 @@ describe 'sensu', :type => :class do
           ) }
           it { should contain_service('sensu-enterprise').that_subscribes_to('File[/etc/default/sensu-enterprise]') }
           it { should contain_service('sensu-enterprise').that_subscribes_to('Sensu_api_config[testhost.domain.com]') }
-          it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensu::redis::config]') }
-          it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensu::rabbitmq::config]') }
-          it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensu::package]') }
+          it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::redis::config]') }
+          it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::rabbitmq::config]') }
+          it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::package]') }
           it { should_not contain_yumrepo('sensu-enterprise-dashboard') }
           it { should contain_package('sensu-enterprise') }
 

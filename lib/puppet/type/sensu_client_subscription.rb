@@ -1,5 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'to_type.rb'))
+                                   'puppet_x', 'sensuclassic', 'to_type.rb'))
 
 Puppet::Type.newtype(:sensu_client_subscription) do
   @doc = "Manages Sensu client subscriptions"
@@ -57,7 +57,7 @@ Puppet::Type.newtype(:sensu_client_subscription) do
   newproperty(:custom) do
     desc "Custom client variables"
 
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     def is_to_s(hash = @is)
       hash.keys.sort.map {|key| "#{key} => #{hash[key]}"}.join(", ")

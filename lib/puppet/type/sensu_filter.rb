@@ -1,7 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'boolean_property.rb'))
+                                   'puppet_x', 'sensuclassic', 'boolean_property.rb'))
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'to_type.rb'))
+                                   'puppet_x', 'sensuclassic', 'to_type.rb'))
 
 Puppet::Type.newtype(:sensu_filter) do
   @doc = "Manages Sensu filters"
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:sensu_filter) do
 
   newproperty(:attributes) do
     desc "Filter attributes"
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     def is_to_s(hash = @is)
       hash.keys.sort.map {|key| "#{key} => #{hash[key]}"}.join(", ")
@@ -67,7 +67,7 @@ Puppet::Type.newtype(:sensu_filter) do
 
   newproperty(:when) do
     desc 'Used to determine when a filter is applied.'
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     def is_to_s(hash = @is)
       hash.keys.sort.map {|key| "#{key} => #{hash[key]}"}.join(", ")
@@ -92,7 +92,7 @@ Puppet::Type.newtype(:sensu_filter) do
     defaultto {}
   end
 
-  newproperty(:negate, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:negate, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc ""
 
     defaultto :false # provider assumes it's managed

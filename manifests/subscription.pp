@@ -6,30 +6,30 @@
 #
 # @param custom Custom client variables
 #
-define sensu::subscription (
+define sensuclassic::subscription (
   Enum['present','absent'] $ensure = 'present',
-  Hash $custom                     = {},
+  Hash $custom = {},
 ) {
 
-  include ::sensu
+  include sensuclassic
 
   # Remove any from title any char which is not a letter, a number
   # or the . and - chars. Needed for safe path names.
   $sanitized_name=regsubst($name, '[^0-9A-Za-z.-]', '_', 'G')
 
-  file { "${::sensu::conf_dir}/subscription_${sanitized_name}.json":
+  file { "${sensuclassic::conf_dir}/subscription_${sanitized_name}.json":
     ensure => $ensure,
-    owner  => $::sensu::user,
-    group  => $::sensu::group,
-    mode   => $::sensu::file_mode,
+    owner  => $sensuclassic::user,
+    group  => $sensuclassic::group,
+    mode   => $sensuclassic::file_mode,
     before => Sensu_client_subscription[$name],
   }
 
   sensu_client_subscription { $name:
     ensure    => $ensure,
-    base_path => $::sensu::conf_dir,
+    base_path => $sensuclassic::conf_dir,
     file_name => "subscription_${sanitized_name}.json",
     custom    => $custom,
-    notify    => $::sensu::client_service,
+    notify    => $sensuclassic::client_service,
   }
 }

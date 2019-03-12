@@ -1,8 +1,8 @@
 
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'boolean_property.rb'))
+                                   'puppet_x', 'sensuclassic', 'boolean_property.rb'))
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'to_type.rb'))
+                                   'puppet_x', 'sensuclassic', 'to_type.rb'))
 
 Puppet::Type.newtype(:sensu_client_config) do
   @doc = "Manages Sensu client config"
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:socket) do
     desc "A set of attributes that configure the Sensu client socket."
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }
@@ -87,7 +87,7 @@ Puppet::Type.newtype(:sensu_client_config) do
     defaultto '/etc/sensu/conf.d/'
   end
 
-  newproperty(:safe_mode, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:safe_mode, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Require checks to be defined on server and client"
 
     defaultto :false # property assumed as managed in provider (no nil? checks)
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:custom) do
     desc 'Custom client attributes'
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     def is_to_s(hash = @is)
       hash.keys.sort.map {|key| "#{key} => #{hash[key]}"}.join(", ")
@@ -120,7 +120,7 @@ Puppet::Type.newtype(:sensu_client_config) do
     defaultto {}
   end
 
-  newproperty(:deregister, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:deregister, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc 'Enable client de-registration'
   end
 
@@ -137,7 +137,7 @@ Puppet::Type.newtype(:sensu_client_config) do
   newproperty(:keepalive) do
     desc "Keepalive config"
 
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }
@@ -168,7 +168,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:http_socket) do
     desc "A set of attributes that configure the Sensu client http socket."
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }
@@ -191,7 +191,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:servicenow) do
     desc "Configure Service Now integration on Sensu client."
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }
@@ -214,7 +214,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:ec2) do
     desc "Configure ec2 integration on Sensu client."
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }
@@ -237,7 +237,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:chef) do
     desc "Configure Chef integration on Sensu client."
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }
@@ -260,7 +260,7 @@ Puppet::Type.newtype(:sensu_client_config) do
 
   newproperty(:puppet) do
     desc "Configure Puppet integration on Sensu client."
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     munge do |value|
       value.each { |k, v| value[k] = to_type(v) }

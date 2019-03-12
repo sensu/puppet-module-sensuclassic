@@ -1,7 +1,7 @@
 node 'sensu-server' {
   $deregistration = { 'handler' => 'deregister_client' }
 
-  class { '::sensu':
+  class { 'sensuclassic':
     install_repo          => true,
     server                => true,
     manage_services       => true,
@@ -18,7 +18,7 @@ node 'sensu-server' {
     client_deregistration => $deregistration,
   }
 
-  sensu::handler { 'default':
+  sensuclassic::handler { 'default':
     command => 'mail -s \'sensu alert\' ops@example.com',
   }
 
@@ -45,12 +45,12 @@ node 'sensu-server' {
   #      }
   #    }
   #  }
-  sensu::handler { 'mail_handle_silenced':
+  sensuclassic::handler { 'mail_handle_silenced':
     command         => 'mail -s \'sensu alert\' ops@example.com',
     handle_silenced => true,
   }
 
-  sensu::check { 'check_ntp':
+  sensuclassic::check { 'check_ntp':
     command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'default',
     subscribers => 'sensu-test',
@@ -63,7 +63,7 @@ node 'sensu-server' {
   }
 
   # Example check using the cron schedule.
-  sensu::check { 'remote_check_ntp':
+  sensuclassic::check { 'remote_check_ntp':
     command        => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H :::address::: -w 30 -c 60',
     standalone     => false,
     handlers       => 'default',
@@ -90,7 +90,7 @@ node 'sensu-server' {
       'subscriptions' => 'eval: value.include?("http")',
     },
   }
-  sensu::check { 'remote_http':
+  sensuclassic::check { 'remote_http':
     command             => '/opt/sensu/embedded/bin/check-http.rb -u http://:::address:::',
     occurrences         => 2,
     interval            => 300,

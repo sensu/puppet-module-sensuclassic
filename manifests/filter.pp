@@ -2,8 +2,6 @@
 #
 # Defines Sensu filters
 #
-# == Parameters
-#
 # @param ensure Whether the check should be present or not
 #
 # @param negate Negate the filter
@@ -12,28 +10,27 @@
 #
 # @param when Hash of when entries for the filter
 #
-define sensu::filter (
+define sensuclassic::filter (
   Enum['present','absent'] $ensure = 'present',
-  Optional[Boolean] $negate        = undef,
-  Optional[Hash] $attributes       = undef,
-  Optional[Hash] $when             = undef,
+  Optional[Boolean] $negate = undef,
+  Optional[Hash] $attributes = undef,
+  Optional[Hash] $when = undef,
 ) {
 
-  include ::sensu
+  include sensuclassic
 
-  file { "${::sensu::conf_dir}/filters/${name}.json":
+  file { "${sensuclassic::conf_dir}/filters/${name}.json":
     ensure => $ensure,
-    owner  => $::sensu::user,
-    group  => $::sensu::group,
+    owner  => $sensuclassic::user,
+    group  => $sensuclassic::group,
     mode   => '0444',
   }
 
-  sensu_filter { $name:
+  sensuclassic_filter { $name:
     ensure     => $ensure,
     negate     => $negate,
     attributes => $attributes,
     when       => $when,
-    require    => File["${::sensu::conf_dir}/filters"],
+    require    => File["${sensuclassic::conf_dir}/filters"],
   }
-
 }

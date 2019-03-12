@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sensu', :type => :class do
+describe 'sensuclassic', :type => :class do
   let(:facts) do
     {
       :fqdn     => 'testhost.domain.com',
@@ -169,9 +169,9 @@ describe 'sensu', :type => :class do
           :hasrestart => true
         )}
         describe '(#433)' do
-          it { is_expected.to contain_service('sensu-api').that_subscribes_to('Class[sensu::redis::config]') }
+          it { is_expected.to contain_service('sensu-api').that_subscribes_to('Class[sensuclassic::redis::config]') }
           # GH-433 Make sure the API subscribes to rabbitmq and redis
-          it { is_expected.to contain_service('sensu-api').that_subscribes_to('Class[sensu::rabbitmq::config]') }
+          it { is_expected.to contain_service('sensu-api').that_subscribes_to('Class[sensuclassic::rabbitmq::config]') }
         end
       end # managing services
 

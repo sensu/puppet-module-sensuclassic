@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe 'sensu', :type => :class do
+describe 'sensuclassic', :type => :class do
   context 'config' do
     context 'service' do
       context 'running on Linux' do
         context 'with defaults for all parameters' do
-          it { should contain_class('sensu::client') }
+          it { should contain_class('sensuclassic::client') }
           it { should compile.with_all_deps }
 
           it do
@@ -31,7 +31,7 @@ describe 'sensu', :type => :class do
           {
             :osfamily => 'windows',
             :kernel   => 'windows',
-            # needed for sensu::package
+            # needed for sensuclassic::package
             :os => {
               :release => {
                 :major => '2012 R2',
@@ -42,8 +42,8 @@ describe 'sensu', :type => :class do
         end
 
         context 'with defaults for all parameters' do
-          it { should contain_class('sensu::client') }
-          # FIXME: test causes issues in sensu::package
+          it { should contain_class('sensuclassic::client') }
+          # FIXME: test causes issues in sensuclassic::package
           # it { should compile.with_all_deps }
 
           content = <<-END.gsub(/^\s+\|/, '')

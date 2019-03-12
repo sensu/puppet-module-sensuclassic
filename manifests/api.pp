@@ -1,15 +1,10 @@
-# = Class: sensu::api
+# @summary Manages the Sensu API
 #
-# Manages the Sensu api
+# @param hasrestart
+#   Value of hasrestart attribute for this service.
 #
-# == Parameters
-#
-# [*hasrestart*]
-#   Boolean. Value of hasrestart attribute for this service.
-#   Default: true
-#
-class sensu::api (
-  Boolean $hasrestart = $::sensu::hasrestart,
+class sensuclassic::api (
+  Boolean $hasrestart = $sensuclassic::hasrestart,
 ) {
 
   case $::osfamily {
@@ -23,9 +18,9 @@ class sensu::api (
     }
   }
 
-  if $::sensu::manage_services {
+  if $sensuclassic::manage_services {
 
-    case $::sensu::api {
+    case $sensuclassic::api {
       true: {
         $service_ensure = 'running'
         $service_enable = true
@@ -37,45 +32,45 @@ class sensu::api (
     }
 
     if $::osfamily != 'windows' {
-      service { $::sensu::api_service_name:
+      service { $sensuclassic::api_service_name:
         ensure     => $service_ensure,
         enable     => $service_enable,
         hasrestart => $hasrestart,
         path       => $service_path,
         provider   => $service_provider,
         subscribe  => [
-          Class['sensu::package'],
+          Class['sensuclassic::package'],
           Sensu_api_config[$::fqdn],
-          Class['sensu::redis::config'],
-          Class['sensu::rabbitmq::config'],
+          Class['sensuclassic::redis::config'],
+          Class['sensuclassic::rabbitmq::config'],
         ],
       }
     }
   }
 
-  if $::sensu::_purge_config and !$::sensu::server and !$::sensu::api and !$::sensu::enterprise {
+  if $sensuclassic::_purge_config and !$sensuclassic::server and !$sensuclassic::api and !$sensuclassic::enterprise {
     $file_ensure = 'absent'
   } else {
     $file_ensure = 'present'
   }
 
-  file { "${sensu::etc_dir}/conf.d/api.json":
+  file { "${sensuclassic::etc_dir}/conf.d/api.json":
     ensure => $file_ensure,
-    owner  => $::sensu::user,
-    group  => $::sensu::group,
-    mode   => $::sensu::file_mode,
+    owner  => $sensuclassic::user,
+    group  => $sensuclassic::group,
+    mode   => $sensuclassic::file_mode,
   }
 
   sensu_api_config { $::fqdn:
     ensure                => $file_ensure,
-    base_path             => "${sensu::etc_dir}/conf.d",
-    bind                  => $::sensu::api_bind,
-    host                  => $::sensu::api_host,
-    port                  => $::sensu::api_port,
-    user                  => $::sensu::api_user,
-    password              => $::sensu::api_password,
-    ssl_port              => $::sensu::api_ssl_port,
-    ssl_keystore_file     => $::sensu::api_ssl_keystore_file,
-    ssl_keystore_password => $::sensu::api_ssl_keystore_password,
+    base_path             => "${sensuclassic::etc_dir}/conf.d",
+    bind                  => $sensuclassic::api_bind,
+    host                  => $sensuclassic::api_host,
+    port                  => $sensuclassic::api_port,
+    user                  => $sensuclassic::api_user,
+    password              => $sensuclassic::api_password,
+    ssl_port              => $sensuclassic::api_ssl_port,
+    ssl_keystore_file     => $sensuclassic::api_ssl_keystore_file,
+    ssl_keystore_password => $sensuclassic::api_ssl_keystore_password,
   }
 }

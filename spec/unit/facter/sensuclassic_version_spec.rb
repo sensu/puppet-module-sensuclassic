@@ -10,14 +10,14 @@ describe "Facter::Util::Fact" do
       it do
         allow(File).to receive(:exists?).with('/opt/sensu/embedded/bin/sensu-client').and_return(true)
         allow(Facter::Util::Resolution).to receive(:exec).with('/opt/sensu/embedded/bin/sensu-client --version 2>&1').and_return('0.23.3')
-        expect(Facter.fact(:sensu_version).value).to eql('0.23.3')
+        expect(Facter.fact(:sensuclassic_version).value).to eql('0.23.3')
       end
     end
 
     describe 'returns nil when sensu is not present' do
       it do
         allow(File).to receive(:exists?).with('/opt/sensu/embedded/bin/sensu-client').and_return(false)
-        expect(Facter.fact(:sensu_version).value).to be_nil
+        expect(Facter.fact(:sensuclassic_version).value).to be_nil
       end
     end
   end
@@ -31,14 +31,14 @@ describe "Facter::Util::Fact" do
       it do
         allow(File).to receive(:exists?).with('C:\opt\sensu\embedded\bin\sensu-client.bat').and_return(true)
         allow(Facter::Util::Resolution).to receive(:exec).with('C:\opt\sensu\embedded\bin\sensu-client.bat --version 2>&1').and_return('0.23.3')
-        expect(Facter.fact(:sensu_version).value).to eql('0.23.3')
+        expect(Facter.fact(:sensuclassic_version).value).to eql('0.23.3')
       end
     end
 
     describe 'returns nil when sensu is not present' do
       it do
         allow(File).to receive(:exists?).with('C:\opt\sensu\embedded\bin\sensu-client.bat').and_return(false)
-        expect(Facter.fact(:sensu_version).value).to be_nil
+        expect(Facter.fact(:sensuclassic_version).value).to be_nil
       end
     end
   end

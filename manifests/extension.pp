@@ -10,18 +10,18 @@
 #
 # @param config Extension specific config
 #
-define sensu::extension (
-  Enum['present','absent'] $ensure          = 'present',
+define sensuclassic::extension (
+  Enum['present','absent'] $ensure = 'present',
   # Used to install the handler
   Optional[Pattern[/^puppet:\/\//]] $source = undef,
-  String $install_path                      = '/etc/sensu/extensions',
+  String $install_path = '/etc/sensu/extensions',
   # Handler specific config
-  Hash $config                              = {},
+  Hash $config = {},
 ) {
 
-  include ::sensu
+  include sensuclassic
 
-  if $::sensu::client and $::sensu::manage_services {
+  if $sensuclassic::client and $sensuclassic::manage_services {
     $notify_services = Service['sensu-client']
   } else {
     $notify_services = []
@@ -42,7 +42,7 @@ define sensu::extension (
     source => $source,
   }
 
-  file { "${::sensu::conf_dir}/extensions/${name}.json":
+  file { "${sensuclassic::conf_dir}/extensions/${name}.json":
     ensure => $ensure,
     owner  => 'sensu',
     group  => 'sensu',
@@ -54,6 +54,6 @@ define sensu::extension (
     ensure  => $ensure,
     config  => $config,
     notify  => $notify_services,
-    require => File["${::sensu::conf_dir}/extensions"],
+    require => File["${sensuclassic::conf_dir}/extensions"],
   }
 }

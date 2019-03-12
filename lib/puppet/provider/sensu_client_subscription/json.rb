@@ -1,13 +1,13 @@
 require 'json' if Puppet.features.json?
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..',
-                                   'puppet_x', 'sensu', 'provider_create.rb'))
+                                   'puppet_x', 'sensuclassic', 'provider_create.rb'))
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..',
-                                   'puppet_x', 'sensu', 'to_type.rb'))
+                                   'puppet_x', 'sensuclassic', 'to_type.rb'))
 
 Puppet::Type.type(:sensu_client_subscription).provide(:json) do
   confine :feature => :json
-  include PuppetX::Sensu::ToType
-  include PuppetX::Sensu::ProviderCreate
+  include PuppetX::Sensuclassic::ToType
+  include PuppetX::Sensuclassic::ProviderCreate
 
   def conf
     begin

@@ -2,42 +2,42 @@
 #
 # Adds the Sensu repo to Apt
 #
-class sensu::repo::apt {
+class sensuclassic::repo::apt {
 
   if defined(apt::source) {
 
-    $ensure = $::sensu::install_repo ? {
+    $ensure = $sensuclassic::install_repo ? {
       true    => 'present',
       default => 'absent'
     }
 
-    if $::sensu::repo_source {
-      $url = $::sensu::repo_source
+    if $sensuclassic::repo_source {
+      $url = $sensuclassic::repo_source
     } else {
       $url = 'https://sensu.global.ssl.fastly.net/apt'
     }
 
     # ignoring the puppet-lint plugin because of a bug that warns on the next
     # line.
-    if $::sensu::repo_release == undef { #lint:ignore:undef_in_function
+    if $sensuclassic::repo_release == undef { #lint:ignore:undef_in_function
       $release = $::facts['os']['distro']['codename']
     } else {
-      $release = $::sensu::repo_release
+      $release = $sensuclassic::repo_release
     }
 
     apt::source { 'sensu':
       ensure   => $ensure,
       location => $url,
       release  => $release,
-      repos    => $::sensu::repo,
+      repos    => $sensuclassic::repo,
       include  => {
         'src' => false,
       },
       key      => {
-        'id'     => $::sensu::repo_key_id,
-        'source' => $::sensu::repo_key_source,
+        'id'     => $sensuclassic::repo_key_id,
+        'source' => $sensuclassic::repo_key_source,
       },
-      before   => Package[$sensu::package::pkg_title],
+      before   => Package[$sensuclassic::package::pkg_title],
       notify   => Exec['apt-update'],
     }
 
@@ -47,13 +47,13 @@ class sensu::repo::apt {
         command     => '/usr/bin/apt-get update';
     }
 
-    if $::sensu::enterprise {
-      $se_user = $::sensu::enterprise_user
-      $se_pass = $::sensu::enterprise_pass
+    if $sensuclassic::enterprise {
+      $se_user = $sensuclassic::enterprise_user
+      $se_pass = $sensuclassic::enterprise_pass
       $se_url  = "http://${se_user}:${se_pass}@enterprise.sensuapp.com/apt"
       $include = { 'src' => false, }
       $key     = {
-        'id'      => $::sensu::enterprise_repo_key_id,
+        'id'      => $sensuclassic::enterprise_repo_key_id,
         # TODO: this is not ideal, but the apt module doesn't currently support
         # HTTP auth for the source URI
         'content' => template('sensu/pubkey.gpg'),
@@ -63,7 +63,7 @@ class sensu::repo::apt {
         ensure   => $ensure,
         location => $se_url,
         release  => 'sensu-enterprise',
-        repos    => $::sensu::repo,
+        repos    => $sensuclassic::repo,
         include  => $include,
         key      => $key,
         before   => Package['sensu-enterprise'],

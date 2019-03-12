@@ -33,26 +33,26 @@
 # @param rubyopt Ruby opts to be passed to the sensu services
 #
 # @param use_embedded_ruby If the embedded ruby should be used, e.g. to install the
-#   sensu-plugin gem.  This value is overridden by a defined
-#   sensu_plugin_provider.  Note, the embedded ruby should always be used to
-#   provide full compatibility.  Using other ruby runtimes, e.g. the system
+#   sensu-plugin gem. This value is overridden by a defined
+#   sensu_plugin_provider. Note, the embedded ruby should always be used to
+#   provide full compatibility. Using other ruby runtimes, e.g. the system
 #   ruby, is not recommended.
 #
-class sensu::package (
-  Optional[String] $conf_dir            = $::sensu::conf_dir,
-  Variant[String,Array,Undef] $confd_dir = $::sensu::confd_dir,
-  Variant[Undef,Integer,Pattern[/^(\d+)/]] $heap_size = $::sensu::heap_size,
-  Variant[Stdlib::Absolutepath,Undef] $config_file = $::sensu::config_file,
-  Optional[String] $deregister_handler  = $::sensu::deregister_handler,
-  Optional[Boolean] $deregister_on_stop = $::sensu::deregister_on_stop,
-  Optional[String] $gem_path            = $::sensu::gem_path,
-  Variant[Undef,Integer,Pattern[/^(\d+)$/]] $init_stop_max_wait = $::sensu::init_stop_max_wait,
-  Optional[String] $log_dir             = $::sensu::log_dir,
-  Optional[String] $log_level           = $::sensu::log_level,
-  Optional[String] $path                = $::sensu::path,
-  Optional[Hash[String[1], Variant[String, Boolean, Integer]]] $env_vars = $::sensu::env_vars,
-  Optional[String] $rubyopt             = $::sensu::rubyopt,
-  Optional[Boolean] $use_embedded_ruby  = $::sensu::use_embedded_ruby,
+class sensuclassic::package (
+  Optional[String] $conf_dir = $sensuclassic::conf_dir,
+  Variant[String,Array,Undef] $confd_dir = $sensuclassic::confd_dir,
+  Variant[Undef,Integer,Pattern[/^(\d+)/]] $heap_size = $sensuclassic::heap_size,
+  Variant[Stdlib::Absolutepath,Undef] $config_file = $sensuclassic::config_file,
+  Optional[String] $deregister_handler = $sensuclassic::deregister_handler,
+  Optional[Boolean] $deregister_on_stop = $sensuclassic::deregister_on_stop,
+  Optional[String] $gem_path = $sensuclassic::gem_path,
+  Variant[Undef,Integer,Pattern[/^(\d+)$/]] $init_stop_max_wait = $sensuclassic::init_stop_max_wait,
+  Optional[String] $log_dir = $sensuclassic::log_dir,
+  Optional[String] $log_level = $sensuclassic::log_level,
+  Optional[String] $path = $sensuclassic::path,
+  Optional[Hash[String[1], Variant[String, Boolean, Integer]]] $env_vars = $sensuclassic::env_vars,
+  Optional[String] $rubyopt = $sensuclassic::rubyopt,
+  Optional[Boolean] $use_embedded_ruby = $sensuclassic::use_embedded_ruby,
 ) {
 
   case $::osfamily {
@@ -61,7 +61,7 @@ class sensu::package (
       $pkg_source   = '/tmp/sensu-installer.dmg'
       $pkg_require  = "Remote_file[${pkg_source}]"
       $pkg_title    = 'sensu'
-      $pkg_version  = $::sensu::version
+      $pkg_version  = $sensuclassic::version
       $service_name = 'org.sensuapp.sensu-client'
 
       remote_file { $pkg_source:
@@ -73,15 +73,15 @@ class sensu::package (
     'Debian': {
       $pkg_title    = 'sensu'
       $pkg_name     = 'sensu'
-      $pkg_version  = $::sensu::version
+      $pkg_version  = $sensuclassic::version
       $pkg_source   = undef
       $pkg_provider = undef
       $service_name = 'sensu-client'
 
-      if $::sensu::manage_repo {
-        class { '::sensu::repo::apt': }
+      if $sensuclassic::manage_repo {
+        class { 'sensuclassic::repo::apt': }
       }
-      if $::sensu::manage_repo and $::sensu::install_repo {
+      if $sensuclassic::manage_repo and $sensuclassic::install_repo {
         include ::apt
         $pkg_require = Class['apt::update']
       }
@@ -93,13 +93,13 @@ class sensu::package (
     'RedHat': {
       $pkg_title = 'sensu'
       $pkg_name = 'sensu'
-      $pkg_version = $::sensu::version
+      $pkg_version = $sensuclassic::version
       $pkg_source = undef
       $pkg_provider = undef
       $service_name = 'sensu-client'
 
-      if $::sensu::manage_repo {
-        class { '::sensu::repo::yum': }
+      if $sensuclassic::manage_repo {
+        class { 'sensuclassic::repo::yum': }
       }
 
       $pkg_require = undef
@@ -108,39 +108,39 @@ class sensu::package (
     'windows': {
       $repo_require = undef
 
-      # $pkg_version is passed to Package[sensu] { ensure }.  The Windows MSI
+      # $pkg_version is passed to Package[sensu] { ensure }. The Windows MSI
       # provider translates hyphens to dots, e.g. '0.29.0-11' maps to
-      # '0.29.0.11' on the system.  This mapping is necessary to converge.
-      $pkg_version = regsubst($::sensu::version, '-', '.')
+      # '0.29.0.11' on the system. This mapping is necessary to converge.
+      $pkg_version = regsubst($sensuclassic::version, '-', '.')
       # The version used to construct the download URL.
-      $pkg_url_version = $::sensu::version ? {
+      $pkg_url_version = $sensuclassic::version ? {
         'installed' => 'latest',
-        default     => $::sensu::version,
+        default     => $sensuclassic::version,
       }
       # The title used for consistent relationships in the Puppet catalog
-      $pkg_title = $::sensu::windows_package_title
+      $pkg_title = $sensuclassic::windows_package_title
       # The name used by the provider to compare to Windows Add/Remove programs.
-      $pkg_name = $::sensu::windows_package_name
+      $pkg_name = $sensuclassic::windows_package_name
       $service_name = 'sensu-client'
 
-      # The user can override the computation of the source URL.  This URL is
+      # The user can override the computation of the source URL. This URL is
       # used with the remote_file resource, it is not used with the chocolatey
       # package provider.
-      if $::sensu::windows_pkg_url {
-        $pkg_url = $::sensu::windows_pkg_url
+      if $sensuclassic::windows_pkg_url {
+        $pkg_url = $sensuclassic::windows_pkg_url
       } else {
         # The OS Release specific sub-folder
         $os_release = $facts['os']['release']['major']
         # e.g. '2012 R2' => '2012r2'
         $pkg_url_dir = regsubst($os_release, '^(\d+)\s*[rR](\d+)', '\\1r\\2')
         $pkg_arch = $facts['os']['architecture']
-        $pkg_url = "${sensu::windows_repo_prefix}/${pkg_url_dir}/sensu-${pkg_url_version}-${pkg_arch}.msi"
+        $pkg_url = "${sensuclassic::windows_repo_prefix}/${pkg_url_dir}/sensu-${pkg_url_version}-${pkg_arch}.msi"
       }
 
-      if $::sensu::windows_package_provider == 'chocolatey' {
+      if $sensuclassic::windows_package_provider == 'chocolatey' {
         $pkg_provider = 'chocolatey'
-        if $::sensu::windows_choco_repo {
-          $pkg_source = $::sensu::windows_choco_repo
+        if $sensuclassic::windows_choco_repo {
+          $pkg_source = $sensuclassic::windows_choco_repo
         } else {
           $pkg_source = undef
         }
@@ -157,7 +157,7 @@ class sensu::package (
           ensure   => present,
           path     => $pkg_source,
           source   => $pkg_url,
-          checksum => $::sensu::package_checksum,
+          checksum => $sensuclassic::package_checksum,
         }
       }
     }
@@ -186,24 +186,24 @@ class sensu::package (
     }
   }
 
-  if $::sensu::sensu_plugin_provider {
-    $plugin_provider = $::sensu::sensu_plugin_provider
+  if $sensuclassic::sensu_plugin_provider {
+    $plugin_provider = $sensuclassic::sensu_plugin_provider
   } else {
-    $plugin_provider = $::sensu::use_embedded_ruby ? {
+    $plugin_provider = $sensuclassic::use_embedded_ruby ? {
       true    => 'sensu_gem',
       default => 'gem',
     }
   }
 
-  if $plugin_provider =~ /gem/ and $::sensu::gem_install_options {
-    package { $::sensu::sensu_plugin_name :
-      ensure          => $::sensu::sensu_plugin_version,
+  if $plugin_provider =~ /gem/ and $sensuclassic::gem_install_options {
+    package { $sensuclassic::sensu_plugin_name :
+      ensure          => $sensuclassic::sensu_plugin_version,
       provider        => $plugin_provider,
-      install_options => $::sensu::gem_install_options,
+      install_options => $sensuclassic::gem_install_options,
     }
   } else {
-    package { $::sensu::sensu_plugin_name :
-      ensure   => $::sensu::sensu_plugin_version,
+    package { $sensuclassic::sensu_plugin_name :
+      ensure   => $sensuclassic::sensu_plugin_version,
       provider => $plugin_provider,
     }
   }
@@ -225,77 +225,77 @@ class sensu::package (
 
   file { [ $conf_dir, "${conf_dir}/handlers", "${conf_dir}/checks", "${conf_dir}/filters", "${conf_dir}/extensions", "${conf_dir}/mutators", "${conf_dir}/contacts" ]:
     ensure  => directory,
-    owner   => $::sensu::user,
-    group   => $::sensu::group,
-    mode    => $::sensu::dir_mode,
-    purge   => $::sensu::_purge_config,
+    owner   => $sensuclassic::user,
+    group   => $sensuclassic::group,
+    mode    => $sensuclassic::dir_mode,
+    purge   => $sensuclassic::_purge_config,
     recurse => true,
     force   => true,
     require => Package[$pkg_title],
   }
 
-  if $::sensu::manage_handlers_dir {
-    file { "${sensu::etc_dir}/handlers":
+  if $sensuclassic::manage_handlers_dir {
+    file { "${sensuclassic::etc_dir}/handlers":
       ensure  => directory,
-      mode    => $::sensu::dir_mode,
-      owner   => $::sensu::user,
-      group   => $::sensu::group,
-      purge   => $::sensu::_purge_handlers,
+      mode    => $sensuclassic::dir_mode,
+      owner   => $sensuclassic::user,
+      group   => $sensuclassic::group,
+      purge   => $sensuclassic::_purge_handlers,
       recurse => true,
       force   => true,
       require => Package[$pkg_title],
     }
   }
 
-  file { ["${sensu::etc_dir}/extensions", "${sensu::etc_dir}/extensions/handlers"]:
+  file { ["${sensuclassic::etc_dir}/extensions", "${sensuclassic::etc_dir}/extensions/handlers"]:
     ensure  => directory,
-    mode    => $::sensu::dir_mode,
-    owner   => $::sensu::user,
-    group   => $::sensu::group,
-    purge   => $::sensu::_purge_extensions,
+    mode    => $sensuclassic::dir_mode,
+    owner   => $sensuclassic::user,
+    group   => $sensuclassic::group,
+    purge   => $sensuclassic::_purge_extensions,
     recurse => true,
     force   => true,
     require => Package[$pkg_title],
   }
 
-  if $::sensu::manage_mutators_dir {
-    file { "${sensu::etc_dir}/mutators":
+  if $sensuclassic::manage_mutators_dir {
+    file { "${sensuclassic::etc_dir}/mutators":
       ensure  => directory,
-      mode    => $::sensu::dir_mode,
-      owner   => $::sensu::user,
-      group   => $::sensu::group,
-      purge   => $::sensu::_purge_mutators,
+      mode    => $sensuclassic::dir_mode,
+      owner   => $sensuclassic::user,
+      group   => $sensuclassic::group,
+      purge   => $sensuclassic::_purge_mutators,
       recurse => true,
       force   => true,
       require => Package[$pkg_title],
     }
   }
 
-  if $::sensu::_manage_plugins_dir {
-    file { "${sensu::etc_dir}/plugins":
+  if $sensuclassic::_manage_plugins_dir {
+    file { "${sensuclassic::etc_dir}/plugins":
       ensure  => directory,
-      mode    => $::sensu::dir_mode,
-      owner   => $::sensu::user,
-      group   => $::sensu::group,
-      purge   => $::sensu::_purge_plugins,
+      mode    => $sensuclassic::dir_mode,
+      owner   => $sensuclassic::user,
+      group   => $sensuclassic::group,
+      purge   => $sensuclassic::_purge_plugins,
       recurse => true,
       force   => true,
       require => Package[$pkg_title],
     }
   }
 
-  if $::sensu::spawn_limit {
-    $spawn_config = { 'sensu' => { 'spawn' => { 'limit' => $::sensu::spawn_limit } } }
+  if $sensuclassic::spawn_limit {
+    $spawn_config = { 'sensu' => { 'spawn' => { 'limit' => $sensuclassic::spawn_limit } } }
     $spawn_template = '<%= require "json"; JSON.pretty_generate(@spawn_config) + $/ %>'
     $spawn_ensure = 'file'
     $spawn_content = inline_template($spawn_template)
-    if $::sensu::client and $::sensu::manage_services {
+    if $sensuclassic::client and $sensuclassic::manage_services {
       $spawn_notify = [
         Service[$service_name],
-        Class['sensu::server::service'],
+        Class['sensuclassic::server::service'],
       ]
-    } elsif $::sensu::manage_services {
-      $spawn_notify = [ Class['sensu::server::service'] ]
+    } elsif $sensuclassic::manage_services {
+      $spawn_notify = [ Class['sensuclassic::server::service'] ]
     } else {
       $spawn_notify = undef
     }
@@ -305,33 +305,33 @@ class sensu::package (
     $spawn_notify = undef
   }
 
-  file { "${sensu::etc_dir}/conf.d/spawn.json":
+  file { "${sensuclassic::etc_dir}/conf.d/spawn.json":
     ensure  => $spawn_ensure,
     content => $spawn_content,
-    mode    => $::sensu::dir_mode,
-    owner   => $::sensu::user,
-    group   => $::sensu::group,
+    mode    => $sensuclassic::dir_mode,
+    owner   => $sensuclassic::user,
+    group   => $sensuclassic::group,
     require => Package[$pkg_title],
     notify  => $spawn_notify,
   }
 
-  if $::sensu::manage_user and $::osfamily != 'windows' {
-    user { $::sensu::user:
+  if $sensuclassic::manage_user and $::osfamily != 'windows' {
+    user { $sensuclassic::user:
       ensure  => 'present',
       system  => true,
-      home    => $::sensu::home_dir,
-      shell   => $::sensu::shell,
-      require => Group[$::sensu::group],
+      home    => $sensuclassic::home_dir,
+      shell   => $sensuclassic::shell,
+      require => Group[$sensuclassic::group],
       comment => 'Sensu Monitoring Framework',
     }
 
-    group { $::sensu::group:
+    group { $sensuclassic::group:
       ensure => 'present',
       system => true,
     }
-  } elsif $::sensu::manage_user and $::osfamily == 'windows' {
+  } elsif $sensuclassic::manage_user and $::osfamily == 'windows' {
     notice('Managing a local windows user is not implemented on windows')
   }
 
-  file { "${sensu::etc_dir}/config.json": ensure => absent }
+  file { "${sensuclassic::etc_dir}/config.json": ensure => absent }
 }

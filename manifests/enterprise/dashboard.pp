@@ -1,27 +1,27 @@
 # @summary Installs the Sensu Enterprise Dashboard
 #
 # Installs the Sensu Enterprise Dashboard
-class sensu::enterprise::dashboard (
-  Boolean $hasrestart = $::sensu::hasrestart,
+class sensuclassic::enterprise::dashboard (
+  Boolean $hasrestart = $sensuclassic::hasrestart,
 ) {
 
   # Package
-  if $::sensu::enterprise_dashboard {
+  if $sensuclassic::enterprise_dashboard {
     package { 'sensu-enterprise-dashboard':
-      ensure => $::sensu::enterprise_dashboard_version,
+      ensure => $sensuclassic::enterprise_dashboard_version,
     }
   }
 
   # Config
-  if $::sensu::enterprise_dashboard {
+  if $sensuclassic::enterprise_dashboard {
     $ensure = 'present'
-  } elsif $::sensu::purge =~ Hash {
-    if $::sensu::purge['config'] {
+  } elsif $sensuclassic::purge =~ Hash {
+    if $sensuclassic::purge['config'] {
       $ensure = 'absent'
     } else {
       $ensure = undef
     }
-  } elsif $::sensu::purge {
+  } elsif $sensuclassic::purge {
     $ensure = 'absent'
   } else {
     $ensure = undef
@@ -34,8 +34,8 @@ class sensu::enterprise::dashboard (
       $file_ensure = $ensure
     }
 
-    $file_notify = $::sensu::manage_services ? {
-      true  => $::sensu::enterprise_dashboard ? {
+    $file_notify = $sensuclassic::manage_services ? {
+      true  => $sensuclassic::enterprise_dashboard ? {
         true => $::osfamily ? {
           'windows' => undef,
           default   => Service['sensu-enterprise-dashboard'],
@@ -45,7 +45,7 @@ class sensu::enterprise::dashboard (
       false => undef,
     }
 
-    file { "${sensu::etc_dir}/dashboard.json":
+    file { "${sensuclassic::etc_dir}/dashboard.json":
       ensure => $file_ensure,
       owner  => 'sensu',
       group  => 'sensu',
@@ -55,20 +55,20 @@ class sensu::enterprise::dashboard (
 
     sensu_enterprise_dashboard_config { $::fqdn:
       ensure    => $ensure,
-      base_path => $::sensu::enterprise_dashboard_base_path,
-      host      => $::sensu::enterprise_dashboard_host,
-      port      => $::sensu::enterprise_dashboard_port,
-      refresh   => $::sensu::enterprise_dashboard_refresh,
-      user      => $::sensu::enterprise_dashboard_user,
-      pass      => $::sensu::enterprise_dashboard_pass,
-      auth      => $::sensu::enterprise_dashboard_auth,
-      ssl       => $::sensu::enterprise_dashboard_ssl,
-      audit     => $::sensu::enterprise_dashboard_audit,
-      github    => $::sensu::enterprise_dashboard_github,
-      gitlab    => $::sensu::enterprise_dashboard_gitlab,
-      ldap      => $::sensu::enterprise_dashboard_ldap,
-      oidc      => $::sensu::enterprise_dashboard_oidc,
-      custom    => $::sensu::enterprise_dashboard_custom,
+      base_path => $sensuclassic::enterprise_dashboard_base_path,
+      host      => $sensuclassic::enterprise_dashboard_host,
+      port      => $sensuclassic::enterprise_dashboard_port,
+      refresh   => $sensuclassic::enterprise_dashboard_refresh,
+      user      => $sensuclassic::enterprise_dashboard_user,
+      pass      => $sensuclassic::enterprise_dashboard_pass,
+      auth      => $sensuclassic::enterprise_dashboard_auth,
+      ssl       => $sensuclassic::enterprise_dashboard_ssl,
+      audit     => $sensuclassic::enterprise_dashboard_audit,
+      github    => $sensuclassic::enterprise_dashboard_github,
+      gitlab    => $sensuclassic::enterprise_dashboard_gitlab,
+      ldap      => $sensuclassic::enterprise_dashboard_ldap,
+      oidc      => $sensuclassic::enterprise_dashboard_oidc,
+      custom    => $sensuclassic::enterprise_dashboard_custom,
       notify    => $file_notify,
     }
 
@@ -84,9 +84,9 @@ class sensu::enterprise::dashboard (
   }
 
   # Service
-  if $::sensu::manage_services and $::sensu::enterprise_dashboard {
+  if $sensuclassic::manage_services and $sensuclassic::enterprise_dashboard {
 
-    $service_ensure = $::sensu::enterprise_dashboard ? {
+    $service_ensure = $sensuclassic::enterprise_dashboard ? {
       true  => 'running',
       false => 'stopped',
     }
@@ -94,11 +94,11 @@ class sensu::enterprise::dashboard (
     if $::osfamily != 'windows' {
       service { 'sensu-enterprise-dashboard':
         ensure     => $service_ensure,
-        enable     => $::sensu::enterprise_dashboard,
+        enable     => $sensuclassic::enterprise_dashboard,
         hasrestart => $hasrestart,
         subscribe  => [
           Package['sensu-enterprise-dashboard'],
-          Class['sensu::redis::config'],
+          Class['sensuclassic::redis::config'],
         ],
       }
     }

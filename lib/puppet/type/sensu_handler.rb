@@ -1,5 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'boolean_property.rb'))
+                                   'puppet_x', 'sensuclassic', 'boolean_property.rb'))
 
 Puppet::Type.newtype(:sensu_handler) do
   @doc = "Manages Sensu handlers"
@@ -103,11 +103,11 @@ Puppet::Type.newtype(:sensu_handler) do
     desc "Handler timeout"
   end
 
-  newproperty(:handle_flapping, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:handle_flapping, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "If events in the flapping state should be handled"
   end
 
-  newproperty(:handle_silenced, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:handle_silenced, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "If events in the silenced state should be handled"
   end
 

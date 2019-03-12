@@ -1,5 +1,5 @@
 module PuppetX
-  module Sensu
+  module Sensuclassic
     module ProviderCreate
       def create
         fail 'pre_create not defined' unless respond_to? :pre_create

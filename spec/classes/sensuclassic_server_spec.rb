@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'sensu' do
-  let(:title) { 'sensu::server' }
+describe 'sensuclassic' do
+  let(:title) { 'sensuclassic::server' }
   let(:facts) do
     {
       :osfamily => 'RedHat',

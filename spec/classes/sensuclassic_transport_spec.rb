@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'json'
 
-describe 'sensu' do
+describe 'sensuclassic' do
   let(:facts) {{
     :fqdn     => 'testhost.example.com',
     :osfamily => 'RedHat',
@@ -10,7 +10,7 @@ describe 'sensu' do
 
   context 'transports' do
     context 'defaults' do
-      it { should create_class('sensu::transport') }
+      it { should create_class('sensuclassic::transport') }
       it 'uses rabbitmq with reconnect on error' do
         should contain_file('/etc/sensu/conf.d/transport.json').with_content(
           JSON.pretty_generate({'transport' => {'name' => 'rabbitmq', 'reconnect_on_error' => true}})
@@ -23,7 +23,7 @@ describe 'sensu' do
         {transport_reconnect_on_error: false}
       end
 
-      it { should create_class('sensu::transport') }
+      it { should create_class('sensuclassic::transport') }
       it { should contain_file('/etc/sensu/conf.d/transport.json').with_content(
         JSON.pretty_generate({'transport' => {'name' => 'rabbitmq', 'reconnect_on_error' => false}})
       )}
@@ -34,7 +34,7 @@ describe 'sensu' do
         :transport_type => 'redis'
       }}
 
-      it { should create_class('sensu::transport') }
+      it { should create_class('sensuclassic::transport') }
       it { should contain_file('/etc/sensu/conf.d/transport.json').with_content(
         JSON.pretty_generate({'transport' => {'name' => 'redis', 'reconnect_on_error' => true}})
       )}
@@ -45,7 +45,7 @@ describe 'sensu' do
         :transport_type => 'rabbitmq'
       }}
 
-      it { should create_class('sensu::transport') }
+      it { should create_class('sensuclassic::transport') }
       it { should contain_file('/etc/sensu/conf.d/transport.json').with_content(
         JSON.pretty_generate({'transport' => {'name' => 'rabbitmq', 'reconnect_on_error' => true}})
       )}

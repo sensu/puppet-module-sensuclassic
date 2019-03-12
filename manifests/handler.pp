@@ -1,4 +1,4 @@
-# @summary sensu::handler
+# @summary sensuclassic::handler
 #
 # Defines Sensu handlers
 #
@@ -41,29 +41,29 @@
 # @param subdue The handle subdue.
 #   Valid values: Any kind of data which can be added to the handler subdue.
 #
-define sensu::handler(
+define sensuclassic::handler (
   Enum['present','absent'] $ensure = 'present',
   Enum['pipe','tcp','udp','amqp','set','transport'] $type = 'pipe',
-  Optional[String] $command        = undef,
-  Optional[Array] $handlers        = undef,
-  Array $severities      = ['ok', 'warning', 'critical', 'unknown'],
-  Optional[Hash] $exchange         = undef,
-  Optional[Hash] $pipe             = undef,
-  Any $mutator                     = undef,
-  Optional[Hash] $socket           = undef,
-  Array $filters                   = [],
+  Optional[String] $command = undef,
+  Optional[Array] $handlers = undef,
+  Array $severities = ['ok', 'warning', 'critical', 'unknown'],
+  Optional[Hash] $exchange = undef,
+  Optional[Hash] $pipe = undef,
+  Any $mutator = undef,
+  Optional[Hash] $socket = undef,
+  Array $filters = [],
   # Used to install the handler
   Optional[Pattern[/^puppet:\/\//]] $source = undef,
-  String $install_path             = $::osfamily ? {
+  String $install_path = $::osfamily ? {
     'windows' => 'C:/opt/sensu/handlers',
     default   => '/etc/sensu/handlers',
   },
   # Handler specific config
-  Optional[Hash] $config           = undef,
-  Any $subdue                      = undef,
-  Optional[Integer] $timeout       = undef,
-  Boolean $handle_flapping         = false,
-  Boolean $handle_silenced         = false,
+  Optional[Hash] $config = undef,
+  Any $subdue = undef,
+  Optional[Integer] $timeout = undef,
+  Boolean $handle_flapping = false,
+  Boolean $handle_silenced = false,
 ) {
 
   if $subdue{ fail('Subdue at handler is deprecated since sensu 0.26. See https://sensuapp.org/docs/0.26/overview/changelog.html#core-v0-26-0')}
@@ -88,8 +88,8 @@ define sensu::handler(
     fail('handlers must be set with type set')
   }
 
-  if $::sensu::server {
-    $notify_services = Class['sensu::server::service']
+  if $sensuclassic::server {
+    $notify_services = Class['sensuclassic::server::service']
   } else {
     $notify_services = []
   }
@@ -104,9 +104,9 @@ define sensu::handler(
 
     ensure_resource('file', $handler, {
       ensure => $file_ensure,
-      owner  => $::sensu::user,
-      group  => $::sensu::group,
-      mode   => $::sensu::dir_mode,
+      owner  => $sensuclassic::user,
+      group  => $sensuclassic::group,
+      mode   => $sensuclassic::dir_mode,
       source => $source,
     })
 
@@ -119,17 +119,17 @@ define sensu::handler(
   }
 
   # handler configuration may contain "secrets"
-  file { "${::sensu::conf_dir}/handlers/${name}.json":
+  file { "${sensuclassic::conf_dir}/handlers/${name}.json":
     ensure => $file_ensure,
-    owner  => $::sensu::user,
-    group  => $::sensu::group,
-    mode   => $::sensu::file_mode,
+    owner  => $sensuclassic::user,
+    group  => $sensuclassic::group,
+    mode   => $sensuclassic::file_mode,
     before => Sensu_handler[$name],
   }
 
   sensu_handler { $name:
     ensure          => $ensure,
-    base_path       => "${::sensu::conf_dir}/handlers",
+    base_path       => "${sensuclassic::conf_dir}/handlers",
     type            => $type,
     command         => $command_real,
     handlers        => $handlers,
@@ -144,6 +144,6 @@ define sensu::handler(
     handle_flapping => $handle_flapping,
     handle_silenced => $handle_silenced,
     notify          => $notify_services,
-    require         => File["${::sensu::conf_dir}/handlers"],
+    require         => File["${sensuclassic::conf_dir}/handlers"],
   }
 }

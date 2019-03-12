@@ -137,7 +137,7 @@ Puppet::Type.newtype(:sensu_enterprise_dashboard_config) do
 
   newproperty(:custom) do
     desc "Custom config variables"
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     def is_to_s(hash = @is)
       hash.keys.sort.map {|key| "#{key} => #{hash[key]}"}.join(", ")

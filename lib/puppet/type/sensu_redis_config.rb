@@ -1,6 +1,6 @@
 require 'set'
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'boolean_property.rb'))
+                                   'puppet_x', 'sensuclassic', 'boolean_property.rb'))
 
 Puppet::Type.newtype(:sensu_redis_config) do
   @doc = "Manages Sensu Redis config"
@@ -91,7 +91,7 @@ Puppet::Type.newtype(:sensu_redis_config) do
     end
   end
 
-  newproperty(:reconnect_on_error, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:reconnect_on_error, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Attempt to reconnect to RabbitMQ on error"
     defaultto :true
   end

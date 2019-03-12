@@ -2,22 +2,22 @@
 #
 # This define manages Sensu check configurations.
 #
-# @param ensure Whether the check should be present or not
-#   Valid values: present, absent
+# @param ensure Whether the check should be present or not Valid values:
+#   present, absent
 #
 # @param config Check configuration for the client to use
 #
 # @param event Configuration to send with the event to handlers
 #
-define sensu::config (
+define sensuclassic::config (
   Enum['present','absent'] $ensure = 'present',
   Optional[Hash] $config = undef,
   Optional[Hash] $event  = undef,
 ) {
 
-  include ::sensu
+  include sensuclassic
 
-  file { "${::sensu::conf_dir}/checks/config_${name}.json":
+  file { "${sensuclassic::conf_dir}/checks/config_${name}.json":
     ensure => $ensure,
     owner  => 'sensu',
     group  => 'sensu',
@@ -29,6 +29,6 @@ define sensu::config (
     ensure => $ensure,
     config => $config,
     event  => $event,
-    notify => $::sensu::client_service,
+    notify => $sensuclassic::client_service,
   }
 }

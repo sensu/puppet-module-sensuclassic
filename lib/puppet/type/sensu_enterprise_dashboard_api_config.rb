@@ -1,5 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'boolean_property.rb'))
+                                   'puppet_x', 'sensuclassic', 'boolean_property.rb'))
 
 Puppet::Type.newtype(:sensu_enterprise_dashboard_api_config) do
   @doc = "Manages Sensu Enterprise Dashboard API config"
@@ -50,13 +50,13 @@ Puppet::Type.newtype(:sensu_enterprise_dashboard_api_config) do
     defaultto '4567'
   end
 
-  newproperty(:ssl, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:ssl, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Determines whether or not to use the HTTPS protocol."
 
     defaultto :false
   end
 
-  newproperty(:insecure, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:insecure, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Determines whether or not to accept an insecure SSL certificate."
 
     defaultto :false

@@ -13,7 +13,7 @@
 #   Set this to 'absent' to remove it completely.
 #
 # @param contacts Array of Strings. Contacts to use for the contact-routing
-#   Sensu Enterprise feature.  This value corresponds with a sensu::contact
+#   Sensu Enterprise feature. This value corresponds with a sensuclassic::contact
 #   resource having the same name.
 #
 # @param standalone When true, scheduled by the client. When false, listen for
@@ -21,7 +21,7 @@
 #
 # @param cron When the check should be executed, using the [Cron
 #   syntax](https://en.wikipedia.org/wiki/Cron#CRON_expression). Supersedes the
-#   `interval` parameter.  Example: `"0 0 * * *"`.
+#   `interval` parameter. Example: `"0 0 * * *"`.
 #
 # @param interval How frequently (in seconds) the check will be executed.
 #   Set this to 'absent' to remove it completely.
@@ -71,7 +71,7 @@
 #   Set this to 'absent' to remove it completely.
 #
 # @param content Mapping of arbitrary attributes from the top-level of the target
-#   configuration JSON map.  This parameter is intended to configure plugins and
+#   configuration JSON map. This parameter is intended to configure plugins and
 #   extensions which look up values outside of the check configuration scope.
 #   Example: { "mailer" => { "mail_from" => "sensu@example.com", "mail_to" => "monitor@example.com" } }
 #
@@ -92,64 +92,64 @@
 #   Set this to 'absent' to remove it completely.
 #
 # @param proxy_requests Manages [Proxy Check Requests](https://sensuapp.org/docs/latest/reference/checks.html#proxy-requests-attributes)
-#   Since Sensu 0.28.0.  Publishes a check request to every Sensu client which
-#   matches the defined client attributes.  See the documentation for the format
+#   Since Sensu 0.28.0. Publishes a check request to every Sensu client which
+#   matches the defined client attributes. See the documentation for the format
 #   of the Hash value.
 #
 # @param hooks Manages
 # [Hooks](https://sensuapp.org/docs/latest/reference/checks.html#hooks-attributes)
-#   Since Sensu 1.1.0.  Manages hooks for a check. See the documentation for the format
+#   Since Sensu 1.1.0. Manages hooks for a check. See the documentation for the format
 #   of the Hash value.
 #
-define sensu::check (
-  Optional[String]                      $command = undef,
-  Enum['present','absent']              $ensure = 'present',
-  Optional[String]                      $type = undef,
-  Variant[Undef,String,Array]           $handlers = undef,
-  Variant[Undef,String,Array]           $contacts = undef,
-  Variant[Boolean,Enum['absent']]       $standalone = true,
-  String                                $cron = 'absent',
-  Variant[Integer,Enum['absent']]       $interval = 60,
+define sensuclassic::check (
+  Optional[String] $command = undef,
+  Enum['present','absent'] $ensure = 'present',
+  Optional[String] $type = undef,
+  Variant[Undef,String,Array] $handlers = undef,
+  Variant[Undef,String,Array] $contacts = undef,
+  Variant[Boolean,Enum['absent']] $standalone = true,
+  String $cron = 'absent',
+  Variant[Integer,Enum['absent']] $interval = 60,
   Variant[Undef,Pattern[/^(\d+)$/],Integer,Enum['absent']] $occurrences = undef,
   Variant[Undef,Enum['absent'],Integer] $refresh = undef,
-  Variant[Undef,String,Integer]         $source = undef,
-  Variant[Undef,String,Array]           $subscribers = undef,
+  Variant[Undef,String,Integer] $source = undef,
+  Variant[Undef,String,Array] $subscribers = undef,
   Variant[Undef,Enum['absent'],Integer] $low_flap_threshold = undef,
   Variant[Undef,Enum['absent'],Integer] $high_flap_threshold = undef,
   Variant[Undef,Enum['absent'],Numeric] $timeout = undef,
-  Optional[String]                      $aggregate = undef,
-  Variant[Undef,String,Array]           $aggregates = undef,
+  Optional[String] $aggregate = undef,
+  Variant[Undef,String,Array] $aggregates = undef,
   Variant[Undef,Enum['absent'],Boolean] $handle = undef,
   Variant[Undef,Enum['absent'],Boolean] $publish = undef,
-  Variant[Undef,String,Array]           $dependencies = undef,
-  Optional[Hash]                        $custom = undef,
-  Hash                                  $content = {},
+  Variant[Undef,String,Array] $dependencies = undef,
+  Optional[Hash] $custom = undef,
+  Hash $content = {},
   Variant[Undef,Enum['absent'],Integer] $ttl = undef,
   Variant[Undef,Enum['absent'],Integer,Pattern[/^(\d+)+$/]] $ttl_status = undef,
   Variant[Undef,Enum['absent'],Boolean] $auto_resolve = undef,
-  Variant[Undef,Enum['absent'],Hash]    $subdue = undef,
-  Variant[Undef,Enum['absent'],Hash]    $proxy_requests = undef,
-  Variant[Undef,Enum['absent'],Hash]    $hooks = undef,
+  Variant[Undef,Enum['absent'],Hash] $subdue = undef,
+  Variant[Undef,Enum['absent'],Hash] $proxy_requests = undef,
+  Variant[Undef,Enum['absent'],Hash] $hooks = undef,
 ) {
 
-  include ::sensu
+  include sensuclassic
 
   if $ensure == 'present' and !$command {
-    fail("sensu::check{${name}}: a command must be given when ensure is present")
+    fail("sensuclassic::check{${name}}: a command must be given when ensure is present")
   }
 
   if $subdue =~ Hash {
     if !( has_key($subdue, 'days') and $subdue['days'] =~ Hash ){
-      fail("sensu::check{${name}}: subdue hash should have a proper format. (got: ${subdue}) See https://sensuapp.org/docs/latest/reference/checks.html#subdue-attributes")
+      fail("sensuclassic::check{${name}}: subdue hash should have a proper format. (got: ${subdue}) See https://sensuapp.org/docs/latest/reference/checks.html#subdue-attributes")
     }
   }
   if $proxy_requests {
     if $proxy_requests =~ Hash {
       if !( has_key($proxy_requests, 'client_attributes') ) {
-        fail("sensu::check{${name}}: proxy_requests hash should have a proper format.  (got: ${proxy_requests})  See https://sensuapp.org/docs/latest/reference/checks.html#proxy-requests-attributes")
+        fail("sensuclassic::check{${name}}: proxy_requests hash should have a proper format. (got: ${proxy_requests})  See https://sensuapp.org/docs/latest/reference/checks.html#proxy-requests-attributes")
       }
     } elsif !($proxy_requests == 'absent') {
-      fail("sensu::check{${name}}: proxy_requests must be a hash or 'absent' (got: ${proxy_requests})")
+      fail("sensuclassic::check{${name}}: proxy_requests must be a hash or 'absent' (got: ${proxy_requests})")
     }
   }
 
@@ -188,7 +188,7 @@ define sensu::check (
     default:  { $dependencies_array = $dependencies }
   }
 
-  # (#463) All plugins must come before all checks.  Collections are not used to
+  # (#463) All plugins must come before all checks. Collections are not used to
   # avoid realizing any resources.
   Anchor['plugins_before_checks']
   ~> Sensu::Check[$name]
@@ -258,16 +258,16 @@ define sensu::check (
     $checks_scope = { 'checks' => $content['checks'] + $checks_scope_start }
   }
 
-  # The final structure from the top level.  Check configuration scope is merged
+  # The final structure from the top level. Check configuration scope is merged
   # on top of any arbitrary plugin and extension configuration in $content.
   $content_real = $content + $checks_scope
 
-  sensu::write_json { "${::sensu::conf_dir}/checks/${check_name}.json":
+  sensuclassic::write_json { "${sensuclassic::conf_dir}/checks/${check_name}.json":
     ensure      => $ensure,
     content     => $content_real,
-    owner       => $::sensu::user,
-    group       => $::sensu::group,
-    mode        => $::sensu::config_file_mode,
-    notify_list => $::sensu::check_notify,
+    owner       => $sensuclassic::user,
+    group       => $sensuclassic::group,
+    mode        => $sensuclassic::config_file_mode,
+    notify_list => $sensuclassic::check_notify,
   }
 }

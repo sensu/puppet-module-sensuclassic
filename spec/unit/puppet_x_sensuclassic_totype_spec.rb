@@ -1,13 +1,13 @@
 require 'spec_helper'
 begin
-  require 'puppet_x/sensu/to_type'
+  require 'puppet_x/sensuclassic/to_type'
 rescue LoadError => e
   libdir = Pathname.new(__FILE__).parent.parent.parent
-  require File.join(libdir, 'puppet_x/sensu/to_type')
+  require File.join(libdir, 'puppet_x/sensuclassic/to_type')
 end
 
 class TotypeFixtureClass
-  include PuppetX::Sensu::ToType
+  include PuppetX::Sensuclassic::ToType
 end
 
 describe TotypeFixtureClass do

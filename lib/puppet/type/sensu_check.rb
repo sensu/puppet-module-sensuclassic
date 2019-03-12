@@ -1,7 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'boolean_property.rb'))
+                                   'puppet_x', 'sensuclassic', 'boolean_property.rb'))
 require File.expand_path(File.join(File.dirname(__FILE__), '..', '..',
-                                   'puppet_x', 'sensu', 'to_type.rb'))
+                                   'puppet_x', 'sensuclassic', 'to_type.rb'))
 
 Puppet::Type.newtype(:sensu_check) do
   @doc = "Manages Sensu checks"
@@ -147,7 +147,7 @@ Puppet::Type.newtype(:sensu_check) do
 
   newproperty(:custom) do
     desc "Custom check variables"
-    include PuppetX::Sensu::ToType
+    include PuppetX::Sensuclassic::ToType
 
     def is_to_s(hash = @is)
       hash.keys.sort.map {|key| "#{key} => #{hash[key]}"}.join(", ")
@@ -177,7 +177,7 @@ Puppet::Type.newtype(:sensu_check) do
     newvalues(/.*/, :absent)
   end
 
-  newproperty(:standalone, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:standalone, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Whether this is a standalone check"
     newvalues(/.*/, :absent)
   end
@@ -217,12 +217,12 @@ Puppet::Type.newtype(:sensu_check) do
     end
   end
 
-  newproperty(:handle, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:handle, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Whether check event send to a handler"
     newvalues(/.*/, :absent)
   end
 
-  newproperty(:publish, :parent => PuppetX::Sensu::BooleanProperty) do
+  newproperty(:publish, :parent => PuppetX::Sensuclassic::BooleanProperty) do
     desc "Whether check is unpublished"
     newvalues(/.*/, :absent)
   end

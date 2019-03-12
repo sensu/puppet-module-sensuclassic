@@ -2,11 +2,11 @@
 #
 # Adds the Sensu YUM repo support
 #
-class sensu::repo::yum {
+class sensuclassic::repo::yum {
 
-  if $::sensu::install_repo  {
-    if $::sensu::repo_source {
-      $url = $::sensu::repo_source
+  if $sensuclassic::install_repo  {
+    if $sensuclassic::repo_source {
+      $url = $sensuclassic::repo_source
     } else {
       if $::operatingsystem == 'Amazon' {
         if $facts['os']['release']['major'] =~ /^201\d$/ {
@@ -17,7 +17,7 @@ class sensu::repo::yum {
       } else {
         $releasever = '$releasever'
       }
-      $url = $::sensu::repo ? {
+      $url = $sensuclassic::repo ? {
         'unstable'  => "https://sensu.global.ssl.fastly.net/yum-unstable/${releasever}/\$basearch/",
         default     => "https://sensu.global.ssl.fastly.net/yum/${releasever}/\$basearch/"
       }
@@ -29,14 +29,14 @@ class sensu::repo::yum {
       gpgcheck => 0,
       name     => 'sensu',
       descr    => 'sensu',
-      before   => Package[$sensu::package::pkg_title],
+      before   => Package[$sensuclassic::package::pkg_title],
     }
 
     # prep for Enterprise repos
-    $se_user = $::sensu::enterprise_user
-    $se_pass = $::sensu::enterprise_pass
+    $se_user = $sensuclassic::enterprise_user
+    $se_pass = $sensuclassic::enterprise_pass
 
-    if $::sensu::enterprise {
+    if $sensuclassic::enterprise {
       $se_url  = "http://${se_user}:${se_pass}@enterprise.sensuapp.com/yum/noarch/"
 
       yumrepo { 'sensu-enterprise':
@@ -49,7 +49,7 @@ class sensu::repo::yum {
       }
     }
 
-    if $::sensu::enterprise_dashboard {
+    if $sensuclassic::enterprise_dashboard {
       $dashboard_url = "http://${se_user}:${se_pass}@enterprise.sensuapp.com/yum/\$basearch/"
 
       yumrepo { 'sensu-enterprise-dashboard':
