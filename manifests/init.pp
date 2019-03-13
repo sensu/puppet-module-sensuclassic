@@ -248,7 +248,7 @@
 # @param init_stop_max_wait Number of seconds to wait for the init stop script to run
 #
 # @param gem_install_options Optional configuration to use for the installation of the
-#   sensu plugin gem with sensu_gem provider.
+#   sensu plugin gem with sensuclassic_gem provider.
 #   See: https://docs.puppetlabs.com/references/latest/type.html#package-attribute-install_options
 #   Example value: [{ '-p' => 'http://user:pass@myproxy.company.org:8080' }]
 #
@@ -685,19 +685,19 @@ class sensuclassic (
   Class['sensuclassic::package']
   -> Class['sensuclassic::transport']
   -> Class['sensuclassic::rabbitmq::config']
-  -> Sensu_api_config[$::fqdn]
+  -> Sensuclassic_api_config[$::fqdn]
   -> Class['sensuclassic::redis::config']
-  -> Sensu_client_config[$::fqdn]
+  -> Sensuclassic_client_config[$::fqdn]
   -> Class['sensuclassic::server::service']
   -> Class['sensuclassic::enterprise::dashboard']
 
   # Dependencies for Plugins #
-  # Without this line, plugins installed with the sensu_gem provider may get
+  # Without this line, plugins installed with the sensuclassic_gem provider may get
   # evaluated before the sensu package, which, on sensu package upgrades that
   # install a new version of Ruby, would mean that two runs of Puppet would be
   # necessary to get the plugins installed into the new embedded Ruby folder.
   Package['sensu']
-  ~> Package<| provider == 'sensu_gem' |>
+  ~> Package<| provider == 'sensuclassic_gem' |>
   ~> Service<| title == 'sensu-client' or title == 'sensu-server' or title == 'sensu-api'|>
 
   if $plugins_dir {

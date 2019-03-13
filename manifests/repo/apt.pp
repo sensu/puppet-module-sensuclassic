@@ -56,7 +56,7 @@ class sensuclassic::repo::apt {
         'id'      => $sensuclassic::enterprise_repo_key_id,
         # TODO: this is not ideal, but the apt module doesn't currently support
         # HTTP auth for the source URI
-        'content' => template('sensu/pubkey.gpg'),
+        'content' => template('sensuclassic/pubkey.gpg'),
       }
 
       apt::source { 'sensu-enterprise':

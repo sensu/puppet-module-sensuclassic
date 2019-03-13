@@ -62,7 +62,7 @@ describe 'sensuclassic', :type => :class do
 
   context 'rabbitmq config' do
     context 'no ssl (default)' do
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :ssl_transport   => nil,
         :ssl_cert_chain  => nil,
         :ssl_private_key => nil
@@ -84,7 +84,7 @@ describe 'sensuclassic', :type => :class do
       it { should_not contain_file('/etc/sensu/ssl/cert.pem') }
       it { should_not contain_file('/etc/sensu/ssl/key.pem') }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :port            => '1234',
         :host            => 'myhost',
         :user            => 'sensuuser',
@@ -101,7 +101,7 @@ describe 'sensuclassic', :type => :class do
         :rabbitmq_ssl => true,
       } }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :ssl_transport  => true
       ) }
     end # when using SSL transport
@@ -126,7 +126,7 @@ describe 'sensuclassic', :type => :class do
         })
       }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :port            => '1234',
         :host            => 'myhost',
         :user            => 'sensuuser',
@@ -157,7 +157,7 @@ describe 'sensuclassic', :type => :class do
         })
       }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :port            => '1234',
         :host            => 'myhost',
         :user            => 'sensuuser',
@@ -178,7 +178,7 @@ describe 'sensuclassic', :type => :class do
       it { should_not contain_file('/etc/sensu/ssl/cert.pem') }
       it { should_not contain_file('/etc/sensu/ssl/key.pem') }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :ssl_transport   => nil,
         :ssl_cert_chain  => '',
         :ssl_private_key => '',
@@ -223,42 +223,42 @@ describe 'sensuclassic', :type => :class do
           :show_diff  => 'false',
         })
       }
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with_cluster(cluster_config) }
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with_cluster(cluster_config) }
 
       context 'with rabbitmq_* class parameters also specified (#598)' do
         describe 'sensuclassic::rabbitmq_port' do
           let(:params_override) { { rabbitmq_port: 6379 } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_port }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_port }
         end
 
         describe 'sensuclassic::rabbitmq_host' do
           let(:params_override) { { rabbitmq_host: 'rabbitmq.example.com' } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_host }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_host }
         end
 
         describe 'sensuclassic::rabbitmq_user' do
           let(:params_override) { { rabbitmq_user: 'sensu-ignored' } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_user }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_user }
         end
 
         describe 'sensuclassic::rabbitmq_password' do
           let(:params_override) { { rabbitmq_password: 'ignored-secret' } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_password }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_password }
         end
 
         describe 'sensuclassic::rabbitmq_vhost' do
           let(:params_override) { { rabbitmq_vhost: '/sensu-ignored' } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_vhost }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_vhost }
         end
 
         describe 'sensuclassic::rabbitmq_heartbeat' do
           let(:params_override) { { rabbitmq_heartbeat: 30 } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_heartbeat }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_heartbeat }
         end
 
         describe 'sensuclassic::rabbitmq_prefetch' do
           let(:params_override) { { rabbitmq_prefetch: 1 } }
-          it { is_expected.to contain_sensu_rabbitmq_config(facts[:fqdn]).without_prefetch }
+          it { is_expected.to contain_sensuclassic_rabbitmq_config(facts[:fqdn]).without_prefetch }
         end
       end
     end
@@ -269,7 +269,7 @@ describe 'sensuclassic', :type => :class do
         :rabbitmq_prefetch => '10'
       } }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :host => 'myhost',
         :prefetch  => '10'
       ) }
@@ -281,7 +281,7 @@ describe 'sensuclassic', :type => :class do
         :rabbitmq_heartbeat => '10'
       } }
 
-      it { should contain_sensu_rabbitmq_config('hostname.domain.com').with(
+      it { should contain_sensuclassic_rabbitmq_config('hostname.domain.com').with(
         :host => 'myhost',
         :heartbeat  => '10'
       ) }

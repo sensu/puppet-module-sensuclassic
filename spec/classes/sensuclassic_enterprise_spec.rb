@@ -26,7 +26,7 @@ describe 'sensuclassic', :type => :class do
             :baseurl => 'http://sensu:sensu@enterprise.sensuapp.com/yum/noarch/'
           ) }
           it { should contain_service('sensu-enterprise').that_subscribes_to('File[/etc/default/sensu-enterprise]') }
-          it { should contain_service('sensu-enterprise').that_subscribes_to('Sensu_api_config[testhost.domain.com]') }
+          it { should contain_service('sensu-enterprise').that_subscribes_to('Sensuclassic_api_config[testhost.domain.com]') }
           it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::redis::config]') }
           it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::rabbitmq::config]') }
           it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::package]') }
@@ -155,9 +155,9 @@ describe 'sensuclassic', :type => :class do
             it { should contain_service('sensu-enterprise-dashboard') }
             it { should contain_package('sensu-enterprise-dashboard') }
             it { should contain_file('/etc/sensu/dashboard.json') }
-            it { should contain_sensu_enterprise_dashboard_config('testhost.domain.com') }
-            it { should contain_sensu_enterprise_dashboard_api_config('api1.example.com').with_ensure('absent') }
-            it { should contain_sensu_enterprise_dashboard_api_config('api2.example.com').with_ensure('absent') }
+            it { should contain_sensuclassic_enterprise_dashboard_config('testhost.domain.com') }
+            it { should contain_sensuclassic_enterprise_dashboard_api_config('api1.example.com').with_ensure('absent') }
+            it { should contain_sensuclassic_enterprise_dashboard_api_config('api2.example.com').with_ensure('absent') }
           end
 
           context 'with enterprise_dashboard_version => 1.3.1-1' do
@@ -178,9 +178,9 @@ describe 'sensuclassic', :type => :class do
               'ensure' => '1.3.1-1'
             }) }
             it { should contain_file('/etc/sensu/dashboard.json') }
-            it { should contain_sensu_enterprise_dashboard_config('testhost.domain.com') }
-            it { should contain_sensu_enterprise_dashboard_api_config('api1.example.com').with_ensure('absent') }
-            it { should contain_sensu_enterprise_dashboard_api_config('api2.example.com').with_ensure('absent') }
+            it { should contain_sensuclassic_enterprise_dashboard_config('testhost.domain.com') }
+            it { should contain_sensuclassic_enterprise_dashboard_api_config('api1.example.com').with_ensure('absent') }
+            it { should contain_sensuclassic_enterprise_dashboard_api_config('api2.example.com').with_ensure('absent') }
           end
 
           context 'with enterprise_dashboard_auth defined' do
@@ -191,7 +191,7 @@ describe 'sensuclassic', :type => :class do
               :enterprise_dashboard         => true,
               :enterprise_dashboard_auth    => { 'privatekey' => 'foo', 'publickey' => 'bar' }
             } }
-            it { should contain_sensu_enterprise_dashboard_config('testhost.domain.com').with({
+            it { should contain_sensuclassic_enterprise_dashboard_config('testhost.domain.com').with({
               'auth' => { 'privatekey' => 'foo', 'publickey' => 'bar' }
             }) }
           end
@@ -204,7 +204,7 @@ describe 'sensuclassic', :type => :class do
               :enterprise_dashboard         => true,
               :enterprise_dashboard_oidc    => { 'key' => 'value' }
             } }
-            it { should contain_sensu_enterprise_dashboard_config('testhost.domain.com').with({
+            it { should contain_sensuclassic_enterprise_dashboard_config('testhost.domain.com').with({
               'oidc' => { 'key' => 'value' }
             }) }
           end
@@ -217,7 +217,7 @@ describe 'sensuclassic', :type => :class do
               :enterprise_dashboard         => true,
               :enterprise_dashboard_custom  => { 'key' => 'value' }
             } }
-            it { should contain_sensu_enterprise_dashboard_config('testhost.domain.com').with({
+            it { should contain_sensuclassic_enterprise_dashboard_config('testhost.domain.com').with({
               'custom' => { 'key' => 'value' }
             }) }
           end
@@ -233,7 +233,7 @@ describe 'sensuclassic', :type => :class do
             :rabbitmq_ssl_private_key => '/etc/certificates/private.key'
           } }
 
-          it { should contain_sensu_rabbitmq_config('testhost.domain.com').with(
+          it { should contain_sensuclassic_rabbitmq_config('testhost.domain.com').with(
             'ssl_transport'   => true,
             'ssl_private_key' => '/etc/certificates/private.key'
           ) }

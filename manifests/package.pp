@@ -190,7 +190,7 @@ class sensuclassic::package (
     $plugin_provider = $sensuclassic::sensu_plugin_provider
   } else {
     $plugin_provider = $sensuclassic::use_embedded_ruby ? {
-      true    => 'sensu_gem',
+      true    => 'sensuclassic_gem',
       default => 'gem',
     }
   }

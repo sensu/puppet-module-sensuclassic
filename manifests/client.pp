@@ -109,7 +109,7 @@ class sensuclassic::client (
       provider   => $service_provider,
       subscribe  => [
         Class['sensuclassic::package'],
-        Sensu_client_config[$::fqdn],
+        Sensuclassic_client_config[$::fqdn],
         Class['sensuclassic::rabbitmq::config'],
       ],
     }
@@ -140,7 +140,7 @@ class sensuclassic::client (
     }
   }
 
-  sensu_client_config { $::fqdn:
+  sensuclassic_client_config { $::fqdn:
     ensure         => $file_ensure,
     base_path      => $sensuclassic::conf_dir,
     client_name    => $sensuclassic::client_name,

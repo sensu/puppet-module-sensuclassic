@@ -31,7 +31,7 @@ class sensuclassic::rabbitmq::config {
         group   => $sensuclassic::group,
         mode    => $sensuclassic::file_mode,
         require => File[$ssl_dir],
-        before  => Sensu_rabbitmq_config[$::fqdn],
+        before  => Sensuclassic_rabbitmq_config[$::fqdn],
       }
 
       $ssl_cert_chain = "${ssl_dir}/cert.pem"
@@ -45,7 +45,7 @@ class sensuclassic::rabbitmq::config {
         group   => $sensuclassic::group,
         mode    => $sensuclassic::file_mode,
         require => File[$ssl_dir],
-        before  => Sensu_rabbitmq_config[$::fqdn],
+        before  => Sensuclassic_rabbitmq_config[$::fqdn],
       }
 
       $ssl_cert_chain = "${ssl_dir}/cert.pem"
@@ -66,7 +66,7 @@ class sensuclassic::rabbitmq::config {
         mode      => $sensuclassic::file_mode,
         show_diff => false,
         require   => File[$ssl_dir],
-        before    => Sensu_rabbitmq_config[$::fqdn],
+        before    => Sensuclassic_rabbitmq_config[$::fqdn],
       }
 
       $ssl_private_key = "${ssl_dir}/key.pem"
@@ -81,7 +81,7 @@ class sensuclassic::rabbitmq::config {
         mode      => $sensuclassic::file_mode,
         show_diff => false,
         require   => File[$ssl_dir],
-        before    => Sensu_rabbitmq_config[$::fqdn],
+        before    => Sensuclassic_rabbitmq_config[$::fqdn],
       }
 
       $ssl_private_key = "${ssl_dir}/key.pem"
@@ -106,7 +106,7 @@ class sensuclassic::rabbitmq::config {
     owner  => $sensuclassic::user,
     group  => $sensuclassic::group,
     mode   => $sensuclassic::file_mode,
-    before => Sensu_rabbitmq_config[$::fqdn],
+    before => Sensuclassic_rabbitmq_config[$::fqdn],
   }
 
   $has_cluster = !($sensuclassic::rabbitmq_cluster == undef or $sensuclassic::rabbitmq_cluster == [])
@@ -123,7 +123,7 @@ class sensuclassic::rabbitmq::config {
   $cluster = $has_cluster ? { true => $sensuclassic::rabbitmq_cluster, false => undef, }
   $heartbeat = $has_cluster ? { false => $sensuclassic::rabbitmq_heartbeat, true => undef, }
 
-  sensu_rabbitmq_config { $::fqdn:
+  sensuclassic_rabbitmq_config { $::fqdn:
     ensure          => $ensure,
     base_path       => $base_path,
     port            => $port,

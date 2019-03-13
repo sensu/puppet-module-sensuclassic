@@ -10,7 +10,7 @@
 # @param ensure Whether the check should be present or not.
 #
 # @param base_path Where to place the contact JSON configuration file. Defaults
-#   to `undef` which defers to the behavior of the underlying sensu_contact type.
+#   to `undef` which defers to the behavior of the underlying sensuclassic_contact type.
 #
 # @param config The configuration data for the contact. This is an arbitrary hash to
 #   accommodate the various communication channels. For example, `{ "email": {
@@ -35,10 +35,10 @@ define sensuclassic::contact (
     owner  => $sensuclassic::user,
     group  => $sensuclassic::group,
     mode   => $sensuclassic::config_file_mode,
-    before => Sensu_contact[$name],
+    before => Sensuclassic_contact[$name],
   }
 
-  sensu_contact { $name:
+  sensuclassic_contact { $name:
     ensure    => $ensure,
     config    => $config,
     base_path => $base_path,

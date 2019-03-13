@@ -77,13 +77,13 @@ describe 'sensuclassic' do
 
     describe 'embeded_ruby' do
       context 'with default behavior (GH-688)' do
-        it { should contain_package('sensu-plugin').with(:provider => 'sensu_gem') }
+        it { should contain_package('sensu-plugin').with(:provider => 'sensuclassic_gem') }
       end
 
       context 'with use_embedded_ruby => true' do
         let(:params) { { :use_embedded_ruby => true } }
 
-        it { should contain_package('sensu-plugin').with(:provider => 'sensu_gem') }
+        it { should contain_package('sensu-plugin').with(:provider => 'sensuclassic_gem') }
       end
 
       context 'with use_embedded_ruby => false' do
@@ -463,7 +463,7 @@ describe 'sensuclassic' do
         ) }
         # The MSI provider will keep re-installing the package unless the
         # version is translated into dotted form.  e.g. 'Notice:
-        # /Stage[main]/Sensu::Package/Package[sensu]/ensure: ensure changed
+        # /Stage[main]/Sensuclassic::Package/Package[sensu]/ensure: ensure changed
         # '0.29.0.11' to '0.29.0-11'
         it 'translates 0.29.0-11 to 0.29.0.11' do
           should contain_package('sensu').with(ensure: '0.29.0.11')

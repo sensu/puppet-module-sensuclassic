@@ -23,4 +23,4 @@ fixtures:
       repo: git://github.com/puppetlabs/puppetlabs-powershell.git
       ref: 2.2.0
   symlinks:
-    sensu: "#{source_dir}"
+    sensuclassic: "#{source_dir}"

@@ -47,10 +47,10 @@ define sensuclassic::extension (
     owner  => 'sensu',
     group  => 'sensu',
     mode   => '0444',
-    before => Sensu_extension[$name],
+    before => Sensuclassic_extension[$name],
   }
 
-  sensu_extension { $name:
+  sensuclassic_extension { $name:
     ensure  => $ensure,
     config  => $config,
     notify  => $notify_services,

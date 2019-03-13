@@ -16,7 +16,7 @@ describe 'sensuclassic', :type => :class do
     context 'config' do
       context 'defaults' do
         let(:params) { { :client => true } }
-        it { should contain_sensu_client_config(title).with(
+        it { should contain_sensuclassic_client_config(title).with(
           :ensure        => 'present',
           :client_name   => 'host.domain.com',
           :address       => '2.3.4.5',
@@ -30,9 +30,9 @@ describe 'sensuclassic', :type => :class do
           :puppet        => {},
         ) }
 
-        it { should contain_sensu_client_config(title).without_redact }
-        it { should contain_sensu_client_config(title).without_deregister }
-        it { should contain_sensu_client_config(title).without_deregistration }
+        it { should contain_sensuclassic_client_config(title).without_redact }
+        it { should contain_sensuclassic_client_config(title).without_deregister }
+        it { should contain_sensuclassic_client_config(title).without_deregistration }
       end # defaults
 
       context 'setting config params' do
@@ -66,7 +66,7 @@ describe 'sensuclassic', :type => :class do
             :client_puppet            => { 'nodename' => 'test' },
           } }
 
-          it { should contain_sensu_client_config(title).with( {
+          it { should contain_sensuclassic_client_config(title).with( {
             :ensure        => 'present',
             :client_name   => 'myclient',
             :address       => '1.2.3.4',
@@ -86,12 +86,12 @@ describe 'sensuclassic', :type => :class do
         describe 'deregister' do
           context '=> false' do
             let(:params_override) { {client_deregister: false} }
-            it { is_expected.to contain_sensu_client_config(title).with(deregister: false) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(deregister: false) }
           end
 
           context '=> true' do
             let(:params_override) { {client_deregister: true} }
-            it { is_expected.to contain_sensu_client_config(title).with(deregister: true) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(deregister: true) }
           end
 
           context '=> "garbage"' do
@@ -104,12 +104,12 @@ describe 'sensuclassic', :type => :class do
           let(:params_override) { {client_deregistration: deregistration} }
           context "=> {'handler': 'deregister_client'}" do
             let(:deregistration) { {'handler' => 'deregister_client'} }
-            it { is_expected.to contain_sensu_client_config(title).with(deregistration: deregistration) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(deregistration: deregistration) }
           end
 
           context "=> {}" do
             let(:deregistration) { {} }
-            it { is_expected.to contain_sensu_client_config(title).with(deregistration: deregistration) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(deregistration: deregistration) }
           end
 
           context "=> 'absent' (error)" do
@@ -122,12 +122,12 @@ describe 'sensuclassic', :type => :class do
           let(:params_override) { {client_registration: registration} }
           context "=> {'handler': 'register_client'}" do
             let(:registration) { {'handler' => 'register_client'} }
-            it { is_expected.to contain_sensu_client_config(title).with(registration: registration) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(registration: registration) }
           end
 
           context "=> {}" do
             let(:registration) { {} }
-            it { is_expected.to contain_sensu_client_config(title).with(registration: registration) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(registration: registration) }
           end
 
           context "=> 'absent' (error)" do
@@ -145,19 +145,19 @@ describe 'sensuclassic', :type => :class do
           }
           context "=> {'http_socket' => 'custom hash'}" do
             let(:params_override) { {client_http_socket: http_socket} }
-            it { is_expected.to contain_sensu_client_config(title).with(http_socket: http_socket) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(http_socket: http_socket) }
           end
         end
 
         describe 'socket' do
           context " => {'client_bind' => '0.0.0.0', 'client_port' => 3031}" do
             let(:params_override) { {client_bind: '0.0.0.0', client_port: 3031} }
-            it { is_expected.to contain_sensu_client_config(title).with(socket: {'bind' => '0.0.0.0', 'port' => 3031}) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(socket: {'bind' => '0.0.0.0', 'port' => 3031}) }
           end
 
           context " => {'client_socket_enabled' => false}" do
             let(:params_override) { {client_socket_enabled: false} }
-            it { is_expected.to contain_sensu_client_config(title).with(socket: {'enabled' => false}) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(socket: {'enabled' => false}) }
           end
         end
 
@@ -170,7 +170,7 @@ describe 'sensuclassic', :type => :class do
           }
           context "=> {'servicenow' => 'custom hash'}" do
             let(:params_override) { {client_servicenow: servicenow} }
-            it { is_expected.to contain_sensu_client_config(title).with(servicenow: servicenow) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(servicenow: servicenow) }
           end
         end
 
@@ -185,7 +185,7 @@ describe 'sensuclassic', :type => :class do
           }
           context "=> {'ec2' => 'custom hash'}" do
             let(:params_override) { {client_ec2: ec2} }
-            it { is_expected.to contain_sensu_client_config(title).with(ec2: ec2) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(ec2: ec2) }
           end
         end
 
@@ -205,7 +205,7 @@ describe 'sensuclassic', :type => :class do
           }
           context "=> {'chef' => 'custom hash'}" do
             let(:params_override) { {client_chef: chef} }
-            it { is_expected.to contain_sensu_client_config(title).with(chef: chef) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(chef: chef) }
           end
         end
 
@@ -215,7 +215,7 @@ describe 'sensuclassic', :type => :class do
           }
           context "=> {'puppet' => 'custom hash'}" do
             let(:params_override) { {client_puppet: puppet} }
-            it { is_expected.to contain_sensu_client_config(title).with(puppet: puppet) }
+            it { is_expected.to contain_sensuclassic_client_config(title).with(puppet: puppet) }
           end
         end
       end

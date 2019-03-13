@@ -22,10 +22,10 @@ define sensuclassic::subscription (
     owner  => $sensuclassic::user,
     group  => $sensuclassic::group,
     mode   => $sensuclassic::file_mode,
-    before => Sensu_client_subscription[$name],
+    before => Sensuclassic_client_subscription[$name],
   }
 
-  sensu_client_subscription { $name:
+  sensuclassic_client_subscription { $name:
     ensure    => $ensure,
     base_path => $sensuclassic::conf_dir,
     file_name => "subscription_${sanitized_name}.json",

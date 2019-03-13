@@ -18,10 +18,10 @@ describe 'sensuclassic', :type => :class do
         :owner  => 'sensu',
         :group  => 'sensu',
         :mode   => '0440',
-        :before => 'Sensu_redis_config[testhost.domain.com]',
+        :before => 'Sensuclassic_redis_config[testhost.domain.com]',
       )}
 
-      it { should contain_sensu_redis_config('testhost.domain.com').with(
+      it { should contain_sensuclassic_redis_config('testhost.domain.com').with(
         :ensure             => 'present',
         :base_path          => '/etc/sensu/conf.d',
         :host               => '127.0.0.1',
@@ -38,7 +38,7 @@ describe 'sensuclassic', :type => :class do
       context "with reconnect_on_error specified as #{value}" do
         let(:params) { { :redis_reconnect_on_error => value } }
 
-        it { should contain_sensu_redis_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_redis_config('testhost.domain.com').with(
           :reconnect_on_error => value,
         )}
       end
@@ -53,7 +53,7 @@ describe 'sensuclassic', :type => :class do
         :redis_auto_reconnect => false,
       } }
 
-      it { should contain_sensu_redis_config('testhost.domain.com').with(
+      it { should contain_sensuclassic_redis_config('testhost.domain.com').with(
         :host           => 'redis.domain.com',
         :port           => 1234,
         :password       => 'password',
@@ -79,7 +79,7 @@ describe 'sensuclassic', :type => :class do
         :redis_master         => 'master-name',
       } }
 
-      it { should contain_sensu_redis_config('testhost.domain.com').with(
+      it { should contain_sensuclassic_redis_config('testhost.domain.com').with(
         :host           => nil,
         :port           => nil,
         :password       => 'password',
@@ -104,7 +104,7 @@ describe 'sensuclassic', :type => :class do
           :owner  => 'sensu',
           :group  => 'sensu',
           :mode   => '0440',
-        ).that_comes_before("Sensu_redis_config[#{facts[:fqdn]}]")
+        ).that_comes_before("Sensuclassic_redis_config[#{facts[:fqdn]}]")
       end
     end # with server
 
@@ -116,7 +116,7 @@ describe 'sensuclassic', :type => :class do
           :owner  => 'sensu',
           :group  => 'sensu',
           :mode   => '0440',
-        ).that_comes_before("Sensu_redis_config[#{facts[:fqdn]}]")
+        ).that_comes_before("Sensuclassic_redis_config[#{facts[:fqdn]}]")
       end
     end # with api
 
@@ -137,7 +137,7 @@ describe 'sensuclassic', :type => :class do
       context "with redis_tls specified as #{value}" do
         let(:params) { { :redis_tls => value } }
 
-        it { should contain_sensu_redis_config('testhost.domain.com').with_tls(value) }
+        it { should contain_sensuclassic_redis_config('testhost.domain.com').with_tls(value) }
       end
     end #redis_tls
 

@@ -40,7 +40,7 @@ class sensuclassic::api (
         provider   => $service_provider,
         subscribe  => [
           Class['sensuclassic::package'],
-          Sensu_api_config[$::fqdn],
+          Sensuclassic_api_config[$::fqdn],
           Class['sensuclassic::redis::config'],
           Class['sensuclassic::rabbitmq::config'],
         ],
@@ -61,7 +61,7 @@ class sensuclassic::api (
     mode   => $sensuclassic::file_mode,
   }
 
-  sensu_api_config { $::fqdn:
+  sensuclassic_api_config { $::fqdn:
     ensure                => $file_ensure,
     base_path             => "${sensuclassic::etc_dir}/conf.d",
     bind                  => $sensuclassic::api_bind,

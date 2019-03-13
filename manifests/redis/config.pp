@@ -16,7 +16,7 @@ class sensuclassic::redis::config {
     owner  => $sensuclassic::user,
     group  => $sensuclassic::group,
     mode   => $sensuclassic::file_mode,
-    before => Sensu_redis_config[$::fqdn],
+    before => Sensuclassic_redis_config[$::fqdn],
   }
 
   $has_sentinels = !($sensuclassic::redis_sentinels == undef or $sensuclassic::redis_sentinels == [])
@@ -25,7 +25,7 @@ class sensuclassic::redis::config {
   $sentinels = $has_sentinels ? { true  => $sensuclassic::redis_sentinels, false => undef, }
   $master = $has_sentinels ? { true => $sensuclassic::redis_master, false => undef, }
 
-  sensu_redis_config { $::fqdn:
+  sensuclassic_redis_config { $::fqdn:
     ensure             => $ensure,
     base_path          => "${sensuclassic::etc_dir}/conf.d",
     host               => $host,

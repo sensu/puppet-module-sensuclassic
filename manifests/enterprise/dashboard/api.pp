@@ -42,7 +42,7 @@ define sensuclassic::enterprise::dashboard::api (
 
   include sensuclassic::enterprise::dashboard
 
-  sensu_enterprise_dashboard_api_config { $title:
+  sensuclassic_enterprise_dashboard_api_config { $title:
     ensure     => $ensure,
     base_path  => $base_path,
     datacenter => $datacenter,

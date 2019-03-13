@@ -55,10 +55,10 @@ define sensuclassic::mutator (
     owner  => 'sensu',
     group  => 'sensu',
     mode   => '0440',
-    before => Sensu_mutator[$name],
+    before => Sensuclassic_mutator[$name],
   }
 
-  sensu_mutator { $name:
+  sensuclassic_mutator { $name:
     ensure  => $ensure,
     command => $command,
     timeout => $timeout,

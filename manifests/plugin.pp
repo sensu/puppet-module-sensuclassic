@@ -17,7 +17,7 @@
 # @param pkg_version When using package source, version to install
 #
 # @param pkg_provider When using package to install plugins, provider to use.
-#   Valid values: sensu_gem, apt, aptitude, yum
+#   Valid values: sensuclassic_gem, apt, aptitude, yum
 #
 # @param pkg_checksum The packake's MD5 checksum.
 #   Valid values: Any valid MD5 string of the wanted package
@@ -25,7 +25,7 @@
 # @param nocheckcertificate When using url source, disable certificate checking for HTTPS
 #
 # @param gem_install_options Optional configuration to use for the installation of the
-#   sensu plugin gem with sensu_gem provider.
+#   sensu plugin gem with sensuclassic_gem provider.
 #   See: https://docs.puppetlabs.com/references/latest/type.html#package-attribute-install_options
 #   Example value: [{ '-p' => 'http://user:pass@myproxy.company.org:8080' }]
 #
@@ -39,7 +39,7 @@ define sensuclassic::plugin (
   Boolean $recurse = true,
   Boolean $force = true,
   Pattern[/^absent$/,/^installed$/,/^latest$/,/^present$/,/^[\d\.\-]+$/] $pkg_version = 'latest',
-  Optional[String] $pkg_provider = $sensuclassic_plugin_provider,
+  Optional[String] $pkg_provider = $sensuclassic::sensu_plugin_provider,
   Optional[String] $pkg_checksum = undef,
   Boolean $nocheckcertificate  = false,
   Any $gem_install_options = $sensuclassic::gem_install_options,
@@ -117,9 +117,9 @@ define sensuclassic::plugin (
     }
     'package': {
       $gem_install_options_real = $pkg_provider ? {
-        'gem'       => $gem_install_options,
-        'sensu_gem' => $gem_install_options,
-        default     => undef,
+        'gem'              => $gem_install_options,
+        'sensuclassic_gem' => $gem_install_options,
+        default            => undef,
       }
 
       package { $name:

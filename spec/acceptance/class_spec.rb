@@ -1,12 +1,12 @@
 require 'spec_helper_acceptance'
 
-describe 'sensu class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'sensuclassic class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
 
-  context 'sensu' do
+  context 'sensuclassic' do
     context 'default' do
       it 'should work with no errors' do
         pp = <<-EOS
-        class { 'sensu':}
+        class { 'sensuclassic':}
         EOS
 
         # Run it twice and test for idempotency
@@ -27,17 +27,17 @@ describe 'sensu class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily
       end
       it 'should work with no errors' do
         pp = <<-EOS
-        class { 'sensu':
+        class { 'sensuclassic':
           server                   => true,
           api                      => true,
           purge                    => true,
           rabbitmq_password        => 'secret',
           rabbitmq_host            => '127.0.0.1',
         }
-        sensu::handler { 'default':
+        sensuclassic::handler { 'default':
           command => "mail -s 'sensu alert' ops@example.com",
         }
-        sensu::check { 'check_ntp':
+        sensuclassic::check { 'check_ntp':
           command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
           handlers    => 'default',
           subscribers => 'sensu-test',
@@ -72,7 +72,7 @@ describe 'sensu class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily
         end
         it 'should work with no errors' do
           pp = <<-EOS
-          class { 'sensu':
+          class { 'sensuclassic':
             enterprise           => true,
             enterprise_dashboard => true,
             enterprise_user      => '#{ENV['SE_USER']}',
@@ -80,7 +80,7 @@ describe 'sensu class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily
             rabbitmq_password    => 'secret',
             rabbitmq_host        => '127.0.0.1',
           }
-          sensu::enterprise::dashboard::api { 'sensu.example.com':
+          sensuclassic::enterprise::dashboard::api { 'sensu.example.com':
             datacenter => 'example-dc',
           }
           EOS
@@ -126,7 +126,7 @@ describe 'sensu class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily
     context 'client => false' do
       it 'should work with no errors' do
         pp = <<-EOS
-        class { 'sensu':
+        class { 'sensuclassic':
           client => false
         }
         EOS

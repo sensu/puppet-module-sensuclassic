@@ -89,7 +89,7 @@ class sensuclassic::enterprise (
         hasrestart => $hasrestart,
         subscribe  => [
           File['/etc/default/sensu-enterprise'],
-          Sensu_api_config[$::fqdn],
+          Sensuclassic_api_config[$::fqdn],
           Class['sensuclassic::redis::config'],
           Class['sensuclassic::rabbitmq::config'],
           Class['sensuclassic::package'],

@@ -48,13 +48,13 @@ define sensuclassic::write_json (
   }
 
   # Write the config file, using the native file resource and the
-  # sensu_sorted_json function to format/sort the json.
+  # sensuclassic_sorted_json function to format/sort the json.
   file { $title :
     ensure  => $ensure,
     owner   => $owner,
     group   => $group,
     mode    => $mode,
-    content => sensu_sorted_json($content, $pretty),
+    content => sensuclassic_sorted_json($content, $pretty),
     notify  => $notify_list,
   }
 }

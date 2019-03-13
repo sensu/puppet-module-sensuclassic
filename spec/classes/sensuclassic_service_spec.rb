@@ -14,9 +14,9 @@ describe 'sensuclassic', :type => :class do
               'enable'     => 'true',
               'hasrestart' => 'true',
               'subscribe'  => [
-                'Class[Sensu::Package]',
-                'Sensu_client_config[testfqdn.example.com]',
-                'Class[Sensu::Rabbitmq::Config]',
+                'Class[Sensuclassic::Package]',
+                'Sensuclassic_client_config[testfqdn.example.com]',
+                'Class[Sensuclassic::Rabbitmq::Config]',
               ],
             })
           end
@@ -83,9 +83,9 @@ describe 'sensuclassic', :type => :class do
               'enable'     => 'true',
               'hasrestart' => 'true',
               'subscribe'  => [
-                'Class[Sensu::Package]',
-                'Sensu_client_config[testfqdn.example.com]',
-                'Class[Sensu::Rabbitmq::Config]',
+                'Class[Sensuclassic::Package]',
+                'Sensuclassic_client_config[testfqdn.example.com]',
+                'Class[Sensuclassic::Rabbitmq::Config]',
               ],
             })
           end

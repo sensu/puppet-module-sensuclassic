@@ -22,10 +22,10 @@ define sensuclassic::config (
     owner  => 'sensu',
     group  => 'sensu',
     mode   => '0444',
-    before => Sensu_check[$name],
+    before => Sensuclassic_check[$name],
   }
 
-  sensu_check_config { $name:
+  sensuclassic_check_config { $name:
     ensure => $ensure,
     config => $config,
     event  => $event,

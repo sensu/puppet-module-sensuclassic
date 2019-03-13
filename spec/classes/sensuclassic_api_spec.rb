@@ -46,7 +46,7 @@ describe 'sensuclassic', :type => :class do
         let(:params) { { :api => true } }
 
         it { should contain_file('/etc/sensu/conf.d/api.json').with_ensure('present') }
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :ensure                => 'present',
           :base_path             => '/etc/sensu/conf.d',
           :bind                  => '0.0.0.0',
@@ -66,7 +66,7 @@ describe 'sensuclassic', :type => :class do
           :api_bind => '10.1.2.3',
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :bind => '10.1.2.3',
         ) }
       end
@@ -77,7 +77,7 @@ describe 'sensuclassic', :type => :class do
           :api_host => 'sensuapi.domain.com',
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :host => 'sensuapi.domain.com',
         ) }
       end
@@ -88,7 +88,7 @@ describe 'sensuclassic', :type => :class do
           :api_port => 1234,
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :port => 1234,
         ) }
       end
@@ -99,7 +99,7 @@ describe 'sensuclassic', :type => :class do
           :api_user => 'myuser',
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :user => 'myuser',
         ) }
       end
@@ -110,7 +110,7 @@ describe 'sensuclassic', :type => :class do
           :api_password => 'mypassword',
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :password => 'mypassword',
         ) }
       end
@@ -121,7 +121,7 @@ describe 'sensuclassic', :type => :class do
           :api_ssl_port => 242,
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :ssl_port => 242,
         ) }
       end
@@ -132,7 +132,7 @@ describe 'sensuclassic', :type => :class do
           :api_ssl_keystore_file => '/path/to/api.keystore',
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :ssl_keystore_file => '/path/to/api.keystore',
         ) }
       end
@@ -143,7 +143,7 @@ describe 'sensuclassic', :type => :class do
           :api_ssl_keystore_password => 'keystore_password',
         } }
 
-        it { should contain_sensu_api_config('testhost.domain.com').with(
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with(
           :ssl_keystore_password => 'keystore_password',
         ) }
       end
@@ -156,7 +156,7 @@ describe 'sensuclassic', :type => :class do
         } }
 
         it { should contain_file('/etc/sensu/conf.d/api.json').with_ensure('absent') }
-        it { should contain_sensu_api_config('testhost.domain.com').with_ensure('absent') }
+        it { should contain_sensuclassic_api_config('testhost.domain.com').with_ensure('absent') }
       end # purge config
     end # config
 

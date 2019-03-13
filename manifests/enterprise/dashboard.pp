@@ -53,7 +53,7 @@ class sensuclassic::enterprise::dashboard (
       notify => $file_notify,
     }
 
-    sensu_enterprise_dashboard_config { $::fqdn:
+    sensuclassic_enterprise_dashboard_config { $::fqdn:
       ensure    => $ensure,
       base_path => $sensuclassic::enterprise_dashboard_base_path,
       host      => $sensuclassic::enterprise_dashboard_host,
@@ -72,12 +72,12 @@ class sensuclassic::enterprise::dashboard (
       notify    => $file_notify,
     }
 
-    sensu_enterprise_dashboard_api_config { 'api1.example.com':
+    sensuclassic_enterprise_dashboard_api_config { 'api1.example.com':
       ensure => absent,
       notify => $file_notify,
     }
 
-    sensu_enterprise_dashboard_api_config { 'api2.example.com':
+    sensuclassic_enterprise_dashboard_api_config { 'api2.example.com':
       ensure => absent,
       notify => $file_notify,
     }

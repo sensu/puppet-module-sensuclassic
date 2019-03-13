@@ -124,10 +124,10 @@ define sensuclassic::handler (
     owner  => $sensuclassic::user,
     group  => $sensuclassic::group,
     mode   => $sensuclassic::file_mode,
-    before => Sensu_handler[$name],
+    before => Sensuclassic_handler[$name],
   }
 
-  sensu_handler { $name:
+  sensuclassic_handler { $name:
     ensure          => $ensure,
     base_path       => "${sensuclassic::conf_dir}/handlers",
     type            => $type,

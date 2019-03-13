@@ -191,7 +191,7 @@ define sensuclassic::check (
   # (#463) All plugins must come before all checks. Collections are not used to
   # avoid realizing any resources.
   Anchor['plugins_before_checks']
-  ~> Sensu::Check[$name]
+  ~> Sensuclassic::Check[$name]
 
   if is_hash($hooks) {
     $hooks.each |$k,$v| {

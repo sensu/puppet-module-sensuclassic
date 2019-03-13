@@ -39,7 +39,7 @@ Sensu-Puppet module.
 ## Installation
 
 ```bash
-puppet module install sensu/sensu
+puppet module install sensu/sensuclassic
 ```
 
 ## Prerequisites
@@ -127,8 +127,8 @@ password: correct-horse-battery-staple
 ```
 
 See the [tests
-directory](https://github.com/sensu/sensu-puppet/tree/master/tests) and
-[Vagrantfile](https://github.com/sensu/sensu-puppet/blob/master/Vagrantfile)
+directory](https://github.com/sensu/puppet-module-sensuclassic/tree/master/tests) and
+[Vagrantfile](https://github.com/sensu/puppet-module-sensuclassic/blob/master/Vagrantfile)
 for examples on setting up the prerequisites.
 
 ## Basic example
@@ -137,7 +137,7 @@ for examples on setting up the prerequisites.
 
 ```puppet
 node 'sensu-server.foo.com' {
-  class { 'sensu':
+  class { 'sensuclassic':
     rabbitmq_password => 'correct-horse-battery-staple',
     server            => true,
     api               => true,
@@ -147,17 +147,17 @@ node 'sensu-server.foo.com' {
     ]
   }
 
-  sensu::handler { 'default':
+  sensuclassic::handler { 'default':
     command => 'mail -s \'sensu alert\' ops@foo.com',
   }
 
-  sensu::check { 'check_ntp':
+  sensuclassic::check { 'check_ntp':
     command     => 'PATH=$PATH:/usr/lib/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'default',
     subscribers => 'sensu-test'
   }
 
-  sensu::check { '...':
+  sensuclassic::check { '...':
     ...
   }
 }
@@ -186,7 +186,7 @@ node 'sensu-server.foo.com' {
   # NOTE: When testing sensu enterprise, provide the SE_USER and SE_PASS to use
   # with the online repository using the FACTER_SE_USER and FACTER_SE_PASS
   # environment variables.
-  class { '::sensu':
+  class { '::sensuclassic':
     install_repo              => true,
     enterprise                => true,
     enterprise_user           => $facts['se_user'],
@@ -202,7 +202,7 @@ node 'sensu-server.foo.com' {
     api_ssl_keystore_password => 'sensutest',
   }
 
-  sensu::contact { 'support':
+  sensuclassic::contact { 'support':
     ensure => 'present',
     config => {
       'email' => {
@@ -214,12 +214,12 @@ node 'sensu-server.foo.com' {
       },
     },
   }
-  sensu::contact { 'ops':
+  sensuclassic::contact { 'ops':
     ensure => 'present',
     config => { 'email'  => { 'to' => 'ops@example.com' } },
   }
   # A second check to use the built-in email handler and contact.
-  sensu::check { 'check_ntp':
+  sensuclassic::check { 'check_ntp':
     command     => 'PATH=$PATH:/usr/lib64/nagios/plugins check_ntp_time -H pool.ntp.org -w 30 -c 60',
     handlers    => 'email',
     contacts    => ['ops', 'support'],
@@ -232,7 +232,7 @@ node 'sensu-server.foo.com' {
 
 ```puppet
 node 'sensu-client.foo.com' {
-   class { 'sensu':
+   class { 'sensuclassic':
      rabbitmq_password  => 'correct-horse-battery-staple',
      rabbitmq_host      => 'sensu-server.foo.com',
      subscriptions      => 'sensu-test',
@@ -241,20 +241,20 @@ node 'sensu-client.foo.com' {
 ```
 ### Facts
 
-#### `sensu_version`
+#### `sensuclassic_version`
 
-The `sensu_version` fact returns the Sensu Client version returned by `C:\opt\sensu\embedded\bin\sensu-client.bat`
+The `sensuclassic_version` fact returns the Sensu Client version returned by `C:\opt\sensu\embedded\bin\sensu-client.bat`
 for Windows systems and the value returned by `/opt/sensu/embedded/bin/sensu-client` for non-Windows.
 
 ```shell
-facter -p sensu_version
+facter -p sensuclassic_version
 0.23.3
 ```
 
 
 ## Advanced example using Hiera
 
-This example includes the `sensu` class as part of a base class or role
+This example includes the `sensuclassic` class as part of a base class or role
 and configures Sensu on each individual node via
 [Hiera](http://docs.puppetlabs.com/#hierahiera1).
 
@@ -275,31 +275,31 @@ and configures Sensu on each individual node via
 ### common.yaml
 
 ```yaml
-sensu::install_repo: false
-sensu::purge:
+sensuclassic::install_repo: false
+sensuclassic::purge:
   config: true
-sensu::rabbitmq_host: 10.31.0.90
-sensu::rabbitmq_password: password
-sensu::rabbitmq_port: 5672
+sensuclassic::rabbitmq_host: 10.31.0.90
+sensuclassic::rabbitmq_password: password
+sensuclassic::rabbitmq_port: 5672
 ```
 
 ### sensu-server.foo.com.yaml
 
 ```yaml
-sensu::server: true
+sensuclassic::server: true
 ```
 
 nosensu.foo.com.yaml
 
 ```yaml
-sensu::client: false
+sensuclassic::client: false
 ```
 
 site.pp
 
 ```puppet
 node default {
-  class { 'sensu': }
+  class { 'sensuclassic': }
   ...
 }
 ```
@@ -308,13 +308,13 @@ node default {
 
 ```yaml
 ---
-sensu::subscriptions:
+sensuclassic::subscriptions:
     - all
-sensu::server: false
-sensu::extensions:
+sensuclassic::server: false
+sensuclassic::extensions:
   'system':
     source: 'puppet:///modules/supervision/system_profile.rb'
-sensu::handlers:
+sensuclassic::handlers:
   'graphite':
     type: 'tcp'
     socket:
@@ -325,33 +325,33 @@ sensu::handlers:
     command: '/etc/sensu/handlers/file.rb'
   'mail':
     command: 'mail -s 'sensu event' email@address.com'
-sensu::handler_defaults:
+sensuclassic::handler_defaults:
   type: 'pipe'
-sensu::checks:
+sensuclassic::checks:
   'file_test':
     command: '/usr/local/bin/check_file_test.sh'
   'chef_client':
     command: 'check-chef-client.rb'
-sensu::filters:
+sensuclassic::filters:
   'recurrences-30':
     attributes:
       occurrences: "eval: value == 1 || value % 30 == 0"
-sensu::filter_defaults:
+sensuclassic::filter_defaults:
   negate: true
   when:
     days:
       all:
         - begin: 5:00 PM
           end: 8:00 AM
-sensu::check_defaults:
+sensuclassic::check_defaults:
   handlers: 'mail'
-sensu::mutators:
+sensuclassic::mutators:
   'tag':
     command: '/etc/sensu/mutators/tag.rb'
   'graphite':
     command: '/etc/sensu/plugins/graphite.rb'
 classes:
-    - sensu
+    - sensuclassic
 ```
 
 
@@ -374,7 +374,7 @@ are managed with the server, and API parameters.
 
 ```puppet
 node 'sensu-server.foo.com' {
-  class { 'sensu':
+  class { 'sensuclassic':
     rabbitmq_password => 'correct-horse-battery-staple',
     server            => true,
     api               => true,
@@ -387,7 +387,7 @@ node 'sensu-server.foo.com' {
 
   # ...
 
-  sensu::check { "diskspace":
+  sensuclassic::check { "diskspace":
     command => '/etc/sensu/plugins/system/check-disk.rb',
   }
 }
@@ -397,7 +397,7 @@ If you need only one plugin you can also use a simple string:
 
 ```puppet
 node 'sensu-server.foo.com' {
-  class { 'sensu':
+  class { 'sensuclassic':
     plugins => 'puppet:///data/sensu/plugins/ntp.rb',
     # ...
   }
@@ -405,11 +405,11 @@ node 'sensu-server.foo.com' {
 ```
 
 Specifying the plugins as hash, you can pass all parameters supported by
-the sensu::plugin define:
+the sensuclassic::plugin define:
 
 ```puppet
 node 'sensu-server.foo.com' {
-  class { 'sensu':
+  class { 'sensuclassic':
     plugins           => {
       'puppet:///data/sensu/plugins/ntp.rb' => {
         'install_path' => '/alternative/path',
@@ -427,14 +427,14 @@ node 'sensu-server.foo.com' {
 
 ```puppet
 node 'sensu-client.foo.com' {
-  class { 'sensu':
+  class { 'sensuclassic':
     rabbitmq_password => 'correct-horse-battery-staple',
     rabbitmq_host     => 'sensu-server.foo.com',
     subscriptions     => 'sensu-test',
     safe_mode         => true,
   }
 
-  sensu::check { 'diskspace':
+  sensuclassic::check { 'diskspace':
     command => '/etc/sensu/plugins/system/check-disk.rb',
   }
 }
@@ -443,7 +443,7 @@ node 'sensu-client.foo.com' {
 ## Using custom variables in check definitions
 
 ```puppet
-sensu::check{ 'check_file_test':
+sensuclassic::check{ 'check_file_test':
   command      => '/usr/local/bin/check_file_test.sh',
   handlers     => 'notifu',
   custom       => {
@@ -490,7 +490,7 @@ to the result of check command execution. They have been introduced in Sensu 1.1
 Valid hooks names are integers from 1 to 255 and the strings 'ok', 'warning', 'critical', 'unknown' and 'non-zero'.
 
 ```puppet
-sensu::check{ 'check_file_test':
+sensuclassic::check{ 'check_file_test':
   command      => '/usr/local/bin/check_file_test.sh',
   handlers     => 'notifu',
   hooks => {
@@ -504,7 +504,7 @@ sensu::check{ 'check_file_test':
 
 ## Writing custom configuration files
 
-You can also use the `sensu::write_json` defined resource type to write custom
+You can also use the `sensuclassic::write_json` defined resource type to write custom
 json config files:
 
 ```puppet
@@ -520,7 +520,7 @@ $contact_data = {
   }
 }
 
-sensu::write_json { '/etc/sensu/conf.d/contacts.json':
+sensuclassic::write_json { '/etc/sensu/conf.d/contacts.json':
   content => $contact_data,
 }
 ```
@@ -528,7 +528,7 @@ sensu::write_json { '/etc/sensu/conf.d/contacts.json':
 ## Handler configuration
 
 ```puppet
-sensu::handler {
+sensuclassic::handler {
   'handler_foobar':
     command => '/etc/sensu/handlers/foobar.py',
     type    => 'pipe',
@@ -563,7 +563,7 @@ This will create the following handler definition for Sensu (server):
 ## Extension configuration
 
 ```puppet
-sensu::extension {
+sensuclassic::extension {
   'an_extension':
     source  => 'puppet://somewhere/an_extension.rb',
     config  => {
@@ -590,7 +590,7 @@ DaemonTools or SupervisorD, you can disable the module's internal
 service management functions like so:
 
 ```yaml
-sensu::manage_services: false
+sensuclassic::manage_services: false
 ```
 
 ## Purging Configuration
@@ -604,7 +604,7 @@ should be managed by puppet, set the `purge` parameter to `true` to
 delete files which are not defined using this puppet module:
 
 ```yaml
-sensu::purge: true
+sensuclassic::purge: true
 ```
 
 To get more fine-grained control over what is purged, set the `purge`
@@ -614,7 +614,7 @@ cause files of that type which are not defined using this puppet module
 to be deleted. Keys which are not specified will not be purged:
 
 ```yaml
-sensu::purge:
+sensuclassic::purge:
   config: true
   plugins: true
 ```
@@ -630,7 +630,7 @@ apache/manifests/monitoring/sensu.pp
 
 ```puppet
 class apache::monitoring::sensu {
-  sensu::check { 'apache-running':
+  sensuclassic::check { 'apache-running':
     handlers    => 'default',
     command     => '/etc/sensu/plugins/check-procs.rb -p /usr/sbin/httpd -w 100 -c 200 -C 1',
     custom      => {
@@ -648,7 +648,7 @@ apache/manifests/monitoring/sensu.pp
 
 ```puppet
 class apache::monitoring::sensu {
-  sensu::subscription { 'apache': }
+  sensuclassic::subscription { 'apache': }
 }
 ```
 
@@ -658,7 +658,7 @@ ntp/manifests/monitoring/ntp.pp
 
 ```puppet
 class ntp::monitoring::sensu {
-  sensu::subscription { 'ntp':
+  sensuclassic::subscription { 'ntp':
     custom => {
       ntp {
         server => $ntp::servers[0],
@@ -671,7 +671,7 @@ class ntp::monitoring::sensu {
 And then use that variable on your Sensu server:
 
 ```puppet
-sensu::check { 'check_ntp':
+sensuclassic::check { 'check_ntp':
   command => 'PATH=$PATH:/usr/lib/nagios/plugins check_ntp_time -H :::ntp.server::: -w 30 -c 60',
   # ...
 }
@@ -695,22 +695,22 @@ case $monitoring {
 ## Installing Gems into the embedded ruby
 
 If you are using the embedded ruby that ships with Sensu, you can install gems
-by using the `sensu_gem` package provider:
+by using the `sensuclassic_gem` package provider:
 
 ```puppet
 package { 'redphone':
   ensure   => 'installed',
-  provider => sensu_gem,
+  provider => sensuclassic_gem,
 }
 ```
 
 ## Sensitive String Redaction
 
-Redaction of passwords is supported by this module. To enable it, pass a value to `sensu::redact`
-and set some password values with `sensu::client_custom`
+Redaction of passwords is supported by this module. To enable it, pass a value to `sensuclassic::redact`
+and set some password values with `sensuclassic::client_custom`
 
 ```puppet
-class { 'sensu':
+class { 'sensuclassic':
   redact  => 'password',
   client_custom => {
     github => {
@@ -723,10 +723,10 @@ class { 'sensu':
 Or with hiera:
 
 ```yaml
-sensu::redact:
+sensuclassic::redact:
   - :password"
-sensu::client_custom:
-  - sensu::client_custom:
+sensuclassic::client_custom:
+  - sensuclassic::client_custom:
   nexus:
     password: "correct-horse-battery-staple'
 ```
@@ -738,7 +738,7 @@ This ends up like this in the uchiwa console:
 You can make use of the password now when defining a check by using command substitution:
 
 ```puppet
-sensu::check { 'check_password_test':
+sensuclassic::check { 'check_password_test':
   command => '/usr/local/bin/check_password_test --password :::github.password::: ',
 }
 ```
@@ -755,7 +755,7 @@ automatically install packages and configure the enterprise dashboard.  For
 example:
 
 ```puppet
-class { '::sensu':
+class { '::sensuclassic':
   enterprise_dashboard => true,
   enterprise_user      => '1234567890',
   enterprise_pass      => 'PASSWORD',
@@ -769,8 +769,8 @@ The `enterprise_user` and `enterprise_pass` class parameters map to the
 ### Enterprise Dashboard API
 
 The API to the enterprise dashboard is managed using the
-`sensu::enterprise::dashboard::api` defined type.  This defined type is a
-wrapper around the `sensu_enterprise_dashboard_api_config` custom type and
+`sensuclassic::enterprise::dashboard::api` defined type.  This defined type is a
+wrapper around the `sensuclassic_enterprise_dashboard_api_config` custom type and
 provider included in this module.
 
 These Puppet resource types manage the Dashboard API entries in
@@ -780,11 +780,11 @@ Multiple API endpoints may be defined in the same datacenter.  This example will
 create two endpoints at sensu.example.net and sensu.example.org.
 
 ```puppet
-sensu::enterprise::dashboard::api { 'sensu.example.net':
+sensuclassic::enterprise::dashboard::api { 'sensu.example.net':
   datacenter => 'example-dc',
 }
 
-sensu::enterprise::dashboard::api { 'sensu.example.org':
+sensuclassic::enterprise::dashboard::api { 'sensu.example.org':
   datacenter => 'example-dc',
 }
 ```
@@ -793,13 +793,13 @@ Unmanaged API endpoints may be purged using the resources resource.  For
 example:
 
 ```puppet
-resources { 'sensu_enterprise_dashboard_api_config':
+resources { 'sensuclassic_enterprise_dashboard_api_config':
   purge => true,
 }
 ```
 
 This will ensure `/etc/sensu/dashboard.json` contains only
-`sensu::enterprise::dashboard::api` resources managed by Puppet.
+`sensuclassic::enterprise::dashboard::api` resources managed by Puppet.
 
 ### Community
 
