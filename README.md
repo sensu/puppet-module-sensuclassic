@@ -1,4 +1,4 @@
-# Sensu-Puppet
+# puppet-module-sensuclassic
 
 Installs and manages the open source monitoring framework [Sensu](http://sensuapp.org).
 [![Puppet Forge](http://img.shields.io/puppetforge/v/sensu/sensu.svg)](https://forge.puppetlabs.com/sensu/sensu)
@@ -7,7 +7,7 @@ Please note, that this is a **Partner Supported** module, which means that techn
 
 ## Tested with Travis CI
 
-[![Build Status](https://travis-ci.org/sensu/sensu-puppet.png)](https://travis-ci.org/sensu/sensu-puppet)
+[![Build Status](https://travis-ci.org/sensu/puppet-module-sensuclassic.png)](https://travis-ci.org/sensu/puppet-module-sensuclassic)
 
 This module supports the latest releases of Puppet versions 5 and 6
 using the ruby that is packaged with the AIO (all-in-one installer). See
@@ -16,7 +16,7 @@ major release of Puppet and the prior major release.
 
 ## Documented with Puppet Strings
 
-[Puppet Strings documentation](http://sensu.github.io/sensu-puppet/doc/)
+[Puppet Strings documentation](http://sensu.github.io/puppet-module-sensuclassic/doc/)
 
 ## Compatibility - supported sensu versions
 
@@ -34,7 +34,7 @@ Please log an issue if you identify any incompatibilities.
 ## Upgrade note
 
 Versions prior to 1.0.0 are incompatible with previous versions of the
-Sensu-Puppet module.
+sensuclassic module.
 
 ## Installation
 
