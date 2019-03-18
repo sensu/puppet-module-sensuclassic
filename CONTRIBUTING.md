@@ -22,42 +22,28 @@
 Reference the issue number, in the format `(GH-###)`.
 
 ```
-(GH-901) Add support for Sensu v2
+(GH-2) Add feature foo
 ```
 
 ## Versions
 
-v2 of this module supports Sensu v1
-v3 of this module supports Sensu v2
+This module supports Sensu v1
 
 ## Branches
 
 ### master
 
-The `master` branch is for development against Sensu v1. Once Sensu v2
-is no longer beta, master will switch to target that.
+The `master` branch is for development against Sensu v1.
 
-### sensu2
+To generate the `CHANGELOG.md` run the following.
 
-The `sensu2` branch is for development against Sensu v2. Please target
-any commits for Sensu v2 against this branch.
-
-### sensu1
-
-The `sensu1` branch does not exist yet, though will once master targets
-Sensu v2. Sensu v1 will continue to be supported and changes to that
-version would then target this branch.
-
-To generate the `CHANGELOG.md` and exclude sensu2 changes run the
-following.
-
-`github_changelog_generator -u sensu -p sensu-puppet --exclude-labels 'sensu v2'`
+`github_changelog_generator -u sensu -p puppet-module-sensuclassic`
 
 # Release process
 
 1. update version in `metadata.json`
-1. run `github_changelog_generator` and exclude tags, such as
-   `github_changelog_generator -u sensu -p sensu-puppet --exclude-labels 'sensu v2'`
+1. run `github_changelog_generator`, such as
+   `github_changelog_generator -u sensu -p puppet-module-sensuclassic`
 1. update `CHANGELOG.md` and change `unreleased` at the top to the
    version, such as `v2.0.0`, and change `HEAD` to the same version,
    such as `v2.0.0`.
