@@ -10,7 +10,7 @@ HOSTS:
       - '/usr/sbin/init'
     docker_image_commands:
       - 'yum install -y tar wget cronie git iproute'
-    docker_container_name: 'sensu-el7'
+    docker_container_name: 'sensuclassic-el7'
 CONFIG:
   log_level: debug
   type: foss

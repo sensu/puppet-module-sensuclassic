@@ -10,7 +10,7 @@ HOSTS:
       - '/sbin/init'
     docker_image_commands:
       - 'yum install -y tar wget cronie git upstart'
-    docker_container_name: 'sensu-amazonlinux-201803'
+    docker_container_name: 'sensuclassic-amazonlinux-201803'
 CONFIG:
   log_level: debug
   type: foss

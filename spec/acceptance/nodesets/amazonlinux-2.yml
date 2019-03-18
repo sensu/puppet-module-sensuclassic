@@ -10,7 +10,7 @@ HOSTS:
       - '/sbin/init'
     docker_image_commands:
       - 'yum install -y wget initscripts'
-    docker_container_name: 'sensu-amazonlinux-2'
+    docker_container_name: 'sensuclassic-amazonlinux-2'
 CONFIG:
   log_level: debug
   type: foss
