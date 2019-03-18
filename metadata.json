@@ -1,12 +1,12 @@
 {
-  "name": "sensu-sensu",
+  "name": "sensu-sensuclassic",
   "version": "2.63.0",
   "author": "sensu",
   "summary": "A module to install the Sensu monitoring framework",
   "license": "MIT",
-  "source": "https://github.com/sensu/sensu-puppet",
-  "project_page": "https://github.com/sensu/sensu-puppet",
-  "issues_url": "https://github.com/sensu/sensu-puppet/issues",
+  "source": "https://github.com/sensu/puppet-module-sensuclassic",
+  "project_page": "https://github.com/sensu/puppet-module-sensuclassic",
+  "issues_url": "https://github.com/sensu/puppet-module-sensuclassic/issues",
   "tags": [
     "sensu",
     "monitoring"
