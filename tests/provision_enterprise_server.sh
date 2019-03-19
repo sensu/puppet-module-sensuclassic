@@ -35,7 +35,7 @@ puppet module install puppet/rabbitmq
 # inifile is used to tune the JVM heap size in Vagrant
 puppet module install puppetlabs/inifile
 
-# install dependencies for sensu
+# install dependencies for sensuclassic
 yum -y install redis jq nagios-plugins-ntp
 systemctl start redis
 systemctl enable redis

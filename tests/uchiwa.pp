@@ -1,5 +1,5 @@
 # Installs the uchiwa dashboard for sensu
-# 192.168.56.10:3000
+# 192.168.156.10:3000
 # uchiwa, uchiwa
 
 package { 'uchiwa':

@@ -3,7 +3,7 @@
 # setup module dependencies
 puppet module install puppet/rabbitmq
 
-# install dependencies for sensu
+# install dependencies for sensuclassic
 yum -y install redis jq nagios-plugins-ntp
 systemctl start redis
 systemctl enable redis
