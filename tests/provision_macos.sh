@@ -62,6 +62,6 @@ defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool YES
 
 echo "finished installing puppet..."
 echo "installing dependency modules..."
-/opt/puppetlabs/bin/puppet resource file /etc/puppetlabs/code/environments/production/modules/sensu ensure=link target=/vagrant
+/opt/puppetlabs/bin/puppet resource file /etc/puppetlabs/code/environments/production/modules/sensuclassic ensure=link target=/vagrant
 /opt/puppetlabs/bin/puppet module install puppetlabs/stdlib --version 4.24.0
 /opt/puppetlabs/bin/puppet module install lwf-remote_file --version 1.1.3

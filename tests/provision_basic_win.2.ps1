@@ -12,12 +12,12 @@ defaults:
   datadir: hieradata
 '@
 
-# Create the sensu module directory.  We only copy certain directories because
+# Create the sensuclassic module directory.  We only copy certain directories because
 New-Item -Path $moduledir -ItemType directory -Force | Out-Null
 # Remove the link if it exists.  Remove-Item can't deal with links.
-if ( Test-Path "$moduledir\sensu" ) { cmd /c rmdir "$moduledir\sensu" }
+if ( Test-Path "$moduledir\sensuclassic" ) { cmd /c rmdir "$moduledir\sensuclassic" }
 # Create a symbolic link.  Requires Powereshell 2.0 or greater.
-cmd /c mklink /d "$moduledir\sensu" "$vagrant"
+cmd /c mklink /d "$moduledir\sensuclassic" "$vagrant"
 
 # Avoid deprecation warning (ASCII encoding avoids YAML UTF-8 error)
 $hiera_content | Out-File -FilePath "$hiera_file" -Encoding ascii

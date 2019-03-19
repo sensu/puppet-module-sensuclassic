@@ -48,13 +48,13 @@ defaults:
   datadir: hieradata
 EOF
 
-# use local sensu module
-puppet resource file /etc/puppetlabs/code/environments/production/modules/sensu ensure=link target=/vagrant
+# use local sensuclassic module
+puppet resource file /etc/puppetlabs/code/environments/production/modules/sensuclassic ensure=link target=/vagrant
 
 # setup module dependencies
 puppet module install puppetlabs/stdlib --version 4.24.0
 puppet module install puppetlabs/apt --version 4.1.0
 puppet module install lwf-remote_file --version 1.1.3
 
-# install dependencies for sensu
+# install dependencies for sensuclassic
 apt-get -y install ruby-json
