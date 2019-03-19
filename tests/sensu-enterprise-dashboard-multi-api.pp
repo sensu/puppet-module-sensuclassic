@@ -21,7 +21,7 @@ node 'sensu-server' {
   # package uchiwa-1:0.25.2-1.x86_64
   package { 'uchiwa':
     ensure => absent,
-    before => Class['sensu'],
+    before => Class['sensuclassic'],
   }
 
   class { 'sensuclassic':
@@ -40,7 +40,7 @@ node 'sensu-server' {
     enterprise_pass      => $facts['se_pass'],
   }
 
-  resources { 'sensu_enterprise_dashboard_api_config':
+  resources { 'sensuclassic_enterprise_dashboard_api_config':
     purge => true,
   }
 

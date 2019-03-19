@@ -43,7 +43,7 @@ package { 'sensu-plugins-disk-checks':
   provider => sensuclassic_gem,
 }
 
-class { '::sensu':
+class { '::sensuclassic':
   install_repo          => true,
   version               => 'latest',
   server                => true,
@@ -82,7 +82,7 @@ package { 'sensu-plugins-disk-checks':
   provider => sensuclassic_gem,
 }
 
-class { '::sensu':
+class { '::sensuclassic':
   install_repo          => true,
   version               => '0.23.0',
   server                => true,
