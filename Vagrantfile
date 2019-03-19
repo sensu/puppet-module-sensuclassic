@@ -28,6 +28,16 @@ To install the plugin, please run, 'vagrant plugin install vagrant-vbguest'.
   EOM
 end
 
+if not Vagrant.has_plugin?('vagrant-reload')
+  abort <<-EOM
+
+vagrant plugin vagrant-reload is required.
+https://github.com/aidanns/vagrant-reload
+To install the plugin, please run, 'vagrant plugin install vagrant-reload'.
+
+  EOM
+end
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
