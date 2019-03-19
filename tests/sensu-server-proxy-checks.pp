@@ -20,7 +20,7 @@ node 'sensu-server' {
   }
   Sensu::Plugin {
     type         => 'package',
-    pkg_provider => 'sensu_gem',
+    pkg_provider => 'sensuclassic_gem',
     pkg_version  => 'installed',
     require      => [Package['gcc-c++']],
   }

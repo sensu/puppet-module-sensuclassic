@@ -4,5 +4,5 @@ class { 'sensuclassic':
   rabbitmq_vhost        => '/sensu',
   subscriptions         => 'all',
   client_address        => $::ipaddress_eth1,
-  sensu_plugin_provider => 'sensu_gem',
+  sensu_plugin_provider => 'sensuclassic_gem',
 }
