@@ -109,17 +109,17 @@ vagrant ssh sensu-server
 You can then access the API.
 
 ```bash
-curl http://admin:secret@192.168.56.10:4567/info
+curl http://admin:secret@192.168.156.10:4567/info
 ```
 
-Navigate to `192.168.56.10:3000` to use the uchiwa dashboard
+Navigate to `192.168.156.10:3000` to use the uchiwa dashboard
 
 ```yaml
 username: uchiwa
 password: uchiwa
 ```
 
-Navigate to `192.168.56.10:15672` to manage RabbitMQ
+Navigate to `192.168.156.10:15672` to manage RabbitMQ
 
 ```yaml
 username: sensu
