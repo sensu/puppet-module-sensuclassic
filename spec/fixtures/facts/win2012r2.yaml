@@ -49,28 +49,28 @@ networking:
       network6: "fe80::%12"
     Ethernet 2:
       bindings:
-        - address: 192.168.56.15
+        - address: 192.168.156.15
           netmask: 255.255.255.0
-          network: 192.168.56.0
+          network: 192.168.156.0
       bindings6:
         - address: "fe80::34cc:e390:c694:5e8%15"
           netmask: "ffff:ffff:ffff:ffff::"
           network: "fe80::%15"
-      ip: 192.168.56.15
+      ip: 192.168.156.15
       ip6: "fe80::34cc:e390:c694:5e8%15"
       mac: "08:00:27:5E:D1:4B"
       mtu: 1500
       netmask: 255.255.255.0
       netmask6: "ffff:ffff:ffff:ffff::"
-      network: 192.168.56.0
+      network: 192.168.156.0
       network6: "fe80::%15"
-  ip: 192.168.56.15
+  ip: 192.168.156.15
   ip6: "fe80::34cc:e390:c694:5e8%15"
   mac: "08:00:27:5E:D1:4B"
   mtu: 1500
   netmask: 255.255.255.0
   netmask6: "ffff:ffff:ffff:ffff::"
-  network: 192.168.56.0
+  network: 192.168.156.0
   network6: "fe80::%15"
   primary: Ethernet 2
 os:

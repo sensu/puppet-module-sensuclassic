@@ -211,7 +211,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     client.vm.hostname = 'macos-client.example.com'
     client.vm.network  :private_network, ip: "192.168.156.19"
-    client.vm.synced_folder ".", "/vagrant", type: "rsync", group: "wheel"
+    client.vm.synced_folder ".", "/vagrant", type: "rsync", group: "wheel",
+      rsync__exclude: ['.git/', 'spec/']
     client.vm.provision :shell, :path => "tests/provision_macos.sh"
     client.vm.provision :shell, :inline => "/opt/puppetlabs/puppet/bin/puppet apply /vagrant/tests/sensu-client.pp"
     client.vm.provision :shell, :inline => "/opt/puppetlabs/puppet/bin/facter --custom-dir=/vagrant/lib/facter sensu_version"
