@@ -151,15 +151,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     client.vm.provision :shell, :inline => "facter --custom-dir=/vagrant/lib/facter sensuclassic_version"
   end
 
-  config.vm.define "ubuntu1404-client", autostart: false do |client|
-    client.vm.box = "ubuntu/trusty64"
-    client.vm.hostname = 'ubuntu1404-client.example.com'
-    client.vm.network  :private_network, ip: "192.168.156.14"
-    client.vm.provision :shell, :path => "tests/provision_basic_debian.sh"
-    client.vm.provision :shell, :inline => "puppet apply /vagrant/tests/sensu-client-sensu_gem.pp"
-    client.vm.provision :shell, :inline => "facter --custom-dir=/vagrant/lib/facter sensuclassic_version"
-  end
-
   config.vm.define "win2012r2-client", autostart: false do |client|
     client.vm.box = "opentable/win-2012r2-standard-amd64-nocm"
     client.vm.provider :virtualbox do |vb|

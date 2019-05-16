@@ -272,14 +272,14 @@ describe 'sensuclassic', :type => :class do
         :osfamily        => 'Debian',
         :kernel          => 'Linux',
         :lsbdistid       => 'ubuntu',
-        :lsbdistrelease  => '14.04',
+        :lsbdistrelease  => '18.04',
         :os              => {
           :name    => 'ubuntu',
           :release => {
-            :full => '14.04',
+            :full => '18.04',
           },
           :distro => {
-            :codename => 'trusty',
+            :codename => 'bionic',
           },
         },
       }

@@ -115,15 +115,15 @@ describe 'sensuclassic' do
             :kernel          => 'Linux',
             :osfamily        => 'Debian',
             :lsbdistid       => 'ubuntu',
-            :lsbdistrelease  => '14.04',
+            :lsbdistrelease  => '18.04',
             :os              => {
               :name    => 'ubuntu',
               :release => {
-                :full  => '14.04',
-                :major => '14',
+                :full  => '18.04',
+                :major => '18',
               },
               :distro => {
-                :codename => 'trusty',
+                :codename => 'bionic',
               },
             },
           }
@@ -136,7 +136,7 @@ describe 'sensuclassic' do
             it { should contain_apt__source('sensu').with(
               :ensure      => 'present',
               :location    => 'https://sensu.global.ssl.fastly.net/apt',
-              :release     => 'trusty',
+              :release     => 'bionic',
               :repos       => 'main',
               :include     => { 'src' => false },
               :key         => { 'id' => 'EE15CFF6AB6E4E290FDAB681A20F259AEB9C94BB', 'source' => 'https://sensu.global.ssl.fastly.net/apt/pubkey.gpg' },
