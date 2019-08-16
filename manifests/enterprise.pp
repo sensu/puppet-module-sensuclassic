@@ -95,6 +95,13 @@ class sensuclassic::enterprise (
           Class['sensuclassic::package'],
         ],
       }
+
+      exec { 'sensu-enterprise-reload':
+        path        => '/usr/bin:/bin:/usr/sbin:/sbin',
+        command     => 'service sensu-enterprise reload',
+        refreshonly => true,
+        require     => Service['sensu-enterprise'],
+      }
     }
   }
 }

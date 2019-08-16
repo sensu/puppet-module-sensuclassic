@@ -30,6 +30,7 @@ describe 'sensuclassic', :type => :class do
           it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::redis::config]') }
           it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::rabbitmq::config]') }
           it { should contain_service('sensu-enterprise').that_subscribes_to('Class[sensuclassic::package]') }
+          it { should contain_exec('sensu-enterprise-reload').with_command('service sensu-enterprise reload') }
           it { should_not contain_yumrepo('sensu-enterprise-dashboard') }
           it { should contain_package('sensu-enterprise') }
 
@@ -249,6 +250,7 @@ describe 'sensuclassic', :type => :class do
           } }
           it { should contain_yumrepo('sensu-enterprise') }
           it { should contain_service('sensu-enterprise') }
+          it { should contain_exec('sensu-enterprise-reload') }
           it { should_not contain_yumrepo('sensu-enterprise-dashboard') }
           it { should_not contain_service('sensu-enterprise-dashboard') }
         end
