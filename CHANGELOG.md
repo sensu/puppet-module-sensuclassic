@@ -1,7 +1,25 @@
 # Change Log
 
-## [v3.1.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.1.0)
+## [v3.2.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.2.0) (2019-08-19)
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.1.0...v3.2.0)
 
+**Implemented enhancements:**
+
+- Increase upper bound on stdlib dependency [\#20](https://github.com/sensu/puppet-module-sensuclassic/pull/20) ([treydock](https://github.com/treydock))
+- Add check\_name for checks [\#19](https://github.com/sensu/puppet-module-sensuclassic/pull/19) ([treydock](https://github.com/treydock))
+
+**Closed issues:**
+
+- Ubuntu 14.04 LTS is EOL [\#13](https://github.com/sensu/puppet-module-sensuclassic/issues/13)
+
+**Merged pull requests:**
+
+- Add parameter sensuclassic::check::check\_name [\#16](https://github.com/sensu/puppet-module-sensuclassic/pull/16) ([jovrum](https://github.com/jovrum))
+- Improve unit tests for latest versions of dependencies [\#15](https://github.com/sensu/puppet-module-sensuclassic/pull/15) ([treydock](https://github.com/treydock))
+- \(GH-13\) Remove Ubuntu 14.04 LTS as it is end of life \(EOL\) [\#14](https://github.com/sensu/puppet-module-sensuclassic/pull/14) ([ghoneycutt](https://github.com/ghoneycutt))
+- Fix repo path for EL vagrant [\#12](https://github.com/sensu/puppet-module-sensuclassic/pull/12) ([treydock](https://github.com/treydock))
+
+## [v3.1.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.1.0) (2019-05-06)
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.0.0...v3.1.0)
 
 **Closed issues:**
