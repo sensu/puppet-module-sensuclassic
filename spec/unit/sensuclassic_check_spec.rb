@@ -11,6 +11,17 @@ describe Puppet::Type.type(:sensuclassic_check) do
   let(:resource_hash_override) { {} }
   let(:resource_hash) { resource_hash_base.merge(resource_hash_override) }
 
+  describe 'check_name parameter' do
+    subject { described_class.new(resource_hash)[:check_name] }
+    it 'defaults to name' do
+      is_expected.to eq resource_hash[:title]
+    end
+    describe 'check_name defined' do
+      let(:resource_hash_override) { { check_name: 'foo' } }
+      it { is_expected.to eq 'foo' }
+    end
+  end
+
   describe 'contacts parameter' do
     subject { described_class.new(resource_hash)[:contacts] }
 

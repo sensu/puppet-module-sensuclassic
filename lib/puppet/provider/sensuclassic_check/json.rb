@@ -72,11 +72,11 @@ Puppet::Type.type(:sensuclassic_check).provide(:json) do
 
   def pre_create
     conf['checks'] = {}
-    conf['checks'][resource[:name]] = {}
+    conf['checks'][resource[:check_name]] = {}
   end
 
   def sort_properties!
-    conf['checks'][resource[:name]] = Hash[conf['checks'][resource[:name]].sort]
+    conf['checks'][resource[:check_name]] = Hash[conf['checks'][resource[:check_name]].sort]
   end
 
   def is_property?(prop)
@@ -84,12 +84,12 @@ Puppet::Type.type(:sensuclassic_check).provide(:json) do
   end
 
   def custom
-    conf['checks'][resource[:name]].reject { |k,v| is_property?(k) }
+    conf['checks'][resource[:check_name]].reject { |k,v| is_property?(k) }
   end
 
   def custom=(value)
-    conf['checks'][resource[:name]].delete_if { |k,v| not is_property?(k) }
-    conf['checks'][resource[:name]].merge!(to_type(value))
+    conf['checks'][resource[:check_name]].delete_if { |k,v| not is_property?(k) }
+    conf['checks'][resource[:check_name]].merge!(to_type(value))
   end
 
   def destroy
@@ -97,7 +97,7 @@ Puppet::Type.type(:sensuclassic_check).provide(:json) do
   end
 
   def exists?
-    conf.has_key?('checks') and conf['checks'].has_key?(resource[:name])
+    conf.has_key?('checks') and conf['checks'].has_key?(resource[:check_name])
   end
 
   def config_file
@@ -121,15 +121,15 @@ Puppet::Type.type(:sensuclassic_check).provide(:json) do
   end
 
   def get_property(property)
-    value = conf['checks'][resource[:name]][property.to_s]
+    value = conf['checks'][resource[:check_name]][property.to_s]
     value.nil? ? :absent : value
   end
 
   def set_property(property, value)
     if value == :absent
-      conf['checks'][resource[:name]].delete(property.to_s)
+      conf['checks'][resource[:check_name]].delete(property.to_s)
     else
-      conf['checks'][resource[:name]][property.to_s] = value
+      conf['checks'][resource[:check_name]][property.to_s] = value
     end
   end
 end

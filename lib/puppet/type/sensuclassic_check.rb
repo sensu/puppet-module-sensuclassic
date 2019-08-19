@@ -47,6 +47,13 @@ Puppet::Type.newtype(:sensuclassic_check) do
     desc "The name of the check."
   end
 
+  newparam(:check_name) do
+    desc "The name of the check, defaults to value of `name`"
+    defaultto do
+      @resource[:name]
+    end
+  end
+
   newproperty(:command) do
     desc "Command to be run by the check"
     newvalues(/.*/, :absent)
