@@ -38,11 +38,8 @@ The `master` branch is for development against Sensu Classic.
 # Release process
 
 1. Update version in `metadata.json`
-1. Update CHANGELOG.md by running the following command.
-   `github_changelog_generator -u sensu -p puppet-module-sensuclassic --exclude-labels skip-changelog`
-1. update `CHANGELOG.md` and change `unreleased` at the top to the
-   version, such as `v2.0.0`, and change `HEAD` to the same version,
-   such as `v2.0.0`.
+1. Update CHANGELOG.md with the following command replacing `--future-release` with appropriate value.
+   ```github_changelog_generator -u sensu -p puppet-module-sensuclassic --exclude-labels skip-changelog --future-release v3.2.0```
 1. Update `REFERENCE.md` with the command `bundle exec rake reference`
 1. Commit changes and push to master
 1. Tag the new version, such as `git tag -a 'v2.0.0' -m 'v2.0.0'`
