@@ -249,6 +249,11 @@ describe 'sensuclassic::check', :type => :define do
       let(:pre_condition) { 'class {"sensuclassic": client => true, api => true, server => true}' }
       it { should contain_sensuclassic__write_json(fpath).with(:notify_list => ['Service[sensu-client]', 'Class[Sensuclassic::Server::Service]', 'Service[sensu-api]']) }
     end
+
+    context 'client and enterprise' do
+      let(:pre_condition) { 'class {"sensuclassic": enterprise => true, enterprise_user => "sensu", enterprise_pass => "sensu"}' }
+      it { should contain_sensuclassic__write_json(fpath).with(:notify_list => ['Service[sensu-client]', 'Exec[sensu-enterprise-reload]']) }
+    end
   end
 
   context 'with subdue' do
