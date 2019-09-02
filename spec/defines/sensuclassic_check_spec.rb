@@ -507,16 +507,4 @@ describe 'sensuclassic::check', :type => :define do
     end
   end
 
-  describe 'check_name' do
-    context 'check_name defined' do
-      let(:params_override) do
-        { check_name: 'testcheck' }
-      end
-      let(:expected_content_new) do
-        check =  expected_content['checks']['mycheck']
-        { 'checks' => { 'testcheck' => check } }
-      end
-      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content_new) }
-    end
-  end
 end
