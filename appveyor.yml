@@ -3,6 +3,10 @@ platform:
   - x64
 build: off
 max_jobs: 2
+branches:
+  only:
+    - master
+    - /^v\d/
 cache:
 - C:\downloads
 - C:\vendor\bundle
