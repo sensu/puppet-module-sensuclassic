@@ -2,12 +2,6 @@
 #
 # This define manages Sensu checks
 #
-# @param check_name The name of the check.
-#   If not specified, defaults to the name of the resource. Overriding it
-#   allows the check name to differ from the check configuration filename,
-#   useful when having checks of the same name from different proxy clients.
-#   (see the 'source' parameter)
-#
 # @param command The check command to run
 #
 # @param ensure Whether the check should be present or not.
@@ -108,7 +102,6 @@
 #   of the Hash value.
 #
 define sensuclassic::check (
-  Optional[String] $check_name = undef,
   Optional[String] $command = undef,
   Enum['present','absent'] $ensure = 'present',
   Optional[String] $type = undef,
@@ -160,11 +153,7 @@ define sensuclassic::check (
     }
   }
 
-  $check_file_name = regsubst(regsubst($name, ' ', '_', 'G'), '[\(\)]', '', 'G')
-  $check_config_name = $check_name ? {
-    undef   => $check_file_name,
-    default => $check_name,
-  }
+  $check_name = regsubst(regsubst($name, ' ', '_', 'G'), '[\(\)]', '', 'G')
 
   # If cron is specified, interval should not be written to the configuration
   if $cron and $cron != 'absent' {
@@ -214,7 +203,7 @@ define sensuclassic::check (
     }
   }
 
-  # This Hash map will ultimately exist at `{"checks" => {"$check_config_name" =>
+  # This Hash map will ultimately exist at `{"checks" => {"$check_name" =>
   # $check_config}}`
   $check_config_start = {
     type                => $type,
@@ -262,7 +251,7 @@ define sensuclassic::check (
 
   # Merge together the "checks" scope with any arbitrary config specified via
   # `content`.
-  $checks_scope_start = { $check_config_name => $check_config }
+  $checks_scope_start = { $check_name => $check_config }
   if $content['checks'] == undef {
     $checks_scope = { 'checks' => $checks_scope_start }
   } else {
@@ -273,7 +262,7 @@ define sensuclassic::check (
   # on top of any arbitrary plugin and extension configuration in $content.
   $content_real = $content + $checks_scope
 
-  sensuclassic::write_json { "${sensuclassic::conf_dir}/checks/${check_file_name}.json":
+  sensuclassic::write_json { "${sensuclassic::conf_dir}/checks/${check_name}.json":
     ensure      => $ensure,
     content     => $content_real,
     owner       => $sensuclassic::user,
