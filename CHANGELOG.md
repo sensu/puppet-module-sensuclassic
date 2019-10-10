@@ -1,6 +1,18 @@
 # Change Log
 
-## [v3.3.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.3.0) (2019-08-19)
+## [v3.4.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.4.0) (2019-10-10)
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.3.0...v3.4.0)
+
+**Closed issues:**
+
+- sensuclassic\_sorted\_json [\#21](https://github.com/sensu/puppet-module-sensuclassic/issues/21)
+
+**Merged pull requests:**
+
+- Only test master, tags and pull requests [\#23](https://github.com/sensu/puppet-module-sensuclassic/pull/23) ([treydock](https://github.com/treydock))
+- Revert check\_name changes [\#22](https://github.com/sensu/puppet-module-sensuclassic/pull/22) ([treydock](https://github.com/treydock))
+
+## [v3.3.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.3.0) (2019-08-20)
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.2.0...v3.3.0)
 
 **Implemented enhancements:**

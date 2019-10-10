@@ -1729,18 +1729,6 @@ This define manages Sensu checks
 
 The following parameters are available in the `sensuclassic::check` defined type.
 
-##### `check_name`
-
-Data type: `Optional[String]`
-
-The name of the check.
-If not specified, defaults to the name of the resource. Overriding it
-allows the check name to differ from the check configuration filename,
-useful when having checks of the same name from different proxy clients.
-(see the 'source' parameter)
-
-Default value: `undef`
-
 ##### `command`
 
 Data type: `Optional[String]`
@@ -2925,10 +2913,6 @@ The following parameters are available in the `sensuclassic_check` type.
 namevar
 
 The name of the check.
-
-##### `check_name`
-
-The name of the check, defaults to value of `name`
 
 ##### `base_path`
 
