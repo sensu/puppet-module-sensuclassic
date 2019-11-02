@@ -24,7 +24,7 @@
 
 require 'json'
 
-module JSON
+module SensuClassicJSON
   class << self
     @@loop = 0
 
@@ -170,9 +170,9 @@ Puppet::Functions.create_function(:sensuclassic_sorted_json) do
 
   def sort_json(hash, pretty = false)
     if pretty
-      return JSON.sorted_pretty_generate(hash, 4) << "\n"
+      return SensuClassicJSON.sorted_pretty_generate(hash, 4) << "\n"
     else
-      return JSON.sorted_generate(hash)
+      return SensuClassicJSON.sorted_generate(hash)
     end
   end
 end
