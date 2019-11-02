@@ -1,7 +1,22 @@
 # Change Log
 
+## [v3.4.1](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.4.1) (2019-11-02)
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.4.0...v3.4.1)
+
+**Fixed bugs:**
+
+- Avoid monkey patching JSON module [\#25](https://github.com/sensu/puppet-module-sensuclassic/pull/25) ([treydock](https://github.com/treydock))
+
+**Closed issues:**
+
+- undefined method `pretty\_generate' for Puppet::Pops::Loader::RubyFunctionInstantiator::JSON:Module [\#24](https://github.com/sensu/puppet-module-sensuclassic/issues/24)
+
 ## [v3.4.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.4.0) (2019-10-10)
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.3.0...v3.4.0)
+
+**Implemented enhancements:**
+
+- Use reload of sensu-enterprise service rather than restart [\#18](https://github.com/sensu/puppet-module-sensuclassic/pull/18) ([treydock](https://github.com/treydock))
 
 **Closed issues:**
 
@@ -14,10 +29,6 @@
 
 ## [v3.3.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.3.0) (2019-08-20)
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.2.0...v3.3.0)
-
-**Implemented enhancements:**
-
-- Use reload of sensu-enterprise service rather than restart [\#18](https://github.com/sensu/puppet-module-sensuclassic/pull/18) ([treydock](https://github.com/treydock))
 
 **Closed issues:**
 
