@@ -182,7 +182,7 @@ describe 'sensuclassic' do
 
             it { should_not contain_apt__key('sensu').with(
               :key         => 'EE15CFF6AB6E4E290FDAB681A20F259AEB9C94BB',
-              :key_source  => 'http://repositories.sensuapp.org/apt/pubkey.gpg'
+              :key_source  => 'http://eol-repositories.sensuapp.org/apt/pubkey.gpg'
             ) }
 
             it { should contain_package('sensu').with( :require => nil ) }
@@ -451,7 +451,7 @@ describe 'sensuclassic' do
         ) }
 
         it { should contain_remote_file('sensu').with(
-          source: 'https://repositories.sensuapp.org/msi/2012r2/sensu-latest-x64.msi',
+          source: 'https://eol-repositories.sensuapp.org/msi/2012r2/sensu-latest-x64.msi',
           path: 'C:\\Windows\\Temp\\sensu-latest.msi',
         ) }
       end
@@ -459,7 +459,7 @@ describe 'sensuclassic' do
       context 'with explicit version, as used by Vagrant  (GH-646)' do
         let(:params) { { version: '0.29.0-11' } }
         it { should contain_remote_file('sensu').with(
-          source: 'https://repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi',
+          source: 'https://eol-repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi',
         ) }
         # The MSI provider will keep re-installing the package unless the
         # version is translated into dotted form.  e.g. 'Notice:
@@ -477,12 +477,12 @@ describe 'sensuclassic' do
 
       context 'with windows_pkg_url specified' do
         let(:params) do
-          { windows_pkg_url: 'https://repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi' }
+          { windows_pkg_url: 'https://eol-repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi' }
         end
 
         it 'overrides computation using windows_repo_prefix' do
           should contain_remote_file('sensu').with(
-            source: 'https://repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi'
+            source: 'https://eol-repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi'
           )
         end
       end
@@ -519,7 +519,7 @@ describe 'sensuclassic' do
       ) }
 
       it { should contain_remote_file('sensu').with(
-        source: 'https://repositories.sensuapp.org/msi/2016/sensu-latest-x64.msi',
+        source: 'https://eol-repositories.sensuapp.org/msi/2016/sensu-latest-x64.msi',
         path: 'C:\\Windows\\Temp\\sensu-latest.msi',
       ) }
     end
