@@ -507,4 +507,43 @@ describe 'sensuclassic::check', :type => :define do
     end
   end
 
+  describe 'output_format' do
+    context 'undefined' do
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'defined' do
+      let(:params_override) { { output_format: 'graphite_plaintext' } }
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60, "output_format" => "graphite_plaintext"}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'invalid' do
+      let(:params_override) { { output_format: ['foo'] } }
+      it { should raise_error(Puppet::Error, /expects a value of type Undef or String/) }
+    end
+  end
+
+  describe 'handle_when' do
+    context 'undefined' do
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'defined' do
+      let(:params_override) { { handle_when: { 'occurrences' => 2, 'reset' => 1800 } } }
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60, "handle_when" => {"occurrences" => 2, "reset" => 1800} }}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'invalid' do
+      let(:params_override) { { handle_when: 'foo' } }
+      it { should raise_error(Puppet::Error, /expects a value of type Undef or Struct/) }
+    end
+  end
 end

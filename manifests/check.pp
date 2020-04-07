@@ -101,6 +101,14 @@
 #   Since Sensu 1.1.0. Manages hooks for a check. See the documentation for the format
 #   of the Hash value.
 #
+# @param output_format
+#   [Docs](https://docs.sensu.io/sensu-enterprise/latest/built-in-mutators/#output-format)
+#   A metric output format
+#
+# @param handle_when
+#   [Docs](https://docs.sensu.io/sensu-enterprise/latest/filters/handle-when/)
+#   The handle_when enterprise filter is used to reduce notification “noise”
+#
 define sensuclassic::check (
   Optional[String] $command = undef,
   Enum['present','absent'] $ensure = 'present',
@@ -130,6 +138,8 @@ define sensuclassic::check (
   Variant[Undef,Enum['absent'],Hash] $subdue = undef,
   Variant[Undef,Enum['absent'],Hash] $proxy_requests = undef,
   Variant[Undef,Enum['absent'],Hash] $hooks = undef,
+  Optional[String[1]] $output_format = undef,
+  Optional[Struct[{'occurrences' => Integer, 'reset' => Integer}]] $handle_when = undef,
 ) {
 
   include sensuclassic
@@ -231,6 +241,8 @@ define sensuclassic::check (
     ttl                 => $ttl,
     ttl_status          => $ttl_status,
     auto_resolve        => $auto_resolve,
+    output_format       => $output_format,
+    handle_when         => $handle_when,
   }
 
   # Remove key/value pares where the value is `undef` or `"absent"`.
