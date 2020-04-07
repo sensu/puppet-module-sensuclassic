@@ -36,6 +36,9 @@ group :development, :unit_tests do
   if puppetversion < '5.0'
     gem 'semantic_puppet', :require => false
   end
+  if Gem.win_platform? && ENV['PUPPET_GEM_VERSION'] =~ /6.x/
+    gem 'ffi', '~>1.11.0', :require => false
+  end
 end
 
 group :documentation do
