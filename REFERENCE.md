@@ -1010,7 +1010,7 @@ If specified, override the behavior of computing the
 package source URL from windows_repo_prefix and os major release fact.
 This parameter is intended to allow the end user to override the source URL
 used to install the Windows package. For example:
-`"https://repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi"`
+`"https://eol-repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi"`
 
 Default value: `undef`
 
@@ -1041,7 +1041,7 @@ Data type: `String`
 
 The package name used to identify the package
 filename. Defaults to `'sensu'` which matches the MSI filename published at
-`https://repositories.sensuapp.org/msi`. Note, this is distinct from the
+`https://eol-repositories.sensuapp.org/msi`. Note, this is distinct from the
 windows_package_title, which is used to identify the package name as
 displayed in Add/Remove programs in Windows.
 
@@ -1291,7 +1291,7 @@ Data type: `Optional[String]`
 
 
 
-Default value: 'https://repositories.sensuapp.org/msi'
+Default value: 'https://eol-repositories.sensuapp.org/msi'
 
 ##### `extensions`
 
@@ -1965,6 +1965,14 @@ WARNING or CRITICAL state will be automatically resolved. Set this to 'absent' t
 
 Default value: `undef`
 
+##### `force_resolve`
+
+Data type: `Optional[Variant[Enum['absent'],Boolean]]`
+
+Setting force_resolve to true on a check result ensures that the event is resolved and removed from the registry, regardless of the current event action.
+
+Default value: `undef`
+
 ##### `subdue`
 
 Data type: `Variant[Undef,Enum['absent'],Hash]`
@@ -1990,6 +1998,48 @@ Default value: `undef`
 Data type: `Variant[Undef,Enum['absent'],Hash]`
 
 Manages
+
+Default value: `undef`
+
+##### `output_format`
+
+Data type: `Optional[String[1]]`
+
+[Docs](https://docs.sensu.io/sensu-enterprise/latest/built-in-mutators/#output-format)
+A metric output format
+
+Default value: `undef`
+
+##### `handle_when`
+
+Data type: `Optional[Struct[{'occurrences' => Integer, 'reset' => Integer}]]`
+
+[Docs](https://docs.sensu.io/sensu-enterprise/latest/filters/handle-when/)
+The handle_when enterprise filter is used to reduce notification “noise”
+
+Default value: `undef`
+
+##### `extension`
+
+Data type: `Optional[String]`
+
+The name of a Sensu check extension to run instead of a command.
+
+Default value: `undef`
+
+##### `truncate_output`
+
+Data type: `Optional[Boolean]`
+
+If check output will be truncated for storage.
+
+Default value: `undef`
+
+##### `truncate_output_length`
+
+Data type: `Optional[Integer]`
+
+The output truncation length, the maximum number of characters.
 
 Default value: `undef`
 
@@ -2903,6 +2953,16 @@ Check ttl in seconds
 Valid values: /.*/, absent
 
 Exit code for ttl
+
+##### `output_format`
+
+Valid values: /.*/, absent
+
+A metric output format
+
+##### `handle_when`
+
+The handle_when enterprise filter is used to reduce notification 'noise'
 
 #### Parameters
 
