@@ -9,7 +9,7 @@ end
 if facterversion = ENV['FACTER_GEM_VERSION']
   gem 'facter', facterversion, :require => false
 else
-  gem 'facter', :require => false
+  gem 'facter', '< 4.0', :require => false
 end
 
 group :development, :unit_tests do
@@ -35,6 +35,9 @@ group :development, :unit_tests do
   gem 'puppet-lint-version_comparison-check',             :require => false
   if puppetversion < '5.0'
     gem 'semantic_puppet', :require => false
+  end
+  if Gem.win_platform? && ENV['PUPPET_GEM_VERSION'] =~ /6.x/
+    gem 'ffi', '~>1.11.0', :require => false
   end
 end
 

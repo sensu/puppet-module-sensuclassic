@@ -1,8 +1,6 @@
 ---
 language: ruby
 
-bundler_args: --without system_tests development
-
 cache: bundler
 
 before_install:
@@ -22,107 +20,95 @@ matrix:
   include:
   - rvm: 2.4.4
     env: PUPPET_GEM_VERSION="~> 5"
+    bundler_args: --without system_tests development
   - rvm: 2.4.4
     env: PUPPET_GEM_VERSION="~> 5" FIXTURES_YML=".fixtures-latest.yml"
+    bundler_args: --without system_tests development
   - rvm: 2.5.3
     env: PUPPET_GEM_VERSION="~> 6"
+    bundler_args: --without system_tests development
   - rvm: 2.5.3
     env: PUPPET_GEM_VERSION="~> 6" FIXTURES_YML=".fixtures-latest.yml"
+    bundler_args: --without system_tests development
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="centos-6" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="centos-6" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="centos-7" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="centos-7" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="debian-8" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="debian-8" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="debian-9" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="debian-9" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="ubuntu-1604" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="ubuntu-1604" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="ubuntu-1804" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="ubuntu-1804" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="amazonlinux-201803" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="amazonlinux-201803" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.4.4
     sudo: required
     services: docker
     env: BEAKER_set="amazonlinux-2" BEAKER_PUPPET_COLLECTION=puppet5
-    bundler_args:
     script: bundle exec rake beaker
   - rvm: 2.5.3
     sudo: required
     services: docker
     env: BEAKER_set="amazonlinux-2" BEAKER_PUPPET_COLLECTION=puppet6
-    bundler_args:
     script: bundle exec rake beaker
 allow_failures:
   - rvm: 2.4.4

@@ -66,7 +66,7 @@ class sensuclassic::package (
 
       remote_file { $pkg_source:
         ensure => present,
-        source => "https://repositories.sensuapp.org/osx/${::macosx_productversion_major}/x86_64/sensu-${pkg_version}.dmg",
+        source => "https://eol-repositories.sensuapp.org/osx/${::macosx_productversion_major}/x86_64/sensu-${pkg_version}.dmg",
       }
     }
 

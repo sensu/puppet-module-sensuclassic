@@ -105,8 +105,10 @@ describe 'sensuclassic::check', :type => :define do
         :handle              => true,
         :publish             => true,
         :auto_resolve        => true,
+        :force_resolve       => true,
         :ttl                 => 30,
-        :ttl_status          => 1
+        :ttl_status          => 1,
+        :extension           => 'test',
       } }
 
       it do should contain_sensuclassic__write_json(fpath).with(
@@ -130,8 +132,10 @@ describe 'sensuclassic::check', :type => :define do
               'handle'              => true,
               'publish'             => true,
               'auto_resolve'        => true,
+              'force_resolve'       => true,
               'ttl'                 => 30,
-              'ttl_status'          => 1
+              'ttl_status'          => 1,
+              'extension'           => 'test',
             }
           }
         }
@@ -163,6 +167,7 @@ describe 'sensuclassic::check', :type => :define do
         :aggregate           => 'absent',
         :aggregates          => 'absent',
         :dependencies        => 'absent',
+        :extension           => 'absent',
         :handle              => 'absent',
         :handlers            => 'absent',
         :high_flap_threshold => 'absent',
@@ -171,6 +176,7 @@ describe 'sensuclassic::check', :type => :define do
         :occurrences         => 'absent',
         :publish             => 'absent',
         :auto_resolve        => 'absent',
+        :force_resolve       => 'absent',
         :refresh             => 'absent',
         :source              => 'absent',
         :standalone          => 'absent',
@@ -507,4 +513,61 @@ describe 'sensuclassic::check', :type => :define do
     end
   end
 
+  describe 'output_format' do
+    context 'undefined' do
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'defined' do
+      let(:params_override) { { output_format: 'graphite_plaintext' } }
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60, "output_format" => "graphite_plaintext"}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'invalid' do
+      let(:params_override) { { output_format: ['foo'] } }
+      it { should raise_error(Puppet::Error, /expects a value of type Undef or String/) }
+    end
+  end
+
+  describe 'handle_when' do
+    context 'undefined' do
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'defined' do
+      let(:params_override) { { handle_when: { 'occurrences' => 2, 'reset' => 1800 } } }
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60, "handle_when" => {"occurrences" => 2, "reset" => 1800} }}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'invalid' do
+      let(:params_override) { { handle_when: 'foo' } }
+      it { should raise_error(Puppet::Error, /expects a value of type Undef or Struct/) }
+    end
+  end
+
+  describe 'truncating' do
+    context 'defined' do
+      let(:params_override) { { truncate_output: true, truncate_output_length: 1024 } }
+      let(:expected_content) do
+        {"checks"=>{"mycheck"=>{"standalone"=>true, "command"=>"/etc/sensu/somecommand.rb", "interval"=>60, "truncate_output"=>true, "truncate_output_length"=>1024}}}
+      end
+      it { should contain_sensuclassic__write_json(fpath).with_content(expected_content) }
+    end
+    context 'invalid' do
+      let(:params_override) { { truncate_output: 'foo' } }
+      it { should raise_error(Puppet::Error, /expects a value of type Undef or Boolean/) }
+    end
+    context 'invalid length' do
+      let(:params_override) { { truncate_output_length: 'foo' } }
+      it { should raise_error(Puppet::Error, /expects a value of type Undef or Integer/) }
+    end
+  end
 end

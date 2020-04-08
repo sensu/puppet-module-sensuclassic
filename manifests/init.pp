@@ -309,7 +309,7 @@
 #   package source URL from windows_repo_prefix and os major release fact.
 #   This parameter is intended to allow the end user to override the source URL
 #   used to install the Windows package. For example:
-#   `"https://repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi"`
+#   `"https://eol-repositories.sensuapp.org/msi/2012r2/sensu-0.29.0-11-x64.msi"`
 #
 # @param windows_package_provider When something other than `undef`, use the
 #   specified package provider to install Windows packages. The default
@@ -322,7 +322,7 @@
 #
 # @param windows_package_name The package name used to identify the package
 #   filename. Defaults to `'sensu'` which matches the MSI filename published at
-#   `https://repositories.sensuapp.org/msi`. Note, this is distinct from the
+#   `https://eol-repositories.sensuapp.org/msi`. Note, this is distinct from the
 #   windows_package_title, which is used to identify the package name as
 #   displayed in Add/Remove programs in Windows.
 #
@@ -480,7 +480,7 @@ class sensuclassic (
   Optional[String] $deregister_handler = undef,
   Optional[String] $package_checksum = undef,
   Optional[String] $windows_pkg_url = undef,
-  Optional[String] $windows_repo_prefix = 'https://repositories.sensuapp.org/msi',
+  Optional[String] $windows_repo_prefix = 'https://eol-repositories.sensuapp.org/msi',
   Boolean $windows_logrotate = false,
   Variant[Integer,Pattern[/^(\d+)$/]] $windows_log_number = 10,
   Variant[Integer,Pattern[/^(\d+)$/]] $windows_log_size = 10240,

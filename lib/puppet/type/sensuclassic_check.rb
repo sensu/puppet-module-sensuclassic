@@ -258,6 +258,15 @@ Puppet::Type.newtype(:sensuclassic_check) do
     end
   end
 
+  newproperty(:output_format) do
+    desc "A metric output format"
+    newvalues(/.*/, :absent)
+  end
+
+  newproperty(:handle_when) do
+    desc "The handle_when enterprise filter is used to reduce notification 'noise'"
+  end
+
   autorequire(:package) do
     ['sensu']
   end
