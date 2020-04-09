@@ -13,7 +13,7 @@ else
 end
 
 group :development, :unit_tests do
-  gem 'rake',                                             '< 11.0.0'
+  gem 'rake'
   gem 'rspec-puppet', '~> 2.6.0',                         :require => false
   gem 'rspec-mocks',                                      :require => false
   gem 'puppetlabs_spec_helper', '>= 2.11.0',               :require => false
