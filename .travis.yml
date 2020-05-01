@@ -18,10 +18,10 @@ script: 'SPEC_OPTS="--format documentation" bundle exec rake validate lint spec 
 matrix:
   fast_finish: true
   include:
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     env: PUPPET_GEM_VERSION="~> 5"
     bundler_args: --without system_tests development
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     env: PUPPET_GEM_VERSION="~> 5" FIXTURES_YML=".fixtures-latest.yml"
     bundler_args: --without system_tests development
   - rvm: 2.5.7
@@ -30,7 +30,7 @@ matrix:
   - rvm: 2.5.7
     env: PUPPET_GEM_VERSION="~> 6" FIXTURES_YML=".fixtures-latest.yml"
     bundler_args: --without system_tests development
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="centos-6" BEAKER_PUPPET_COLLECTION=puppet5
@@ -40,7 +40,7 @@ matrix:
     services: docker
     env: BEAKER_set="centos-6" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="centos-7" BEAKER_PUPPET_COLLECTION=puppet5
@@ -50,7 +50,7 @@ matrix:
     services: docker
     env: BEAKER_set="centos-7" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="debian-8" BEAKER_PUPPET_COLLECTION=puppet5
@@ -60,7 +60,7 @@ matrix:
     services: docker
     env: BEAKER_set="debian-8" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="debian-9" BEAKER_PUPPET_COLLECTION=puppet5
@@ -70,7 +70,7 @@ matrix:
     services: docker
     env: BEAKER_set="debian-9" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="ubuntu-1604" BEAKER_PUPPET_COLLECTION=puppet5
@@ -80,7 +80,7 @@ matrix:
     services: docker
     env: BEAKER_set="ubuntu-1604" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="ubuntu-1804" BEAKER_PUPPET_COLLECTION=puppet5
@@ -90,7 +90,7 @@ matrix:
     services: docker
     env: BEAKER_set="ubuntu-1804" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="amazonlinux-201803" BEAKER_PUPPET_COLLECTION=puppet5
@@ -100,7 +100,7 @@ matrix:
     services: docker
     env: BEAKER_set="amazonlinux-201803" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     sudo: required
     services: docker
     env: BEAKER_set="amazonlinux-2" BEAKER_PUPPET_COLLECTION=puppet5
@@ -111,7 +111,7 @@ matrix:
     env: BEAKER_set="amazonlinux-2" BEAKER_PUPPET_COLLECTION=puppet6
     script: bundle exec rake beaker
 allow_failures:
-  - rvm: 2.4.9
+  - rvm: 2.4.10
     env: PUPPET_GEM_VERSION="~> 5" FIXTURES_YML=".fixtures-latest.yml"
   - rvm: 2.5.7
     env: PUPPET_GEM_VERSION="~> 6" FIXTURES_YML=".fixtures-latest.yml"
