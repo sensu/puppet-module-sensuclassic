@@ -1,5 +1,18 @@
 # Changelog
 
+## [v3.5.1](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.5.1) (2020-06-03)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.5.0...v3.5.1)
+
+**Closed issues:**
+
+- deprecated `validate\_bool\(\)` function [\#29](https://github.com/sensu/puppet-module-sensuclassic/issues/29)
+
+**Merged pull requests:**
+
+- \(GH-29\) Removes validate\_bool\(\) usage [\#30](https://github.com/sensu/puppet-module-sensuclassic/pull/30) ([chadh](https://github.com/chadh))
+- CI updates for Travis ruby versions and use latest Rake [\#27](https://github.com/sensu/puppet-module-sensuclassic/pull/27) ([treydock](https://github.com/treydock))
+
 ## [v3.5.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.5.0) (2020-04-08)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.4.1...v3.5.0)

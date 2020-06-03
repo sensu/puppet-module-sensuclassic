@@ -764,7 +764,7 @@ Default value: `undef`
 
 ##### `purge`
 
-Data type: `Variant[Boolean,Hash]`
+Data type: `Variant[Boolean,Hash[Enum['plugins','config','handlers','extensions','mutators'],Boolean]]`
 
 If unused plugins, configs, handlers, extensions and mutators should be removed from the system.
 If set to true, all unused plugins, configs, handlers, extensions and mutators will be removed from the system.
