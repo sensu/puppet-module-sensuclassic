@@ -385,7 +385,7 @@ describe 'sensuclassic' do
         let(:params) { { :purge => { 'other_key' => true } } }
 
         it 'should fail' do
-          expect { should create_class('sensu') }.to raise_error(/Invalid keys for purge parameter/)
+          expect { should create_class('sensu') }.to raise_error(Puppet::PreformattedError)
         end
       end
     end
