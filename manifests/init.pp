@@ -447,7 +447,7 @@ class sensuclassic (
   Variant[String,Array,Hash] $plugins = [],
   Hash $plugins_defaults = {},
   Optional[String] $plugins_dir = undef,
-  Variant[Boolean,Hash] $purge = false,
+  Variant[Boolean,Hash[Enum['plugins','config','handlers','extensions','mutators'],Boolean]] $purge = false,
   Boolean $purge_config = false,
   Boolean $purge_plugins_dir = false,
   Boolean $use_embedded_ruby = true,
@@ -628,7 +628,6 @@ class sensuclassic (
     # Default anything not specified to false
     $default_purge_hash = { plugins => false, config => false, handlers => false, extensions => false, mutators => false }
     $full_purge_hash = merge($default_purge_hash, $purge)
-    validate_bool($full_purge_hash['plugins'], $full_purge_hash['config'], $full_purge_hash['handlers'], $full_purge_hash['extensions'], $full_purge_hash['mutators'])
     # Check that all keys are valid
     $invalid_keys = difference(keys($purge), keys($default_purge_hash))
     if !empty($invalid_keys) {
