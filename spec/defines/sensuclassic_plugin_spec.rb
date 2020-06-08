@@ -155,6 +155,21 @@ describe 'sensuclassic::plugin', :type => :define do
         :source   => 'https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-puppet/master/bin/check-puppet-last-run.rb'
       ) }
     end
+
+    context 'install via proxy' do
+      let(:params) { {
+        :type           => 'url',
+        :pkg_proxy_host => 'example.com',
+        :pkg_proxy_port => 3218,
+      } }
+
+      it { should contain_remote_file('https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/system/check-mem.sh').with(
+        :ensure     => 'present',
+        :path       => '/etc/sensu/plugins/check-mem.sh',
+        :proxy_host => 'example.com',
+        :proxy_port => 3218,
+      ) }
+    end
   end
 
   context 'directory' do

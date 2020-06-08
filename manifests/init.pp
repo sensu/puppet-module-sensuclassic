@@ -297,6 +297,12 @@
 #
 # @param package_checksum Used to set package_checksum for windows installs
 #
+# @param package_proxy_host
+#   Package proxy host. Currently only used applies to Windows not using chocolatey.
+#
+# @param package_proxy_port
+#   Package proxy port. Currently only used applies to Windows not using chocolatey.
+#
 # @param windows_logrotate Whether or not to use logrotate on Windows OS family.
 #
 # @param windows_log_size The integer value for the size of log files on
@@ -479,6 +485,8 @@ class sensuclassic (
   Boolean $deregister_on_stop = false,
   Optional[String] $deregister_handler = undef,
   Optional[String] $package_checksum = undef,
+  Optional[String] $package_proxy_host = undef,
+  Optional[Stdlib::Port] $package_proxy_port = undef,
   Optional[String] $windows_pkg_url = undef,
   Optional[String] $windows_repo_prefix = 'https://eol-repositories.sensuapp.org/msi',
   Boolean $windows_logrotate = false,
