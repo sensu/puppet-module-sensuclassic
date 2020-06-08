@@ -976,6 +976,22 @@ Used to set package_checksum for windows installs
 
 Default value: `undef`
 
+##### `package_proxy_host`
+
+Data type: `Optional[String]`
+
+Package proxy host. Currently only used applies to Windows not using chocolatey.
+
+Default value: `undef`
+
+##### `package_proxy_port`
+
+Data type: `Optional[Stdlib::Port]`
+
+Package proxy port. Currently only used applies to Windows not using chocolatey.
+
+Default value: `undef`
+
 ##### `windows_logrotate`
 
 Data type: `Boolean`
@@ -2581,6 +2597,22 @@ See: https://docs.puppetlabs.com/references/latest/type.html#package-attribute-i
 Example value: [{ '-p' => 'http://user:pass@myproxy.company.org:8080' }]
 
 Default value: $sensuclassic::gem_install_options
+
+##### `pkg_proxy_host`
+
+Data type: `Optional[String]`
+
+The proxy host used to download the plugin when `type` is `url`
+
+Default value: $sensuclassic::package_proxy_host
+
+##### `pkg_proxy_port`
+
+Data type: `Optional[Stdlib::Port]`
+
+The proxy port used to download the plugin when `type` is `url`
+
+Default value: $sensuclassic::package_proxy_port
 
 ### sensuclassic::plugins_dir
 

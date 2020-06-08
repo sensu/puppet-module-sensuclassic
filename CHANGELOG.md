@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.6.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.0) (2020-06-08)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.5.1...v3.6.0)
+
+**Implemented enhancements:**
+
+- Better proxy support for installing on Windows [\#31](https://github.com/sensu/puppet-module-sensuclassic/pull/31) ([treydock](https://github.com/treydock))
+
 ## [v3.5.1](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.5.1) (2020-06-03)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.5.0...v3.5.1)
