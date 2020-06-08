@@ -29,6 +29,12 @@
 #   See: https://docs.puppetlabs.com/references/latest/type.html#package-attribute-install_options
 #   Example value: [{ '-p' => 'http://user:pass@myproxy.company.org:8080' }]
 #
+# @param pkg_proxy_host
+#   The proxy host used to download the plugin when `type` is `url`
+#
+# @param pkg_proxy_port
+#   The proxy port used to download the plugin when `type` is `url`
+#
 define sensuclassic::plugin (
   Enum['file','url','package','directory'] $type = 'file',
   Stdlib::Absolutepath $install_path = $::osfamily ? {
@@ -43,6 +49,8 @@ define sensuclassic::plugin (
   Optional[String] $pkg_checksum = undef,
   Boolean $nocheckcertificate  = false,
   Any $gem_install_options = $sensuclassic::gem_install_options,
+  Optional[String] $pkg_proxy_host = $sensuclassic::package_proxy_host,
+  Optional[Stdlib::Port] $pkg_proxy_port = $sensuclassic::package_proxy_port,
 ) {
 
   File {
@@ -87,11 +95,13 @@ define sensuclassic::plugin (
       }
 
       remote_file { $name:
-        ensure   => present,
-        path     => "${install_path}/${filename}",
-        source   => $name,
-        checksum => $pkg_checksum,
-        require  => File[$install_path],
+        ensure     => present,
+        path       => "${install_path}/${filename}",
+        source     => $name,
+        checksum   => $pkg_checksum,
+        proxy_host => $pkg_proxy_host,
+        proxy_port => $pkg_proxy_port,
+        require    => File[$install_path],
       }
 
       file { "${install_path}/${filename}":

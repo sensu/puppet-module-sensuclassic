@@ -158,10 +158,12 @@ class sensuclassic::package (
 
         # path matches Package[sensu] { source => $pkg_source }
         remote_file { $pkg_title:
-          ensure   => present,
-          path     => $pkg_source,
-          source   => $pkg_url,
-          checksum => $sensuclassic::package_checksum,
+          ensure     => present,
+          path       => $pkg_source,
+          source     => $pkg_url,
+          checksum   => $sensuclassic::package_checksum,
+          proxy_host => $sensuclassic::package_proxy_host,
+          proxy_port => $sensuclassic::package_proxy_port,
         }
       }
     }

@@ -487,6 +487,19 @@ describe 'sensuclassic' do
         end
       end
 
+      context 'with package_proxy_host and package_proxy_port specified' do
+        let(:params) do
+          { package_proxy_host: 'example.com', package_proxy_port: 3218 }
+        end
+
+        it 'overrides computation using windows_repo_prefix' do
+          should contain_remote_file('sensu').with(
+            proxy_host: 'example.com',
+            proxy_port: 3218,
+          )
+        end
+      end
+
       context 'with sensuclassic::windows_package_provider: chocolatey' do
         let(:params) do
           { windows_package_provider: 'chocolatey' }
