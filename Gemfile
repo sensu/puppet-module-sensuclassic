@@ -44,7 +44,7 @@ end
 group :documentation do
   gem 'yard',           require: false
   gem 'redcarpet',      require: false
-  gem 'puppet-strings', require: false
+  gem 'puppet-strings', '~> 2.4.0',  require: false
 end
 
 group :system_tests do
