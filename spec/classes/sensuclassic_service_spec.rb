@@ -73,7 +73,12 @@ describe 'sensuclassic', :type => :class do
               'dsc_displayname' => 'Sensu Client',
               'dsc_path'        => 'c:\\opt\\sensu\\bin\\sensu-client.exe',
               'notify'          => 'Service[sensu-client]',
-              'require'         => 'File[C:/opt/sensu/bin/sensu-client.xml]',
+              'require'         => [
+                'File[C:/opt/sensu/bin/sensu-client.xml]',
+                'Class[Sensuclassic::Package]',
+                'Sensuclassic_client_config[testfqdn.example.com]',
+                'Class[Sensuclassic::Rabbitmq::Config]',
+              ],
             })
           end
 

@@ -14,7 +14,7 @@ end
 
 group :development, :unit_tests do
   gem 'rake'
-  gem 'rspec-puppet', '~> 2.6.0',                         :require => false
+  gem 'rspec-puppet',                                     :require => false
   gem 'rspec-mocks',                                      :require => false
   gem 'puppetlabs_spec_helper', '>= 2.11.0',               :require => false
   gem 'puppet-lint', "~> 2.0",                            :require => false
@@ -44,7 +44,7 @@ end
 group :documentation do
   gem 'yard',           require: false
   gem 'redcarpet',      require: false
-  gem 'puppet-strings', require: false
+  gem 'puppet-strings', '~> 2.4.0',  require: false
 end
 
 group :system_tests do

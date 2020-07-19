@@ -78,7 +78,12 @@ class sensuclassic::client (
           dsc_credential  => $sensuclassic::windows_service_user,
           dsc_displayname => 'Sensu Client',
           dsc_path        => 'c:\\opt\\sensu\\bin\\sensu-client.exe',
-          require         => File['C:/opt/sensu/bin/sensu-client.xml'],
+          require         => [
+            File['C:/opt/sensu/bin/sensu-client.xml'],
+            Class['sensuclassic::package'],
+            Sensuclassic_client_config[$::fqdn],
+            Class['sensuclassic::rabbitmq::config'],
+          ],
           notify          => Service['sensu-client'],
         }
       }
