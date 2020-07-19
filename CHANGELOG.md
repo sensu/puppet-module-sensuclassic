@@ -1,5 +1,17 @@
 # Changelog
 
+## [v3.6.1](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.1) (2020-07-18)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.0...v3.6.1)
+
+**Closed issues:**
+
+- Service started before config applied [\#32](https://github.com/sensu/puppet-module-sensuclassic/issues/32)
+
+**Merged pull requests:**
+
+- Fix dsc\_service order issues [\#34](https://github.com/sensu/puppet-module-sensuclassic/pull/34) ([treydock](https://github.com/treydock))
+
 ## [v3.6.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.0) (2020-06-08)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.5.1...v3.6.0)
