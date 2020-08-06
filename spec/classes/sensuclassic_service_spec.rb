@@ -66,14 +66,11 @@ describe 'sensuclassic', :type => :class do
           end
 
           it do
-            should contain_dsc_service('sensu-client').only_with({
-              'dsc_ensure'      => 'present',
-              'dsc_name'        => 'sensu-client',
-              'dsc_credential'  => nil,
-              'dsc_displayname' => 'Sensu Client',
-              'dsc_path'        => 'c:\\opt\\sensu\\bin\\sensu-client.exe',
-              'notify'          => 'Service[sensu-client]',
-              'require'         => [
+            should contain_exec('install-sensu-client-service').only_with({
+              'command' => "C:\\windows\\system32\\sc.exe create sensu-client start= delayed-auto binPath= C:\\opt\\sensu\\bin\\sensu-client.exe DisplayName= \"Sensu Client\"",
+              'unless'  => "C:\\windows\\system32\\sc.exe query sensu-client",
+              'notify'  => 'Service[sensu-client]',
+              'require' => [
                 'File[C:/opt/sensu/bin/sensu-client.xml]',
                 'Class[Sensuclassic::Package]',
                 'Sensuclassic_client_config[testfqdn.example.com]',
@@ -103,14 +100,14 @@ describe 'sensuclassic', :type => :class do
               'dsc_ensure'   => 'present',
               'dsc_policy'   => 'Log_on_as_a_service',
               'dsc_identity' => 'test',
-              'before'       => 'Dsc_service[sensu-client]',
+              'before'       => 'Exec[install-sensu-client-service]',
             })
           end
           it do
             should contain_acl('C:/opt/sensu').with({
               'purge'       => 'false',
               'permissions' => '[{"identity"=>"test", "rights"=>["full"]}]',
-              'before'      => 'Dsc_service[sensu-client]',
+              'before'      => 'Exec[install-sensu-client-service]',
             })
           end
         end
@@ -164,7 +161,7 @@ describe 'sensuclassic', :type => :class do
 
         context 'client => false' do
           let(:params) { {:client => false} }
-          it { should contain_dsc_service('sensu-client').with_dsc_ensure('absent') }
+          it { should_not contain_exec('install-sensu-client-service') }
         end
       end
     end
