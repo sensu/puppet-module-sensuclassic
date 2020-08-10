@@ -31,12 +31,10 @@ class sensuclassic::client (
       true: {
         $service_ensure = $client_service_ensure
         $service_enable = $client_service_enable
-        $dsc_ensure     = 'present'
       }
       default: {
         $service_ensure = 'stopped'
         $service_enable = false
-        $dsc_ensure     = 'absent'
       }
     }
     case $::osfamily {
@@ -54,7 +52,7 @@ class sensuclassic::client (
             dsc_ensure   => present,
             dsc_policy   => 'Log_on_as_a_service',
             dsc_identity => $sensuclassic::windows_service_user['user'],
-            before       => Dsc_service['sensu-client'],
+            before       => Exec['install-sensu-client-service'],
           }
 
           acl { 'C:/opt/sensu':
@@ -65,26 +63,29 @@ class sensuclassic::client (
                 'rights'   => ['full'],
               },
             ],
-            before      => Dsc_service['sensu-client'],
+            before      => Exec['install-sensu-client-service'],
           }
+
+          $service_user = $sensuclassic::windows_service_user['user']
+          $service_password = $sensuclassic::windows_service_user['password']
+          $sc_user_args = " obj= \"${service_user}\" password= \"${service_password}\""
+        } else {
+          $sc_user_args = '' # lint:ignore:empty_string_assignment
         }
 
-        # This resource installs the service but service state and refreshes
-        # are handled by Service[sensu-client]
-        # See https://tickets.puppetlabs.com/browse/MODULES-4570
-        dsc_service { 'sensu-client':
-          dsc_ensure      => $dsc_ensure,
-          dsc_name        => 'sensu-client',
-          dsc_credential  => $sensuclassic::windows_service_user,
-          dsc_displayname => 'Sensu Client',
-          dsc_path        => 'c:\\opt\\sensu\\bin\\sensu-client.exe',
-          require         => [
-            File['C:/opt/sensu/bin/sensu-client.xml'],
-            Class['sensuclassic::package'],
-            Sensuclassic_client_config[$::fqdn],
-            Class['sensuclassic::rabbitmq::config'],
-          ],
-          notify          => Service['sensu-client'],
+        $sensu_client_exe = "C:\\opt\\sensu\\bin\\sensu-client.exe"
+        if $sensuclassic::client {
+          exec { 'install-sensu-client-service':
+            command => "C:\\windows\\system32\\sc.exe create sensu-client start= delayed-auto binPath= ${sensu_client_exe} DisplayName= \"Sensu Client\"${sc_user_args}", # lint:ignore:140chars
+            unless  => "C:\\windows\\system32\\sc.exe query sensu-client",
+            require => [
+              File['C:/opt/sensu/bin/sensu-client.xml'],
+              Class['sensuclassic::package'],
+              Sensuclassic_client_config[$::fqdn],
+              Class['sensuclassic::rabbitmq::config'],
+            ],
+            notify  => Service['sensu-client'],
+          }
         }
       }
       'Darwin': {
