@@ -1,6 +1,18 @@
 # Changelog
 
-## [v3.6.1](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.1) (2020-07-18)
+## [v3.6.2](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.2) (2020-08-10)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.1...v3.6.2)
+
+**Fixed bugs:**
+
+- Fix windows service management [\#35](https://github.com/sensu/puppet-module-sensuclassic/pull/35) ([treydock](https://github.com/treydock))
+
+**Closed issues:**
+
+- Windows sensu service DSC error for starting [\#33](https://github.com/sensu/puppet-module-sensuclassic/issues/33)
+
+## [v3.6.1](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.1) (2020-07-19)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.0...v3.6.1)
 
