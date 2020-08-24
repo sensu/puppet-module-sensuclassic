@@ -110,6 +110,12 @@ describe 'sensuclassic', :type => :class do
               'before'      => 'Exec[install-sensu-client-service]',
             })
           end
+
+          context 'with client => false' do
+            let(:params) { { :client => false, :windows_service_user => { 'user' => 'test', 'password' => 'test' }} }
+            it { should contain_acl('C:/opt/sensu') }
+            it { should_not contain_exec('install-sensu-client-service') }
+          end
         end
 
         context 'with log_level => debug' do
