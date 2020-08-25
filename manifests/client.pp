@@ -31,10 +31,12 @@ class sensuclassic::client (
       true: {
         $service_ensure = $client_service_ensure
         $service_enable = $client_service_enable
+        $before_install_service = Exec['install-sensu-client-service']
       }
       default: {
         $service_ensure = 'stopped'
         $service_enable = false
+        $before_install_service = undef
       }
     }
     case $::osfamily {
@@ -52,7 +54,7 @@ class sensuclassic::client (
             dsc_ensure   => present,
             dsc_policy   => 'Log_on_as_a_service',
             dsc_identity => $sensuclassic::windows_service_user['user'],
-            before       => Exec['install-sensu-client-service'],
+            before       => $before_install_service,
           }
 
           acl { 'C:/opt/sensu':
@@ -63,7 +65,7 @@ class sensuclassic::client (
                 'rights'   => ['full'],
               },
             ],
-            before      => Exec['install-sensu-client-service'],
+            before      => $before_install_service,
           }
 
           $service_user = $sensuclassic::windows_service_user['user']
