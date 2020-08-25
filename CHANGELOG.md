@@ -1,6 +1,18 @@
 # Changelog
 
-## [v3.6.2](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.2) (2020-08-10)
+## [v3.6.3](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.3) (2020-08-25)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.2...v3.6.3)
+
+**Fixed bugs:**
+
+- Fix for Windows when client =\> false [\#37](https://github.com/sensu/puppet-module-sensuclassic/pull/37) ([treydock](https://github.com/treydock))
+
+**Closed issues:**
+
+- Windows client value set to false throws puppet run error [\#36](https://github.com/sensu/puppet-module-sensuclassic/issues/36)
+
+## [v3.6.2](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.2) (2020-08-12)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.1...v3.6.2)
 
