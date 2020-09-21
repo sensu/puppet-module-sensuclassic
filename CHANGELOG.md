@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.6.4](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.4) (2020-09-21)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.3...v3.6.4)
+
+**Merged pull requests:**
+
+- Address CVE-2020-10663 by using a newer version of json [\#38](https://github.com/sensu/puppet-module-sensuclassic/pull/38) ([ghoneycutt](https://github.com/ghoneycutt))
+
 ## [v3.6.3](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.3) (2020-08-25)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.2...v3.6.3)
