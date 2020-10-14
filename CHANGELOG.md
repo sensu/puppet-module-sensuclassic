@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.7.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.7.0) (2020-10-14)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.4...v3.7.0)
+
+**Implemented enhancements:**
+
+- Add support for EL8 [\#39](https://github.com/sensu/puppet-module-sensuclassic/pull/39) ([treydock](https://github.com/treydock))
+
 ## [v3.6.4](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.4) (2020-09-21)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.3...v3.6.4)
