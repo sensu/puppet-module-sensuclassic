@@ -8,12 +8,18 @@ class sensuclassic::repo::yum {
     if $sensuclassic::repo_source {
       $url = $sensuclassic::repo_source
     } else {
+      $major = $facts.dig('os', 'release', 'major')
+      $family = $facts.dig('os', 'family')
       if $::operatingsystem == 'Amazon' {
-        if $facts['os']['release']['major'] =~ /^201\d$/ {
+        # Match all versions like 2018.2
+        if $major =~ /^201\d$/ {
           $releasever = '6'
         } else {
           $releasever = '7'
         }
+      # el8 packages do not exist, so use el7 packages
+      } elsif $family == 'RedHat' and $major == '8' {
+        $releasever = '7'
       } else {
         $releasever = '$releasever'
       }

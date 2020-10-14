@@ -115,6 +115,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server.vm.provision :shell, :inline => "facter --custom-dir=/vagrant/lib/facter sensuclassic_version"
   end
 
+# At this time does not work
+#  config.vm.define "el8-client", autostart: true do |client|
+#    client.vm.box = "centos/8"
+#    client.vm.hostname = 'el8-client.example.com'
+#    client.vm.network  :private_network, ip: "192.168.156.21"
+#    client.vm.provision :shell, :path => "tests/provision_basic_el.sh"
+#    client.vm.provision :shell, :inline => "puppet apply /vagrant/tests/sensu-client.pp"
+#    client.vm.provision :shell, :inline => "facter --custom-dir=/vagrant/lib/facter sensuclassic_version"
+#  end
+
   config.vm.define "el7-client", autostart: true do |client|
     client.vm.box = "centos/7"
     client.vm.hostname = 'el7-client.example.com'

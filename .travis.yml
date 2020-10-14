@@ -53,6 +53,16 @@ matrix:
   - rvm: 2.4.9
     sudo: required
     services: docker
+    env: BEAKER_set="centos-8" BEAKER_PUPPET_COLLECTION=puppet5
+    script: bundle exec rake beaker
+  - rvm: 2.5.7
+    sudo: required
+    services: docker
+    env: BEAKER_set="centos-8" BEAKER_PUPPET_COLLECTION=puppet6
+    script: bundle exec rake beaker
+  - rvm: 2.4.9
+    sudo: required
+    services: docker
     env: BEAKER_set="debian-8" BEAKER_PUPPET_COLLECTION=puppet5
     script: bundle exec rake beaker
   - rvm: 2.5.7
