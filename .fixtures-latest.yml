@@ -15,5 +15,10 @@ fixtures:
       repo: git://github.com/puppetlabs/puppetlabs-acl.git
     powershell:
       repo: git://github.com/puppetlabs/puppetlabs-powershell.git
+    sensu:
+      repo: git://github.com/sensu/sensu-puppet.git
+    # Needed by sensu module
+    datacat:
+      repo: git://github.com/richardc/puppet-datacat.git
   symlinks:
     sensuclassic: "#{source_dir}"

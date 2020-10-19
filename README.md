@@ -33,6 +33,19 @@ Please log an issue if you identify any incompatibilities.
 
 ## Upgrade note
 
+Version 3.8.0 of this module renames `Yumrepo[sensu]` to `Yumrepo[sensuclassic]` and `Apt::Source[sensu]` to `Apt::Source[sensuclassic]`.
+For Yum based systems if you are not purging unmanaged Yumrepo resources and not intending to run the Sensu Go module then it's recommended to do the following in a profile class:
+
+```pupppet
+yumrepo { 'sensu': ensure => 'absent' }
+```
+
+For Apt based systems not using the Sensu Go puppet module it's recommended to add the following to a profile class:
+
+```puppet
+apt::source { 'sensu': ensure => 'absent' }
+```
+
 Versions prior to 1.0.0 are incompatible with previous versions of the
 sensuclassic module.
 
@@ -239,6 +252,19 @@ node 'sensu-client.foo.com' {
    }
 }
 ```
+
+### Sensu client with Sensu Go module
+
+The following is an example of using the [Sensu Go Puppet module](https://github.com/sensu/sensu-puppet) on the same host using this sensuclassic module.
+
+```puppet
+include sensu::agent
+class { 'sensuclassic':
+  manage_user => false,
+  ssl_dir     => '/etc/sensu/ssl-classic',
+}
+```
+
 ### Facts
 
 #### `sensuclassic_version`

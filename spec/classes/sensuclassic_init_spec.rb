@@ -66,6 +66,35 @@ describe 'sensuclassic', :type => :class do
     # resources from sensuclassic::client
     it { should contain_file('/etc/sensu/conf.d/client.json') }
     it { should contain_sensuclassic_client_config('testfqdn.example.com').with_base_path('/etc/sensu/conf.d') }
+
+    context 'should work with sensu module' do
+      let(:facts) do
+        {
+          :osfamily => 'RedHat',
+          :os       => {
+            :family => 'RedHat',
+            :name   => 'RedHat',
+            :release => { :major => '7' },
+          },
+          :kernel   => 'Linux',
+          :puppetversion => Puppet.version,
+          :puppet_localcacert => '/dne',
+        }
+      end
+      let(:pre_condition) do
+        <<-EOS
+        include sensu::agent
+        EOS
+      end
+      let(:params) do
+        {
+          :manage_user => false,
+          :rabbitmq_ssl_cert_chain => '/dne',
+          :ssl_dir => '/etc/sensu/ssl-classic',
+        }
+      end
+      it { should compile.with_all_deps }
+    end
   end
 
   context 'with sensu_etc_dir => /opt/etc/sensu' do
