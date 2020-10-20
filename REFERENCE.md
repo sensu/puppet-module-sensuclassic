@@ -374,6 +374,14 @@ Rabbitmq vhost to be used by sensu
 
 Default value: `undef`
 
+##### `ssl_dir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The path to RabbitMQ SSL directory. Defaults to $etc_dir/ssl.
+
+Default value: `undef`
+
 ##### `rabbitmq_ssl`
 
 Data type: `Optional[Boolean]`

@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.8.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.8.0) (2020-10-20)
+
+[Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.7.0...v3.8.0)
+
+**Implemented enhancements:**
+
+- Support having the same host use sensu and sensuclassic modules [\#40](https://github.com/sensu/puppet-module-sensuclassic/pull/40) ([treydock](https://github.com/treydock))
+
 ## [v3.7.0](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.7.0) (2020-10-14)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.4...v3.7.0)
@@ -12,10 +20,6 @@
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.3...v3.6.4)
 
-**Merged pull requests:**
-
-- Address CVE-2020-10663 by using a newer version of json [\#38](https://github.com/sensu/puppet-module-sensuclassic/pull/38) ([ghoneycutt](https://github.com/ghoneycutt))
-
 ## [v3.6.3](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.3) (2020-08-25)
 
 [Full Changelog](https://github.com/sensu/puppet-module-sensuclassic/compare/v3.6.2...v3.6.3)
@@ -27,6 +31,10 @@
 **Closed issues:**
 
 - Windows client value set to false throws puppet run error [\#36](https://github.com/sensu/puppet-module-sensuclassic/issues/36)
+
+**Merged pull requests:**
+
+- Address CVE-2020-10663 by using a newer version of json [\#38](https://github.com/sensu/puppet-module-sensuclassic/pull/38) ([ghoneycutt](https://github.com/ghoneycutt))
 
 ## [v3.6.2](https://github.com/sensu/puppet-module-sensuclassic/tree/v3.6.2) (2020-08-12)
 
