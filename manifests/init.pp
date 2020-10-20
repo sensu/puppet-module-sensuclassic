@@ -97,6 +97,8 @@
 #
 # @param rabbitmq_vhost Rabbitmq vhost to be used by sensu
 #
+# @param ssl_dir The path to RabbitMQ SSL directory. Defaults to $etc_dir/ssl.
+#
 # @param rabbitmq_ssl Use SSL transport to connect to RabbitMQ. If rabbitmq_ssl_private_key and/or
 #   rabbitmq_ssl_cert_chain are set, then this is enabled automatically. Set rabbitmq_ssl => true
 #   without specifying a private key or cert chain to use SSL transport, but not cert auth.
@@ -408,6 +410,7 @@ class sensuclassic (
   Optional[String] $rabbitmq_user = undef,
   Optional[String] $rabbitmq_password = undef,
   Optional[String] $rabbitmq_vhost = undef,
+  Optional[Stdlib::Absolutepath] $ssl_dir = undef,
   Optional[Boolean] $rabbitmq_ssl = undef,
   Optional[String] $rabbitmq_ssl_private_key = undef,
   Optional[String] $rabbitmq_ssl_cert_chain = undef,

@@ -14,11 +14,11 @@ describe 'sensuclassic' do
 
   context 'on RedHat derivatives' do
     it { should create_class('sensuclassic::repo::yum') }
-    it { should contain_yumrepo('sensu').with(
+    it { should contain_yumrepo('sensuclassic').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/',
       :gpgcheck => '0',
-      :name     => 'sensu',
+      :name     => 'sensuclassic',
       :descr    => 'sensu',
       :before   => 'Package[sensu]',
     ) }
@@ -36,11 +36,11 @@ describe 'sensuclassic' do
       }
     end
     it { should create_class('sensuclassic::repo::yum') }
-    it { should contain_yumrepo('sensu').with(
+    it { should contain_yumrepo('sensuclassic').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/7/$basearch/',
       :gpgcheck => '0',
-      :name     => 'sensu',
+      :name     => 'sensuclassic',
       :descr    => 'sensu',
       :before   => 'Package[sensu]',
     ) }
@@ -58,11 +58,11 @@ describe 'sensuclassic' do
     end
 
     it { should create_class('sensuclassic::repo::yum') }
-    it { should contain_yumrepo('sensu').with(
+    it { should contain_yumrepo('sensuclassic').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/6/$basearch/',
       :gpgcheck => '0',
-      :name     => 'sensu',
+      :name     => 'sensuclassic',
       :descr    => 'sensu',
       :before   => 'Package[sensu]',
     ) }
@@ -80,11 +80,11 @@ describe 'sensuclassic' do
     end
 
     it { should create_class('sensuclassic::repo::yum') }
-    it { should contain_yumrepo('sensu').with(
+    it { should contain_yumrepo('sensuclassic').with(
       :enabled  => '1',
       :baseurl  => 'https://sensu.global.ssl.fastly.net/yum/7/$basearch/',
       :gpgcheck => '0',
-      :name     => 'sensu',
+      :name     => 'sensuclassic',
       :descr    => 'sensu',
       :before   => 'Package[sensu]',
     ) }

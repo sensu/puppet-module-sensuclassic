@@ -10,7 +10,7 @@ class sensuclassic::rabbitmq::config {
     $ensure = 'present'
   }
 
-  $ssl_dir = "${sensuclassic::etc_dir}/ssl"
+  $ssl_dir = pick($sensuclassic::ssl_dir, "${sensuclassic::etc_dir}/ssl")
 
   if $sensuclassic::rabbitmq_ssl_cert_chain or $sensuclassic::rabbitmq_ssl_private_key {
     file { $ssl_dir:

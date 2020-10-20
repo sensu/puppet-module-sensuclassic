@@ -133,7 +133,7 @@ describe 'sensuclassic' do
           let(:pre_condition) { [ 'define apt::source ($ensure, $location, $release, $repos, $include, $key) {}' ] }
 
           context 'default' do
-            it { should contain_apt__source('sensu').with(
+            it { should contain_apt__source('sensuclassic').with(
               :ensure      => 'present',
               :location    => 'https://sensu.global.ssl.fastly.net/apt',
               :release     => 'bionic',
@@ -146,22 +146,22 @@ describe 'sensuclassic' do
 
           context 'manage_repo => false' do
             let(:params) { { :manage_repo => false, :install_repo => false } }
-            it { should_not contain_apt__source('sensu') }
+            it { should_not contain_apt__source('sensuclassic') }
           end
 
           context 'manage_repo => false independent from install_repo ' do
             let(:params) { { :manage_repo => false , :install_repo => true } }
-            it { should_not contain_apt__source('sensu') }
+            it { should_not contain_apt__source('sensuclassic') }
           end
 
           context 'unstable repo' do
             let(:params) { { :repo => 'unstable' } }
-            it { should contain_apt__source('sensu').with_repos('unstable') }
+            it { should contain_apt__source('sensuclassic').with_repos('unstable') }
           end
 
           context 'override repo url' do
             let(:params) { { :repo_source => 'http://repo.mydomain.com/apt' } }
-            it { should contain_apt__source('sensu').with( :location => 'http://repo.mydomain.com/apt') }
+            it { should contain_apt__source('sensuclassic').with( :location => 'http://repo.mydomain.com/apt') }
 
             it { should_not contain_apt__key('sensu').with(
               :key         => { 'id' => 'EE15CFF6AB6E4E290FDAB681A20F259AEB9C94BB', 'source'  => 'http://repo.mydomain.com/apt/pubkey.gpg' }
@@ -178,7 +178,7 @@ describe 'sensuclassic' do
 
           context 'install_repo => false' do
             let(:params) { { :install_repo => false, :repo => 'main' } }
-            it { should contain_apt__source('sensu').with_ensure('absent') }
+            it { should contain_apt__source('sensuclassic').with_ensure('absent') }
 
             it { should_not contain_apt__key('sensu').with(
               :key         => 'EE15CFF6AB6E4E290FDAB681A20F259AEB9C94BB',
@@ -216,7 +216,7 @@ describe 'sensuclassic' do
           end
 
           context 'repo release' do
-            it { should contain_apt__source('sensu').with(
+            it { should contain_apt__source('sensuclassic').with(
               :ensure      => 'present',
               :location    => 'https://sensu.global.ssl.fastly.net/apt',
               :release     => 'jessie',
@@ -249,7 +249,7 @@ describe 'sensuclassic' do
           end
 
           context 'repo release' do
-            it { should contain_apt__source('sensu').with(
+            it { should contain_apt__source('sensuclassic').with(
               :ensure      => 'present',
               :location    => 'https://sensu.global.ssl.fastly.net/apt',
               :release     => 'stretch',
@@ -283,7 +283,7 @@ describe 'sensuclassic' do
           let(:params) { { :repo_release => 'myrelease' } }
 
           context 'repo release' do
-            it { should contain_apt__source('sensu').with(
+            it { should contain_apt__source('sensuclassic').with(
               :release => 'myrelease',
             ) }
           end
@@ -299,7 +299,7 @@ describe 'sensuclassic' do
         end
 
         context 'default' do
-          it { should contain_yumrepo('sensu').with(
+          it { should contain_yumrepo('sensuclassic').with(
             :enabled   => 1,
             :baseurl   => 'https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/',
             :gpgcheck  => 0,
@@ -309,27 +309,27 @@ describe 'sensuclassic' do
 
         context 'manage_repo => false' do
           let(:params) { { :manage_repo => false, :install_repo => false } }
-          it { should_not contain_yumrepo('sensu') }
+          it { should_not contain_yumrepo('sensuclassic') }
         end
 
         context 'manage_repo => false independent from install_repo ' do
           let(:params) { { :manage_repo => false , :install_repo => true } }
-          it { should_not contain_yumrepo('sensu') }
+          it { should_not contain_yumrepo('sensuclassic') }
         end
 
         context 'unstable repo' do
           let(:params) { { :repo => 'unstable' } }
-          it { should contain_yumrepo('sensu').with(:baseurl => 'https://sensu.global.ssl.fastly.net/yum-unstable/$releasever/$basearch/' )}
+          it { should contain_yumrepo('sensuclassic').with(:baseurl => 'https://sensu.global.ssl.fastly.net/yum-unstable/$releasever/$basearch/' )}
         end
 
         context 'override repo url' do
           let(:params) { { :repo_source => 'http://repo.mydomain.com/yum' } }
-          it { should contain_yumrepo('sensu').with( :baseurl => 'http://repo.mydomain.com/yum') }
+          it { should contain_yumrepo('sensuclassic').with( :baseurl => 'http://repo.mydomain.com/yum') }
         end
 
         context 'install_repo => false' do
           let(:params) { { :install_repo => false } }
-          it { should_not contain_yumrepo('sensu') }
+          it { should_not contain_yumrepo('sensuclassic') }
           it { should contain_package('sensu').with( :require => nil ) }
         end
 
