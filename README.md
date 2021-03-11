@@ -1,4 +1,9 @@
-# puppet-module-sensuclassic
+# puppet-module-sensuclassic is DEPRECATED
+
+**This module is deprecated. Please see
+[https://forge.puppet.com/modules/sensu/sensu](https://forge.puppet.com/modules/sensu/sensu)**
+
+
 
 Installs and manages the open source monitoring framework [Sensu](http://sensuapp.org).
 [![Puppet Forge](http://img.shields.io/puppetforge/v/sensu/sensu.svg)](https://forge.puppetlabs.com/sensu/sensu)
